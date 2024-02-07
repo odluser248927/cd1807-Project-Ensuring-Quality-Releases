@@ -1,7 +1,7 @@
-resource "azurerm_network_security_group" "nsg" {
+resource "azurerm_network_security_group" "Azuredevops" {
   name                = "${var.application_type}-${var.resource_type}"
   location            = "${var.location}"
-  resource_group_name = "${var.resource_group}"
+  resource_group_name = "${var.resource_group_name}"
 
   security_rule {
     name                       = "${var.application_type}-${var.resource_type}-5000"
@@ -11,7 +11,7 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "5000"
-    source_address_prefix      = "${var.address_prefix_test}"
+    source_address_prefix      = "${var.address_prefix}"
     destination_address_prefix = "*"
   }
   security_rule {
@@ -26,7 +26,13 @@ resource "azurerm_network_security_group" "nsg" {
         destination_address_prefix = "*"
     }
 }
-resource "azurerm_subnet_network_security_group_association" "test" {
-    subnet_id                 = "${var.subnet_id}"
-    network_security_group_id = azurerm_network_security_group.nsg.id
+
+resource "azurerm_subnet_network_security_group_association" "Azuredevops" {
+  subnet_id                   = "/subscriptions/373225e3-4428-4fd7-bd11-c0f187aa1371/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
+  network_security_group_id   = "${azurerm_network_security_group.Azuredevops.id}"
+  # network_security_group_id   = azurerm_network_security_group.Azuredevops.id
+}
+
+output "subnet_id" {
+  value = "/subscriptions/373225e3-4428-4fd7-bd11-c0f187aa1371/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
 }

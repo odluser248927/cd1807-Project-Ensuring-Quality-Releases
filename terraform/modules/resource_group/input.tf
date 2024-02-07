@@ -1,3 +1,8 @@
 # Resource Group
-variable location {}
-variable "resource_group" {}
+variable location {
+  type = string
+}
+
+variable "resource_group" {
+  type = string
+}
