@@ -11,4 +11,10 @@ This repository contains the starter code for the **Ensuring Quality Releases** 
 Feel free to submit PRs to this repo should you have any proposed changes. 
 =======
 # Project-Ensuring-Quality-Releases
+<<<<<<< HEAD
 >>>>>>> a342b17 (Create README.md)
+=======
+
+### tester
+
+>>>>>>> 860d526 (firstPush)
