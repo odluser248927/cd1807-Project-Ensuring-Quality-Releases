@@ -73,11 +73,7 @@ stages:
 
     
     # Run Terraform Apply
-<<<<<<< HEAD
-    - task: Azuredevops.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-=======
-    - task: azuredevops.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
->>>>>>> b501c44 (updated yml)
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
       displayName: Terraform apply
       inputs:
         provider: 'azurerm'
