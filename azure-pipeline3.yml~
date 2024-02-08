@@ -49,12 +49,6 @@ stages:
       displayName: 'Upload package'
       artifact: drop
 
-      task: runwebapp@3
-      displayName: 'runWebApp'
-      inputs:
-        rootFolderOrFile: '$(projectRoot)'
-        command: az webapp up -n mywebapp248
-        
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
