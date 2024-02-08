@@ -57,7 +57,7 @@ stages:
     
     # Run Terraform Init on the pipeline agent 
     # ToDo: Replace the resource group name, storage account name, and container name below
-    - task:  odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@0
+    - task: azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@0
       displayName: 'Terrafom init'
       inputs:
         provider: 'azurerm'
@@ -69,7 +69,7 @@ stages:
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'Azuredevops.terraform.tfstate'
 
-    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
       displayName: Terraform validate
       inputs:
         provider: 'azurerm'
@@ -92,7 +92,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : '
+            displayName: 'Deploy Azure Web App : mywebapp248927'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
