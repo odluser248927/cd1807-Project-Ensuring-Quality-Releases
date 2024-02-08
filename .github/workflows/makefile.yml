@@ -1,0 +1,6 @@
+- uses: Azure/pipelines@v1
+  with:
+    azure-devops-project-url: 'https://dev.azure.com/odluser249169/DevOpsDemoProject'
+    azure-pipeline-name: 'pipeline-name' # 
+    azure-devops-token: '${{kxsxfoppulypcalut3ukr44bsql7y7ppjxwa7gx3s6c5k2i2dfvq}}'
+    azure-pipeline-variables:  '{"variable1": "value1", "variable2": "value2"}' # optional stringified json
