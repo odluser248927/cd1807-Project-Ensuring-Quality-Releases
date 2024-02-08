@@ -67,13 +67,21 @@ stages:
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: 'mydevopsblob'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'Azuredevops.terraform.tfstate'
+        backendAzureRmKey: 'myAzuredevops.terraform.tfstate'
 
     - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-      displayName: Terraform validate
+      displayName: Terraform plan 
       inputs:
+        command: plan
         provider: 'azurerm'
-        command: 'validate'
+        commandOptions: '-out="out.tfplan"'
+        
+    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+      displayName: "Terraform apply"
+      inputs:
+        command: apply
+        provider: 'azurerm'
+        commandOptions: 'out.tfplan'
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'Upload package'
@@ -94,7 +102,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : mywebapp248927'
             inputs:
-              azureSubscription: $(azureServiceConnectionId)
+              azureSubscription: $(myserviceconnection)
               # appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
 
