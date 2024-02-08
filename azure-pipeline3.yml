@@ -53,7 +53,7 @@ stages:
       displayName: 'runWebApp'
       inputs:
         rootFolderOrFile: '$(projectRoot)'
-        command: az webapp up -n mywebapp248
+        command: az webapp up --name [Your_unique_app_name] --resource-group [resource-group] --sku B1 --logs --runtime "PYTHON:3.9"
         
 - stage: Deploy
   displayName: 'Deploy Web App'

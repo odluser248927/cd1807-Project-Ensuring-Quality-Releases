@@ -6,7 +6,7 @@ variables:
   azureServiceConnectionId: 'myServiceConnection'
 
   # Web app name
-  webAppName: 'mywebapp249169'
+  webAppName: 'mywebapp248927'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -62,7 +62,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : '
+            displayName: 'Deploy Azure Web App : mywebapp248927'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
