@@ -10,8 +10,8 @@ terraform {
   backend "azurerm" {
     storage_account_name = "mydevopsblob"
     container_name       = "tfstate"
-    key                  =  "/subscriptions/373225e3-4428-4fd7-bd11-c0f187aa1371/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob"
-    access_key           = "ZV+GcMeoVBn09c1sQadmuSgMhAf208gK49dO161v7+B1V6A1aghSrvL28JuZXXcRbKfn3qrW3uZi+AStua+l1A=="
+    key                  =  "/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob"
+    access_key           = "cTY52ImI7ZLLVCAjVThMYcDOuTI4DI9mBc0ZaBj61OWFCudYiT36ojb3whQnCOAjyrXjOUNl+QOg+AStbhQZSQ=="
   }
 }
 
