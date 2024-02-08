@@ -66,14 +66,14 @@ stages:
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'myAzuredevops.terraform.tfstate'
 
-    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@
+    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
       displayName: Terraform plan 
       inputs:
         command: plan
         provider: 'azurerm'
         commandOptions: '-out="out.tfplan"'
         
-    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@0
+    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@0
       displayName: "Terraform apply"
       inputs:
         command: apply
