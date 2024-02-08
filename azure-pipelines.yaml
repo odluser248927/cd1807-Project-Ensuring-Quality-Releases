@@ -66,14 +66,14 @@ stages:
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'myAzuredevops.terraform.tfstate'
 
-    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@
       displayName: Terraform plan 
       inputs:
         command: plan
         provider: 'azurerm'
         commandOptions: '-out="out.tfplan"'
         
-    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+    - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@0
       displayName: "Terraform apply"
       inputs:
         command: apply
@@ -100,7 +100,7 @@ stages:
             displayName: 'Deploy Azure tf web deploy'
             inputs:
               azureSubscription: $(myserviceconnection)
-              # appName: $(webAppName)
+              appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
 
               
