@@ -43,7 +43,7 @@ stages:
 
     # Run Terraform Validate    
     #- task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformTaskV3@3
-     - task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7 
+     - task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformformCLI@1.5.7 
       displayName: Terraform validate
       inputs:
         provider: 'azurerm'
