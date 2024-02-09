@@ -8,7 +8,7 @@ trigger:
 pool: myAgentPool
 
 variables:
-  python.version: '3.7.6'
+  # python.version: '3.7.6'
   # ToDo: Replace the service connection name as used in the DevOps project settings
   azureServiceConnectionId: 'myServiceConnection'
   # Project root folder. Point to the folder containing manage.py file.
@@ -22,14 +22,14 @@ stages:
   - job: BuildInfrastructure
     steps:
     # Install Terraform on the pipeline agent 
-    - task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformInstaller@0
+    - task: Cache@2TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: '1.5.7'
     
     # Run Terraform Init on the pipeline agent 
     # ToDo: Replace the resource group name, storage account name, and container name below
-    - task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformTaskV3@3
+    - task: Cache@2.TerraformTaskV3@3
       displayName: 'Terrafom init'
       inputs:
         provider: 'azurerm'
