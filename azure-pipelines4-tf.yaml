@@ -1,0 +1,109 @@
+trigger:
+- main
+
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureServiceConnectionId: 'myServiceConnection'
+
+  # Web app name
+  webAppName: 'mywebapp248927-tf'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Environment name
+  environmentName: 'myDevOpEnvVM'
+
+  # Project root folder. Point to the folder containing manage.py file.
+  projectRoot: $(System.DefaultWorkingDirectory)
+
+  # Python version: 3.9
+  # pythonVersion: '3.9'
+
+steps:
+
+  - task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformInstaller@0
+    displayName: 'Terrafom installation'
+    inputs:
+      terraformVersion: '1.5.7'
+    
+    # Run Terraform Init on the pipeline agent 
+    # ToDo: Replace the resource group name, storage account name, and container name below
+  - task: azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@0
+    displayName: 'Terrafom init'
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/Azuredevops'
+      backendServiceArm: '$(azureServiceConnectionId)'
+      backendAzureRmResourceGroupName: 'Azuredevops'
+      backendAzureRmStorageAccountName: 'mydevopsblob'
+      backendAzureRmContainerName: 'tfstate'
+      backendAzureRmKey: 'myAzuredevops.terraform.tfstate'
+
+  - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+    displayName: Terraform plan 
+    inputs:
+      command: plan
+      provider: 'azurerm'
+      commandOptions: '-out="out.tfplan"'
+        
+  - task: azure-pipeline-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@0
+      displayName: "Terraform apply"
+      inputs:
+        command: apply
+        provider: 'azurerm'
+        commandOptions: 'out.tfplan'
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: BuildJob
+    pool: myAgentPool
+    steps:
+    - script: |
+        # python -m venv antenv
+        # source antenv/bin/activate
+        # python -m pip install --upgrade pip
+        # pip install setup
+        # pip install -r requirements.txt
+      workingDirectory: $(projectRoot)
+      displayName: "Install requirements"
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(projectRoot)'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      displayName: 'Upload package'
+      artifact: drop
+
+      task: runwebapp@3
+      displayName: 'runWebApp'
+      inputs:
+        rootFolderOrFile: '$(projectRoot)'
+        command: az webapp up --name [Your_unique_app_name] --resource-group [resource-group] --sku B1 --logs --runtime "PYTHON:3.9"
+        
+- stage: Deploy
+  displayName: 'Deploy Web App'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: DeploymentJob
+    pool: myAgentPool
+    environment: $(environmentName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App : '
+            inputs:
+              azureSubscription: $(azureServiceConnectionId)
+              appName: $(webAppName)
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
