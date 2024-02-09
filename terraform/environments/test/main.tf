@@ -11,7 +11,7 @@ terraform {
     storage_account_name = "mydevopsblob"
     container_name       = "tfstate"
     key                  =  "/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob"
-    access_key           = "cTY52ImI7ZLLVCAjVThMYcDOuTI4DI9mBc0ZaBj61OWFCudYiT36ojb3whQnCOAjyrXjOUNl+QOg+AStbhQZSQ=="
+    access_key           = "JXwyyb/Ce/D1owzQA4ASi5n3OhecfixAKvSbs8fpwOQ8evXzfp/uBk2QD3F/VeF9Pecx5uZWtCJY+AStId9dIA=="
   }
 }
 
