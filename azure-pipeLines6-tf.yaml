@@ -22,14 +22,14 @@ stages:
   - job: BuildInfrastructure
     steps:
     # Install Terraform on the pipeline agent 
-    - task: TerraformInstaller@0
+    - task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: '1.5.7'
     
     # Run Terraform Init on the pipeline agent 
     # ToDo: Replace the resource group name, storage account name, and container name below
-    - task: TerraformTaskV3@3
+    - task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformTaskV3@3
       displayName: 'Terrafom init'
       inputs:
         provider: 'azurerm'
@@ -42,7 +42,7 @@ stages:
         backendAzureRmKey: 'test.terraform.tfstate'
 
     # Run Terraform Validate    
-    - task: TerraformTaskV3@3
+    - task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformTaskV3@3
       displayName: Terraform validate
       inputs:
         provider: 'azurerm'
