@@ -45,11 +45,11 @@ stages:
     #    backendAzureRmStorageAccountName: '/subscriptions/e2c7cd99-c3c5-4a90-9109-02e7d50f8311/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
     #    backendAzureRmContainerName: 'tfstate'
     #    backendAzureRmKey: 'test.terraform.tfstate'
-    - task: TerraformInstaller@2
-      displayName: "terraform validate"
-      inputs:
-        #provider: 'azurerm'
-      command: 'validate'
+    # - task: TerraformInstaller@2
+    #   displayName: Terraform validate
+    #   inputs:
+    #     #provider: 'azurerm'
+    #   command: 'validate'
 
     # OPTIONAL - This step is needed only if your Terraform VM uses an SSH key pair for login and you want your pipeline agent to connect to it. 
     # Generate an SSH key pair in your local/AZ Cloud shell. Use the public key in the Terraform VM module. 
@@ -69,9 +69,9 @@ stages:
 
     
     # Run Terraform Apply
-    - task: TerraformInstaller@2
-      displayName: "terraform apply"
-      inputs:
+    # - task: TerraformInstaller@2
+    #   displayName: "terraform apply"
+    #   inputs:
         #provider: 'azurerm'
         #command: 'apply'
         #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
