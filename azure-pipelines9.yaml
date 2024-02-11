@@ -46,7 +46,7 @@ stages:
     #    backendAzureRmContainerName: 'tfstate'
     #    backendAzureRmKey: 'test.terraform.tfstate'
     - task: TerraformInstaller@2
-      displayName: Terraform validate
+      displayName: "terraform validate"
       inputs:
         #provider: 'azurerm'
       command: 'validate'
@@ -70,7 +70,7 @@ stages:
     
     # Run Terraform Apply
     - task: TerraformInstaller@2
-      displayName: Terraform apply
+      displayName: "terraform apply"
       inputs:
         #provider: 'azurerm'
         #command: 'apply'
