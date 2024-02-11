@@ -22,7 +22,7 @@ variables:
 #  - job: BuildInfrastructure
 steps:
     # Install Terraform on the pipeline agent 
-- task: TerraformTaskV4@0
+- task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformInstaller@1.5.7 
   displayName: 'Terrafom installation'
   inputs:
     terraformVersion: '1.5.7'
@@ -32,13 +32,13 @@ steps:
   
     # Run Terraform Init on the pipeline agent 
     # ToDo: Replace the resource group name, storage account name, and container name below
-- task: myDevOpsTask@1.5.7
+- task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
   displayName: 'Terrafom init'
   inputs:
     provider: 'azurerm'
     command: 'init'
 
-- task: TerraformCLI@2
+- task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
   inputs:
     command: 'init'
     allowTelemetryCollection: true
@@ -57,13 +57,13 @@ steps:
     provider: 'azurerm'
     command: 'validate'
 
-- task: TerraformCLI@2
+- task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
   inputs:
     command: 'validate'
     allowTelemetryCollection: true
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
 
-- task: TerraformTaskV3@3
+- task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
   displayName: 'Terraform Plan'
   inputs:
     provider: 'azurerm'
@@ -77,7 +77,7 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
     commandOptions: '-out=tfplan'
 
-- task: TerraformTaskV3@3
+- task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
   displayName: 'Terraform apply'
 
 - task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
