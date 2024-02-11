@@ -17,48 +17,57 @@ variables:
   environmentName: 'Azuredevops'
 
 # stages:
-- stage: Build
-  jobs:
-  - job: BuildInfrastructure
-    steps:
+# - stage: Build
+#  jobs:
+#  - job: BuildInfrastructure
+steps:
     # Install Terraform on the pipeline agent 
-    - task: myxDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformCLI@1.5.7
-      displayName: 'Terrafom installation'
-      inputs:
-        terraformVersion: '1.5.7'
-    
+- task: TerraformTaskV4@0
+  displayName: 'Terrafom installation'
+  inputs:
+    terraformVersion: '1.5.7'
+
+- checkout: self
+  displayName: 'Checkout repo'
+  
     # Run Terraform Init on the pipeline agent 
     # ToDo: Replace the resource group name, storage account name, and container name below
-    - task: myDevOpsTask@1.5.7
-      displayName: 'Terrafom init'
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        backendServiceArm: '$(azureServiceConnectionId)'
-        backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: '/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
+- task: TerraformTaskV4@1
+  displayName: 'Terrafom init'
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
+    backendServiceArm: '$(azureServiceConnectionId)'
+    backendAzureRmResourceGroupName: 'Azuredevops'
+    backendAzureRmStorageAccountName: '/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'test.terraform.tfstate'
 
     # Run Terraform Validate    
     #- task: odluser248927.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformTaskV3@3
-     - task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7 
-      displayName: Terraform validate
-      inputs:
-        provider: 'azurerm'
-        command: 'validate'
+- task: TerraformTaskV3@3
+  displayName: 'Terraform validate'
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
 
-    
-    # erraform Apply
-    # ToDo: Change the workingDirectory path, as applicable to you
-    - task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
-      displayName: Terraform apply
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+- task: TerraformTaskV3@3
+  displayName: 'Terraform Plan'
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
+    commandOptions: '-out=tfplan'
+
+- task: TerraformTaskV3@3
+  displayName: 'Terraform apply'
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
+    environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
 
     # Destroy the resources in Azure
     # ToDo: Change the workingDirectory path, as applicable to you
