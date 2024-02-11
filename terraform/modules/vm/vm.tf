@@ -7,7 +7,11 @@ resource "azurerm_network_interface" "Azuredevops" {
     name                          = "internal"
     subnet_id                     = "azurerm_subnet.internal.id"
     private_ip_address_allocation = "Dynamic"
+<<<<<<< HEAD
     public_ip_address_id          = "/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachines/mydevopsvm"
+=======
+    public_ip_address_id          = "/subscriptions/e2c7cd99-c3c5-4a90-9109-02e7d50f8311/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachines/mydevopsvm"
+>>>>>>> c7e39e3 (p3 push)
   }
 }
 
