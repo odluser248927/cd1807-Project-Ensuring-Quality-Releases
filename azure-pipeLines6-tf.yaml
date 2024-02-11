@@ -16,13 +16,13 @@ variables:
   # Environment name
   environmentName: 'Azuredevops'
 
-stages:
+# stages:
 - stage: Build
   jobs:
   - job: BuildInfrastructure
     steps:
     # Install Terraform on the pipeline agent 
-    - task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformCLI@1.5.7
+    - task: myxDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformCLI@1.5.7
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: '1.5.7'
