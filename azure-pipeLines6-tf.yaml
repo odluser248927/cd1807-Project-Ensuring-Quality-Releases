@@ -1,13 +1,10 @@
-name: Azure Pipelines
-- task: TerraformInstaller@2
-  inputs:
-    terraformVersion: '1.5.7'
-
 trigger:
 - main
 
-# ToDo: Replace the agent pool name, if you are using Udacity Cloud lab. 
-# Otherwise comment out the line below. 
+- task: TerraformInstaller@2
+  inputs:
+    terraformVersion: '1.5.7'
+    
 pool: myAgentPool
 
 variables:
@@ -40,15 +37,12 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-<<<<<<< HEAD
+
 - task: TerraformCLI@2
   inputs:
     command: 'init'
     allowTelemetryCollection: true
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
-=======
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
->>>>>>> 077c700 (p3 devOps push)
     backendServiceArm: '$(azureServiceConnectionId)'
     backendAzureRmResourceGroupName: 'Azuredevops'
     backendAzureRmStorageAccountName: '/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
@@ -62,7 +56,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'validate'
-<<<<<<< HEAD
+
 - task: TerraformCLI@2
   inputs:
     command: 'validate'
@@ -85,14 +79,9 @@ steps:
 
 - task: TerraformTaskV3@3
   displayName: 'Terraform apply'
-=======
 
-    
-    # erraform Apply
-    # ToDo: Change the workingDirectory path, as applicable to you
 - task: myDevOpsTask.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@1.5.7
   displayName: Terraform apply
->>>>>>> 077c700 (p3 devOps push)
   inputs:
     provider: 'azurerm'
     command: 'apply'
