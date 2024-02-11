@@ -1,9 +1,9 @@
 trigger:
 - main
 
-# - task: TerraformInstaller@2
-#   inputs:
-#    terraformVersion: '1.5.7'
+- task: TerraformInstaller@2
+  inputs:
+   terraformVersion: '1.5.7'
     
 pool: myAgentPool
 
