@@ -47,7 +47,7 @@ steps:
     allowTelemetryCollection: true
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
 =======
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
 >>>>>>> 077c700 (p3 devOps push)
     backendServiceArm: '$(azureServiceConnectionId)'
     backendAzureRmResourceGroupName: 'Azuredevops'
@@ -96,7 +96,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test)'
     environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
 
     # Destroy the resources in Azure
