@@ -165,7 +165,6 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-n
 # #     #--------------------------------------------#  
 # #     # JMeter (Performance) Test Suite - Archive
 # #     # ToDo: Complete the ArchiveFiles@2 task and publish step 
