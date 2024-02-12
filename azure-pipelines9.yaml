@@ -191,8 +191,11 @@ stages:
 # #   # ToDo: Provide <environment name> you created in your DevOps projectRoot
   - deployment: FakeRestAPI
     pool:
-      vmImage: 'mydevopsagent'      
+      vmImage: 'ubuntu-20.04'      
     environment: 'mydevopsvmenv'   # ToDo
+    container:
+      image:$(baseContainerUrl)
+    endpoint: myServiceConnection
     strategy:
       runOnce:
         deploy:
