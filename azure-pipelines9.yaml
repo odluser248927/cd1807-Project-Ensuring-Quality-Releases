@@ -191,8 +191,8 @@ stages:
 # #   # ToDo: Provide <environment name> you created in your DevOps project
  - deployment: FakeRestAPI
     pool:
-      vmImage: 'mydevopsvmenv'      
-    environment: 'newTestEnv   # ToDo
+      vmImage: 'mydevopsagent'      
+    environment: 'mydevopsvmenv'   # ToDo
     strategy:
       runOnce:
         deploy:
