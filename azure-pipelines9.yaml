@@ -94,7 +94,7 @@ stages:
     - task: CmdLine@2
       displayName: "Install Newman"
       inputs:
-        script: 'sudo npm install -g newman'
+        script: sudo npm install -g newman@5.1.2
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
    # - task: NewmanPostman@4
