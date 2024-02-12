@@ -15,7 +15,7 @@ variables:
   environmentName: 'mydevopsvm'
 
   # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: $(System.DefaultWorkingDirectory)
+  projectRoot: '${System.DefaultWorkingDirectory}'
 
   # Python version: 3.9
   pythonVersion: '3.9'
@@ -33,19 +33,19 @@ stages:
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
-      workingDirectory: $(projectRoot)
+      workingDirectory: '${System.DefaultWorkingDirectory}'
       displayName: "Install requirements"
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(projectRoot)'
+        rootFolderOrFile: '${System.DefaultWorkingDirectory}'
         includeRootFolder: false
         archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    - upload: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
       displayName: 'Upload package'
       artifact: drop
 
@@ -53,7 +53,7 @@ stages:
       displayName: 'runWebApp'
       inputs:
         rootFolderOrFile: '$(projectRoot)'
-        command: az webapp up --name [Your_unique_app_name] --resource-group [resource-group] --sku B1 --logs --runtime "PYTHON:3.9"
+        command: az webapp up --name myWebApp248927 --resource-group Azuredevops --sku B1 --logs --runtime "PYTHON:3.9"
         
 - stage: Deploy
   displayName: 'Deploy Web App'
@@ -62,7 +62,7 @@ stages:
   jobs:
   - deployment: DeploymentJob
     pool: myAgentPool
-    environment: $(environmentName)
+    environment: '$(environmentName)'
     strategy:
       runOnce:
         deploy:
@@ -70,6 +70,6 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : '
             inputs:
-              azureSubscription: $(azureServiceConnectionId)
-              appName: $(webAppName)
-              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+              azureSubscription: '$(azureServiceConnectionId)'
+              appName: '$(webAppName)'
+              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
