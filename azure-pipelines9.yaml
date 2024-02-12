@@ -116,7 +116,7 @@ stages:
       continueOnError: true
       inputs:
         script: 'newman run StarterAPIs.json --delay 2000'
-          # 'newman run TestSuite.Data-Validation.json -e Test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+         # 'newman run TestSuite.Data-Validation.json -e Test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman' 
 #     # Postman Regression Test Suite    
 #     # ToDo: Verify the working directory
@@ -132,7 +132,7 @@ stages:
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '**/TEST-*.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)/jmeter'       # ToDo
+        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'       # ToDo
         mergeTestResults: true
         testRunTitle: 'JUnit Results'     # ToDo
 
@@ -191,7 +191,7 @@ stages:
 # #   # ToDo: Provide <environment name> you created in your DevOps projectRoot
   - deployment: FakeRestAPI
     pool:
-      vmImage: 'ubuntu-20.04'      
+      vmImage: 'devopsagent'      
     environment: 'devopsagent'   # ToDo
     strategy:
       runOnce:
