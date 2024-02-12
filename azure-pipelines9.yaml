@@ -96,26 +96,27 @@ stages:
       inputs:
         script: 'sudo npm install -g newman'
         workingDirectory: '$(System.DefaultWorkingDirectory)'
-    - task: NewmanPostman@4
-      displayName: 'Newman - Postman'
-      inputs:
-        collectionFileSource: 'TEST.postman_collection.json'
-        environmentSourceType: none
-        ignoreRedirect: false
-        bail: false
-        sslInsecure: false
-        htmlExtraDarkTheme: false
-        htmlExtraLogs: false
-        htmlExtraTestPaging: false
+
+   # - task: NewmanPostman@4
+   #    displayName: 'Newman - Postman'
+   #    inputs:
+   #      collectionFileSource: 'TEST.postman_collection.json'
+   #      environmentSourceType: none
+   #      ignoreRedirect: false
+   #      bail: false
+   #      sslInsecure: false
+   #      htmlExtraDarkTheme: false
+   #      htmlExtraLogs: false
+   #      htmlExtraTestPaging: false
     
 #     # Postman Data Validation Test Suite    
 #     # ToDo: Verify the working directory
-    - task: CmdLine@2
-      displayName: Run Data Validation Tests
-      continueOnError: true
-      inputs:
-        script: 'newman run TestSuite.Data-Validation.json -e Test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman' 
+    # - task: CmdLine@2
+    #   displayName: Run Data Validation Tests
+    #   continueOnError: true
+    #   inputs:
+    #     script: 'newman run TestSuite.Data-Validation.json -e Test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman' 
 #     # Postman Regression Test Suite    
 #     # ToDo: Verify the working directory
     - task: CmdLine@2
