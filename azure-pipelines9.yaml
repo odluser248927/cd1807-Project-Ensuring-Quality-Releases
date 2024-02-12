@@ -91,7 +91,7 @@ stages:
 #--------------------------------------------#    
     # Postman - Install Newman    
     # ToDo: Update the command and verify the working directory
-    - task: CmdLine@2
+    - task: CmdLine@3
       displayName: "Install Newman"
       inputs:
         script: 'sudo npm install -g newman'
@@ -111,7 +111,7 @@ stages:
     
     # Postman Data Validation Test Suite    
     # ToDo: Verify the working directory
-    - task: CmdLine@2
+    - task: CmdLine@3
       displayName: "Run Data Validation Tests"
       continueOnError: true
       inputs:
