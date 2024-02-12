@@ -42,7 +42,7 @@ stages:
        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
        backendServiceArm: '$(azureServiceConnectionId)'
        backendAzureRmResourceGroupName: 'Azuredevops'
-       backendAzureRmStorageAccountName: '/subscriptions/e2c7cd99-c3c5-4a90-9109-02e7d50f8311/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
+       backendAzureRmStorageAccountName: '/subscriptions/83316a40-5757-40fd-8e78-645eefac51b6/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
        backendAzureRmContainerName: 'tfstate'
        backendAzureRmKey: 'test.terraform.tfstate'
        
@@ -117,7 +117,8 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'newman run TestSuite.Data-Validation.json -e Test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+          'newman run StartAPIs.json'
+          # 'newman run TestSuite.Data-Validation.json -e Test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman' 
 #     # Postman Regression Test Suite    
 #     # ToDo: Verify the working directory
