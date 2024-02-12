@@ -28,19 +28,12 @@ resource "azurerm_network_security_group" "Azuredevops" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "Azuredevops" {
-<<<<<<< HEAD
-  subnet_id                   = "/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/devopsagent-vnet/subnets/default"
-=======
-  subnet_id                   = "/subscriptions/e2c7cd99-c3c5-4a90-9109-02e7d50f8311/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
->>>>>>> c7e39e3 (p3 push)
+  subnet_id                   = "/subscriptions/83316a40-5757-40fd-8e78-645eefac51b6/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
+
   network_security_group_id   = "${azurerm_network_security_group.Azuredevops.id}"
   # network_security_group_id   = azurerm_network_security_group.Azuredevops.id
 }
 
 output "subnet_id" {
-<<<<<<< HEAD
-  value = "/subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/devopsagent-vnet/subnets/default"
-=======
-  value = "/subscriptions/e2c7cd99-c3c5-4a90-9109-02e7d50f8311/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
->>>>>>> c7e39e3 (p3 push)
+  value = "/subscriptions/83316a40-5757-40fd-8e78-645eefac51b6/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
 }
