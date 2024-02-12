@@ -192,10 +192,7 @@ stages:
   - deployment: FakeRestAPI
     pool:
       vmImage: 'ubuntu-20.04'      
-    environment: 'mydevopsvmenv'   # ToDo
-    container:
-      image:$(baseContainerUrl)
-    endpoint: myServiceConnection
+    environment: 'devopsagent'   # ToDo
     strategy:
       runOnce:
         deploy:
@@ -203,11 +200,12 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: '83316a40-5757-40fd-8e78-645eefac51b6'
+              azureSubscription: '373225e3-4428-4fd7-bd11-c0f187aa1371'
               appName: 'webApp'               # ToDo
               appType: 'webApp'
               package: '$(Pipeline.Workspace)/<artifact>/<archiveFile>'
-              # ToDo: Use the published zip artifact. 
+              # ToDo: Use the published zip artifact.
+              
 # #           #--------------------------------------------#    
 # #           # Run JMeter test suite against the App Service
           - task: CmdLine@2
