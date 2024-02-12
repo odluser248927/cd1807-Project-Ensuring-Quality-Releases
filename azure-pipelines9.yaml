@@ -94,10 +94,9 @@ stages:
     - task: CmdLine@2
       displayName: Install Newman
       inputs:
-        script: |
-          'sudo apt install nodejs'
-          'sudo npm install -g newman'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+        script: 'sudo apt install nodejs'
+        # 'sudo npm install -g newman'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
 
    # - task: NewmanPostman@4
    #    displayName: 'Newman - Postman'
