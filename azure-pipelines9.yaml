@@ -182,9 +182,10 @@ stages:
 
 # # #--------------------------------------------#  
 # # # DEPLOYMENT STAGE
-# # #--------------------------------------------#    
-  - stage: Deploy
-    jobs:
+# # #--------------------------------------------#
+
+- stage: Deploy
+  jobs:
 # # #--------------------------------------------#  
 # #   # Deploy FakeRestAPI Web App
 # #   # ToDo: Provide <environment name> you created in your DevOps projectRoot
