@@ -158,7 +158,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: 
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -171,7 +171,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive PerformanceTestSuite'
       inputs:
-        rootFolderOrFile: 
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
@@ -203,7 +203,7 @@ stages:
 #              azureSubscription: '456cc604-544c-45f8-99d0-c1b73aeec440'
               azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'               # ToDo
-              appType: 'webApp'
+              appType: '$(webApp)'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               # ToDo: Use the published zip artifact.
               
