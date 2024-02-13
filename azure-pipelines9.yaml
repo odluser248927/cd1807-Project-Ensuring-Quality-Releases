@@ -202,8 +202,9 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
 #              azureSubscription: '456cc604-544c-45f8-99d0-c1b73aeec440'
-              azureSubscription: '$(azureServiceConnectionId)'
-              appName: '$(webAppName)'               # ToDo
+#              azureSubscription: '$(azureServiceConnectionId)'
+              azureServiceConnectionId: 'myServiceConnection'
+              appName: '$(mywebApp248927)'               # ToDo
               appType: '$(webApp)'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               # ToDo: Use the published zip artifact.
