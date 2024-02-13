@@ -214,10 +214,11 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                wget "https://apache.mirrors.lucidnetworks.net//jmeter/binaries/apache-jmeter-5.2.1.tgz"
-                tar -xf apache-jmeter-5.2.1.tgz
+                # wget "https://apache.mirrors.lucidnetworks.net//jmeter/binaries/apache-jmeter-5.2.1.tgz"
+                  wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
+                tar -xf apache-jmeter-5.6.1.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
-                ./apache-jmeter-5.2.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
+                ./apache-jmeter-5.6.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
                 cat jmeter.log
 #                 # ToDo: Write your commands
               workingDirectory: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
@@ -228,7 +229,7 @@ stages:
 # #   # ToDo: 
   - deployment: VMDeploy
     displayName: Selenium Tests
-    environment:
+    environment: 
       name: devopsagent         # ToDo: Change/provide a name
       resourceType: VirtualMachine
       tags: selenium
@@ -255,7 +256,7 @@ stages:
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+                mv /home/testuser/devopsagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
                 FILE=/home/testuser/app/chromedriver_linux64.zip
