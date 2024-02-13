@@ -94,9 +94,9 @@ stages:
     - task: CmdLine@2
       displayName: "Install Newman"
       inputs:
-      - script: |
-            'export NPM_CONFIG_PREFIX="/usr/local"'
-            'nvm install node --reinstall-packages-from=node'
+    - script: |
+       'export NPM_CONFIG_PREFIX="/usr/local"'
+       'nvm install node --reinstall-packages-from=node'
         # script: 'sudo npm install -g newman'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
