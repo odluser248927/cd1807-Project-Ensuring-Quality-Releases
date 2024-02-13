@@ -228,7 +228,7 @@ stages:
   - deployment: VMDeploy
     displayName: Selenium Tests
     environment:
-      name: myTests         # ToDo: Change/provide a name
+      name: devopsagent         # ToDo: Change/provide a name
       resourceType: VirtualMachine
       tags: selenium
     strategy:
