@@ -17,7 +17,7 @@ variables:
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
   # Environment name
-  environmentName: 'mydevopsenv'
+  environmentName: 'devopsagent'
 
 stages:
 #--------------------------------------------#  
@@ -94,6 +94,7 @@ stages:
     - task: CmdLine@2
       displayName: "Install Newman"
       inputs:
+        script: 'export NPM_CONFIG_PREFIX="/usr/local"'
         script: 'sudo npm install -g newman'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
