@@ -49,7 +49,7 @@ stages:
       displayName: 'Upload package'
       artifact: drop
 
-      task: runwebapp@3
+    - task: runwebapp@3
       displayName: 'runWebApp'
       inputs:
         rootFolderOrFile: '$(projectRoot)'
@@ -59,13 +59,13 @@ stages:
 
     - task: TerraformInstaller@2
       inputs:
-       command: 'init'
-       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-       backendServiceArm: '$(azureServiceConnectionId)'
-       backendAzureRmResourceGroupName: 'Azuredevops'
-       backendAzureRmStorageAccountName: '/subscriptions/456cc604-544c-45f8-99d0-c1b73aeec440/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
-       backendAzureRmContainerName: 'tfstate'
-       backendAzureRmKey: 'test.terraform.tfstate'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        backendServiceArm: '$(azureServiceConnectionId)'
+        backendAzureRmResourceGroupName: 'Azuredevops'
+        backendAzureRmStorageAccountName: '/subscriptions/456cc604-544c-45f8-99d0-c1b73aeec440/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'test.terraform.tfstate'
 
     - task: TerraformInstaller@2
       displayName: "terraform apply"
@@ -79,11 +79,62 @@ stages:
       displayName: "Run Data Validation Tests"
       continueOnError: true
       inputs:
-        script: 'newman run TestSuite.Data-Validation.json -e Test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+        script: 'newman run TestSuite.Data-Validation.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
+    - task: CmdLine@2
+      continueOnError: true
+      displayName: "Run data validation commands"
+      inputs:
+        script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/test_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/TEST-*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        mergeTestResults: true
+        testRunTitle: 'JUnit Results'    
       
-        
+    - task: ArchiveFiles@2
+      displayName: 'Archive UI Tests'
+      inputs:
+        contents: 'automatedtesting/selenium/**'
+        targetFolder: '$(Build.StagingDirectory)'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+     # Selenium Test Suite - Publish the package  
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+      # Same as the archiveFile artifact above. 
+      displayName: 'Upload Package'
+      artifact: drop-uitests
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive FakeRestAPI'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+      displayName: 'Upload Package'
+      artifact: drop-fakerestapi
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive PerformanceTestSuite'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+    # JMeter Test Suite - Publish    
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+      displayName: 'Upload Package'
+      artifact: drop-perftests
+
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
@@ -102,3 +153,72 @@ stages:
               azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              Contents: '**'
+              TargetFolder: '$(Agent.TempDirectory)'
+              OverWrite: true
+          - task: Bash@3
+            displayName: 'Functional tests'
+            inputs:
+              targetType: 'inline'
+              script: |           
+                #! /bin/bash
+              
+                sudo apt-get upgrade -y
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                pip3 install selenium
+                wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
+                unzip ~/chromedriver_linux64.zip -d ~/                
+                sudo mv -f ~/chromedriver /usr/.local/bin/chromedriver
+                sudo chown root:root /usr/.local/bin/chromedriver
+                sudo chmod 0755 /usr/.local/bin/chromedriver
+                wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
+                tar -xf apache-jmeter-5.6.1.tgz
+                unzip -o $(Build.BuildId)-perftests.zip
+                ./apache-jmeter-5.6.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
+                cat jmeter.log
+                cd ~/
+                DIR=/home/testuser/app
+                if [ ! -d "$DIR" ]; then
+                    mkdir app
+                fi
+                mv /home/testuser/devopsagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+                cd app
+                unzip -o $(Build.BuildId)-uitests.zip
+                FILE=/home/testuser/app/chromedriver_linux64.zip
+                if [ ! -f "$FILE" ]; then
+                    LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+                    wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+                    unzip -o chromedriver_linux64.zip
+                    sudo ln -s $PWD/chromedriver /usr/.local/bin/chromedriver
+                fi
+                export PATH=$PATH:/home/testuser/app
+                echo "Starting Selenium Tests"
+                python3 add_remove_from_cart.py >> selenium.log
+                echo "Completed Selenium Tests. Check selenium.log for results."
+
+          - task: CmdLine@2
+            displayName: 'units'
+            inputs:
+              script: |
+                python3 $(System.DefaultWorkingDirectory)/login.py
+          - task: JMeterInstaller@0
+            displayName: 'junitInstall'
+
+          - task: Bash@3
+            displayName: 'unitTests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
+            
+          - task: Bash@3
+            displayName: 'unitTests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
+#clean-res:
+
