@@ -198,12 +198,11 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: AzureWebApp@1
+          - task: AzureWebApp@2
             displayName: 'Deploy Azure Web App'
             inputs:
 #              azureSubscription: '456cc604-544c-45f8-99d0-c1b73aeec440'
               azureSubscription: '$(myServiceConnection)'
-              resourceGroupName: '$(Azuredevops)'
               appName: '$(myWebApp)'               # ToDo
               appType: '$(webApp)'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
