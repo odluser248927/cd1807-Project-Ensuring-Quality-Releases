@@ -49,7 +49,7 @@ stages:
       displayName: 'Upload package'
       artifact: drop
 
-    - task: runwebapp@2
+    - task: AzureWebApp@1
       displayName: 'runWebApp'
       inputs:
         rootFolderOrFile: '$(projectRoot)'
