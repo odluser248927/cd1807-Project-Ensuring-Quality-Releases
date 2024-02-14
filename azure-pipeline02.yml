@@ -141,7 +141,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool: myAgentPool
+    pool: devopsagent
     environment: '$(environmentName)'
     strategy:
       runOnce:
