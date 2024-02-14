@@ -25,7 +25,7 @@ stages:
   displayName: Build stage
   jobs:
   - job: BuildJob
-    pool: myAgentPool
+    pool: myWebAppTestEnv
     steps:
     - script: |
         python -m venv antenv
@@ -55,7 +55,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool: myAgentPool
+    pool: myWebAppTestEnv
     environment: $(environmentName)
     strategy:
       runOnce:
