@@ -12,7 +12,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'myWebAppTestEnv'
+  Environmentname: 'devopsagent'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: '${System.DefaultWorkingDirectory}'

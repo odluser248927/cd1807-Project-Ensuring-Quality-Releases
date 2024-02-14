@@ -12,7 +12,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'myWebAppTestEnv'
+  environmentName: 'mydevopsvm'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: '${System.DefaultWorkingDirectory}'
@@ -25,7 +25,7 @@ stages:
   displayName: Build stage
   jobs:
   - job: BuildJob
-    pool: myAgentPool
+    pool: devopsagent
     steps:
     - script: |
         python -m venv antenv
@@ -63,7 +63,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: '/subscriptions/456cc604-544c-45f8-99d0-c1b73aeec440/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
+        backendAzureRmStorageAccountName: '/subscriptions/88062415-5d83-43de-899d-8569bf79782b/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 
