@@ -41,7 +41,7 @@ stages:
         publishLocation: 'Container'
 
 - stage: Deploy
-  displayName: 'Deploy Web App and Perform Unit Testing'
+  displayName: 'Deploy Web App'
   dependsOn: Build
   condition: succeeded()
   jobs:
@@ -65,23 +65,16 @@ stages:
 
           - script: |
               sudo apt-get update
-              sudo apt-get install -y wget unzip
-              wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.4.1.tgz
-              tar -xzf apache-jmeter-5.4.1.tgz -C $(System.DefaultWorkingDirectory)
-            displayName: 'Install JMeter'
+              sudo apt-get install -y python3-pip
+              sudo apt-get install -y chromium-browser
+              python3 -m pip install selenium
+              LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+              wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+              unzip chromedriver_linux64.zip -d /usr/local/bin/
+              sudo chmod +x /usr/local/bin/chromedriver
+            displayName: 'Setup Environment for Functional Tests'
 
           - script: |
-              $(System.DefaultWorkingDirectory)/apache-jmeter-5.4.1/bin/jmeter -n -t $(System.DefaultWorkingDirectory)/YourTestPlan.jmx -l $(System.DefaultWorkingDirectory)/testResults.jtl
-            displayName: 'Run JMeter Tests'
-
-          - task: PublishTestResults@2
-            inputs:
-              testResultsFormat: 'JUnit'
-              testResultsFiles: '**/testResults.jtl'
-              searchFolder: '$(System.DefaultWorkingDirectory)'
-              mergeTestResults: true
-              testRunTitle: 'JMeter Test Results'
-
-          - script: |
-              echo "Additional deployment steps can be added here"
-            displayName: 'Additional Deployment Steps'
+              pip3 install -r requirements.txt
+              python3 -m unittest discover -s tests
+            displayName: 'Run Functional Tests'
