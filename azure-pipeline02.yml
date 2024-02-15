@@ -15,7 +15,7 @@ variables:
   environmentName: 'mydevopsvmenv'
 
   # Project root folder. Point to the folder containing manage.py file.
-  # projectRoot: ${System.DefaultWorkingDirectory}
+  projectRoot: ${System.DefaultWorkingDirectory}
 
   # Python version: 3.9
   pythonVersion: '3.9'
@@ -34,13 +34,14 @@ stages:
         pip install setup
         pip install -r requirements.txt
       # workingDirectory: '${System.DefaultWorkingDirectory}'
-      # workingDirectory: $(projectRoot)
+      workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '${System.DefaultWorkingDirectory}'
+        rootFolderOrFile: '$(projectRoot)'
+        # rootFolderOrFile: '${System.DefaultWorkingDirectory}'
         includeRootFolder: false
         archiveType: zip
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
