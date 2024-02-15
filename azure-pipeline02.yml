@@ -15,7 +15,7 @@ variables:
   environmentName: 'mydevopsvmenv'
 
   # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: ${System.DefaultWorkingDirectory}
+  # projectRoot: ${System.DefaultWorkingDirectory}
 
   # Python version: 3.9
   pythonVersion: '3.9'
