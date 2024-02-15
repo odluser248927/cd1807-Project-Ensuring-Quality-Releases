@@ -87,7 +87,7 @@ stages:
       displayName: "Run data validation commands"
       inputs:
         script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/test_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        workingDirectory: $(System.DefaultWorkingDirectory)'
 
     - task: PublishTestResults@2
       inputs:

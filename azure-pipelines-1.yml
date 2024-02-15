@@ -10,6 +10,33 @@ variables:
   pythonVersion: '3.9'
 
 stages:
+- stage: InfrastructureSetup
+  displayName: 'Setup Infrastructure'
+  jobs:
+  - job: SetupInfrastructure
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: TerraformToolInstaller@0
+      displayName: 'Install Terraform'
+      inputs:
+        terraformVersion: 'latest'
+
+    - task: TerraformCLI@0
+      displayName: 'Initialize Terraform'
+      inputs:
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceName: '$(azureServiceConnectionId)'
+
+    - task: TerraformCLI@0
+      displayName: 'Apply Terraform'
+      inputs:
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceName: '$(azureServiceConnectionId)'
+        commandOptions: '-auto-approve'
+
 - stage: Build
   displayName: Build stage
   jobs:
@@ -26,7 +53,6 @@ stages:
       displayName: "Install requirements"
 
     - task: ArchiveFiles@2
-      displayName: 'Archive files'
       inputs:
         rootFolderOrFile: $(projectRoot)
         includeRootFolder: false
@@ -41,7 +67,7 @@ stages:
         publishLocation: 'Container'
 
 - stage: Deploy
-  displayName: 'Deploy Web App and Perform Unit Testing'
+  displayName: 'Deploy Web App, Perform Unit Testing and Data Validation'
   dependsOn: Build
   condition: succeeded()
   jobs:
@@ -63,6 +89,7 @@ stages:
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
 
+          # JMeter Testing
           - script: |
               sudo apt-get update
               sudo apt-get install -y wget unzip
@@ -82,6 +109,8 @@ stages:
               mergeTestResults: true
               testRunTitle: 'JMeter Test Results'
 
+          # Newman Data Validation
           - script: |
-              echo "Additional deployment steps can be added here"
-            displayName: 'Additional Deployment Steps'
+              npm install -g newman
+              newman run $(System.DefaultWorkingDirectory)/YourPostmanCollection.json -e $(System.DefaultWorkingDirectory)/YourEnvironmentFile.json
+            displayName: 'Run Newman Data Validation Tests'
