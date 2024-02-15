@@ -12,7 +12,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'mydevopsvm'
+  environmentName: 'mydevopsvmenv'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: ${System.DefaultWorkingDirectory}
@@ -141,7 +141,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool: devopsagent
+    pool: myAgentPool
     environment: '$(environmentName)'
     strategy:
       runOnce:
