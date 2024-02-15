@@ -25,7 +25,7 @@ stages:
   displayName: Build stage
   jobs:
   - job: BuildJob
-    pool: devopsagent
+    pool: myAgentPool
     steps:
     - script: |
         python -m venv antenv
