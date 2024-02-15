@@ -34,7 +34,7 @@ stages:
         pip install setup
         pip install -r requirements.txt
       # workingDirectory: '${System.DefaultWorkingDirectory}'
-      workingDirectory: $(projectRoot)
+      # workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
     - task: ArchiveFiles@2
