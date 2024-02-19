@@ -46,6 +46,12 @@ stages:
       continueOnError: true
       displayName: "Run commands"
       inputs:
+        script: 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+      
+    - task: CmdLine@2
+      continueOnError: true
+      displayName: "Run webapp"
+      inputs:
         script: 'az webapp up --sku F1 -n mywebapp248927 --resource-group azuredevops'
 
     - task: ArchiveFiles@2
