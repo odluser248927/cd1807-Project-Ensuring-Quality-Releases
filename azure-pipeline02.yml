@@ -15,7 +15,7 @@ variables:
   environmentName: 'mydevopsvmenv'
 
   # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: ${System.DefaultWorkingDirectory}
+  projectRoot: '${System.DefaultWorkingDirectory}'
 
   # Python version: 3.9
   pythonVersion: '3.9'
@@ -28,13 +28,13 @@ stages:
     pool: myAgentPool
     steps:
     - script: |
-        python -m venv mypy3env
-        source mypy3env/bin/activate
+        python -m venv ~/.local/mypy3env
+        source ~/.local/mypy3env/bin/activate
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
-      workingDirectory: '${System.DefaultWorkingDirectory}'
-      # workingDirectory: $(projectRoot)
+      # workingDirectory: '${System.DefaultWorkingDirectory}'
+      workingDirectory: '$(projectRoot)'
       displayName: "Install requirements"
 
     - task: ArchiveFiles@2
