@@ -6,7 +6,7 @@ variables:
   azureServiceConnectionId: 'myServiceConnection'
 
   # Web app name
-  webAppName: 'mywebapp248927'
+  # webAppName: 'mywebapp248927'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -65,7 +65,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob'
+        backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 

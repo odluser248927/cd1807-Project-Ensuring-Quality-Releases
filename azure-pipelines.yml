@@ -12,7 +12,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'mydevopsenv'
+  environmentName: 'mydevopsvmenv'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
@@ -28,13 +28,25 @@ stages:
     pool: myAgentPool
     steps:
     - script: |
-        python -m venv antenv
-        source antenv/bin/activate
+        python -m venv mypy3env
+        source mypy3env/bin/activate
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
+
+    - script: |
+        export PATH=$HOME/.local/bin:$PATH
+        make install        
+      workingDirectory: $(projectRoot)
+      displayName: 'install path requirements'
+
+    - task: CmdLine@2
+      continueOnError: true
+      displayName: "Run commands"
+      inputs:
+        script: 'az webapp up --sku F1 -n mywebapp248927 --resource-group azuredevops'
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
