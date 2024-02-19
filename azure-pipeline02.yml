@@ -28,17 +28,23 @@ stages:
     pool: myAgentPool
     steps:
     - script: |
-        export PATH=$HOME/.local/bin:$PATH
-        make install
-        python -m venv ~/.local/mypy3env
-        source ~/.local/mypy3env/bin/activate
+        python -m venv mypy3env
+        source /mypy3env/bin/activate
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
       # workingDirectory: '${System.DefaultWorkingDirectory}'
-      workingDirectory: $(projectRoot)
+      # workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
+    - task: CmdLine@2
+      continueOnError: true
+      displayName: "Run commands"
+      inputs:
+        script: |           
+          export PATH=$HOME/.local/bin:$PATH
+          make install
+      
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
