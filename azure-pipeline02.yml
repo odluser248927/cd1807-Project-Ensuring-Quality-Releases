@@ -15,7 +15,7 @@ variables:
   environmentName: 'mydevopsvmenv'
 
   # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: '${System.DefaultWorkingDirectory}'
+  # projectRoot: '${System.DefaultWorkingDirectory}'
 
   # Python version: 3.9
   pythonVersion: '3.9'
@@ -33,15 +33,15 @@ stages:
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
-      # workingDirectory: '${System.DefaultWorkingDirectory}'
-      workingDirectory: '$(projectRoot)'
+      workingDirectory: '${System.DefaultWorkingDirectory}'
+      # workingDirectory: '$(projectRoot)'
       displayName: "Install requirements"
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(projectRoot)'
-        # rootFolderOrFile: '${System.DefaultWorkingDirectory}'
+        # rootFolderOrFile: '$(projectRoot)'
+        rootFolderOrFile: '${System.DefaultWorkingDirectory}'
         includeRootFolder: false
         archiveType: zip
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
@@ -54,11 +54,11 @@ stages:
     - task: AzureWebApp@1
       displayName: 'runWebApp'
       inputs:
-        rootFolderOrFile: '$(projectRoot)'
-        #rootFolderOrFile: '${System.DefaultWorkingDirectory}'
+        # rootFolderOrFile: '$(projectRoot)'
+        rootFolderOrFile: '${System.DefaultWorkingDirectory}'
         command:
-        # 'az webapp up --runtime PYTHON:3.9 --sku F1 --logs --name mywebapp248927 --resource-group azuredevops'
-         'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku B1s --logs --runtime PYTHON:3.9'
+        # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
+         'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
         
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
       displayName: 'Terrafom installation'
