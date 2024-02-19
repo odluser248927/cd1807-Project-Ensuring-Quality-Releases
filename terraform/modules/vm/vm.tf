@@ -1,5 +1,5 @@
 resource "azurerm_network_interface" "Azuredevops" {
-  name                = "mydevopsvm"
+  name                = "mydevopsagent"
   location            = "eastus"
   resource_group_name = "Azuredevops"
 
@@ -7,15 +7,15 @@ resource "azurerm_network_interface" "Azuredevops" {
     name                          = "internal"
     subnet_id                     = "azurerm_subnet.internal.id"
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = "/subscriptions/456cc604-544c-45f8-99d0-c1b73aeec440/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachines/mydevopsvm"
+    public_ip_address_id          = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachines/mydevopsagent"
   }
 }
 
 resource "azurerm_linux_virtual_machine" "Azuredevops" {
-  name                = "myazdevopsvm"
+  name                = "mydevopsagent"
   location            = "eastus"
   resource_group_name = "Azuredevops"
-  size                = "Standard_DS2_v3"
+  size                = "Standard_B1s"
   admin_username      = "azureuser"
   address_prefixes    = "10.0.1.0/24"
   network_interface_ids = []

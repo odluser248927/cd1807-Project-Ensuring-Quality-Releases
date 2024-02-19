@@ -28,12 +28,12 @@ resource "azurerm_network_security_group" "Azuredevops" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "Azuredevops" {
-  subnet_id                   = "/subscriptions/88062415-5d83-43de-899d-8569bf79782b/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
+  subnet_id                   = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
 
   network_security_group_id   = "${azurerm_network_security_group.Azuredevops.id}"
   # network_security_group_id   = azurerm_network_security_group.Azuredevops.id
 }
 
 output "subnet_id" {
-  value = "/subscriptions/88062415-5d83-43de-899d-8569bf79782b/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
+  value = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
 }
