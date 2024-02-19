@@ -33,8 +33,8 @@ stages:
         python -m pip install --upgrade pip
         pip install setup
         pip install -r requirements.txt
-      # workingDirectory: '${System.DefaultWorkingDirectory}'
-      workingDirectory: $(projectRoot)
+      workingDirectory: '${System.DefaultWorkingDirectory}'
+      # workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
     - task: ArchiveFiles@2
@@ -51,38 +51,47 @@ stages:
       displayName: 'Upload package'
       artifact: drop
 
-    - task: AzureWebApp@1
-      displayName: 'runWebApp'
-      inputs:
-        rootFolderOrFile: '$(projectRoot)'
-        command:
-          'az webapp up --runtime PYTHON:3.9 --sku F1 --logs --name mywebapp248927 --resource-group azuredevops'
+    - # task: AzureWebApp@1
+      # displayName: 'runWebApp'
+      # inputs:
+        # rootFolderOrFile: '$(projectRoot)'
+        # rootFolderOrFile: '${System.DefaultWorkingDirectory}'
+        # command:
+        # 'az webapp up --runtime PYTHON:3.9 --sku F1 --logs --name mywebapp248927 --resource-group azuredevops'
           # az webapp up --name myWebApp248927 --resource-group Azuredevops --sku B1 --logs --runtime "PYTHON:3.9"
-
-    - task: joker2k999.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-installer.TerraformInstaller@0
+        
+    - task: TerraformInstaller@2
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: '1.5.7'
-
-    - task:  joker2k999.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@0
-      displayName: 'Terrafom init'
+      
+    - task: TerraformCLI@2
       inputs:
-        provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        backendServiceArm: '$(azureServiceConnectionId)'
+        commandOptions: 'init'
+        backendType: 'azurerm'
+        backendServiceArm: 'myServiceConnection'
+        backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
+        allowTelemetryCollection: false
 
-    - task: joker2k999.azure-pipelines-tasks-terraform.azure-piplines-tasks-terraform-cli.TerraformCLI@0
-      displayName: "terraform apply"
+    - task: TerraformCLI@2
       inputs:
-        provider: 'azurerm'
         command: 'apply'
+        commandOptions: 'apply'
+        backendType: 'azurerm'
+        backendServiceArm: 'myServiceConnection'
+        backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        backendAzureRmResourceGroupName: 'Azuredevops'
+        backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'test.terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+        # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+        allowTelemetryCollection: false
 
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
@@ -109,12 +118,13 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive UI Tests'
       inputs:
-        contents: 'automatedtesting/selenium/**'
-        targetFolder: '$(Build.StagingDirectory)'
+        #contents: 'automatedtesting/selenium/**'
+        #targetFolder: '$(Build.StagingDirectory)'
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+
      # Selenium Test Suite - Publish the package  
     - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
       # Same as the archiveFile artifact above. 
@@ -157,15 +167,16 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : '
+            displayName: 'Deploy Azure Web App : mywebapp248927'
             inputs:
               azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
+              appType: webApp
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
-              Contents: '**'
-              TargetFolder: '$(Agent.TempDirectory)'
-              OverWrite: true
+              #SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              #Contents: '**'
+              #TargetFolder: '$(Agent.TempDirectory)'
+              #OverWrite: true
           - task: Bash@3
             displayName: 'Functional tests'
             inputs:
