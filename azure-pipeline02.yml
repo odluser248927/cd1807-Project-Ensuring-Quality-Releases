@@ -59,14 +59,14 @@ stages:
       displayName: 'Upload package'
       artifact: drop
 
-    - task: AzureWebApp@1
-      displayName: 'runWebApp'
-      inputs:
-        rootFolderOrFile: $(projectRoot)
-        # rootFolderOrFile: '${System.DefaultWorkingDirectory}'
-        command:
-        # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
-         'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
+    # - task: AzureWebApp@1
+    #   displayName: 'runWebApp'
+    #   inputs:
+    #     rootFolderOrFile: $(projectRoot)
+    #     # rootFolderOrFile: '${System.DefaultWorkingDirectory}'
+    #     command:
+    #     # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
+    #      'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
         
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
       displayName: 'Terrafom installation'
