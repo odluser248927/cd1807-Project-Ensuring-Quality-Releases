@@ -73,13 +73,14 @@ stages:
       inputs:
         terraformVersion: '1.5.7'
       
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
       inputs:
         command: 'init'
-        commandOptions: 'init'
+        # commandOptions: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendType: 'azurerm'
         backendServiceArm: '$(azureServiceConnectionId)'
-        backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
