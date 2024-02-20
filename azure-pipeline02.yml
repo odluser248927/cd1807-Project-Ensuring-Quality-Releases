@@ -85,8 +85,10 @@ stages:
         terraformVersion: '1.5.7'
 
     - bash: ls $(terraform-working-directory)
+    - task: AzureCLI@1
+      displayName: Terraform init
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
-    - task: TerraformTaskV2@2
+#    - task: TerraformTaskV2@2
       inputs:
         command: init
         # commandOptions: 'init'
@@ -96,7 +98,8 @@ stages:
         backendServiceArm: 'myServiceConnection'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+        # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+        backendAzureRmStorageAccountName: 'mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
         allowTelemetryCollection: false
