@@ -95,7 +95,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
-        #backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
+        backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
         #backendServiceArm: 'myServiceConnection'
         backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
@@ -104,7 +104,7 @@ stages:
         #backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
         allowTelemetryCollection: false
-        backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
+        #backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
         #backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         environmentServiceName: 'myServiceConnection'
