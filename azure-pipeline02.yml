@@ -78,12 +78,12 @@ stages:
     - checkout: self
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
       inputs:
-        command: init
+        command: 'init'
         # commandOptions: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
-        backendServiceArm: 'myServiceConnection'
+        #backendServiceArm: 'myServiceConnection'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
