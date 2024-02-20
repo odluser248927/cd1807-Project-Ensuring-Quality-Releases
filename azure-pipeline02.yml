@@ -174,7 +174,7 @@ stages:
       displayName: 'Upload Package'
       artifact: drop-perftests
 
-- checkout: self
+
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
