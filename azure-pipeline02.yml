@@ -76,7 +76,7 @@ stages:
         terraformVersion: '1.5.7'
 
     - checkout: self
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@2
+    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
       inputs:
         command: init
         # commandOptions: 'init'
@@ -92,7 +92,7 @@ stages:
         allowTelemetryCollection: false
         
     - checkout: self
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@2
+    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
       inputs:
         command: 'apply'
         commandOptions: 'apply'
