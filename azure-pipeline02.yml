@@ -96,7 +96,7 @@ stages:
         backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
-        #backendServiceArm: 'myServiceConnection'
+        backendServiceArm: 'myServiceConnection'
         backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
@@ -108,7 +108,7 @@ stages:
         #backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         environmentServiceName: 'myServiceConnection'
-        commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
         addSpnToEnvironment: true
 
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
