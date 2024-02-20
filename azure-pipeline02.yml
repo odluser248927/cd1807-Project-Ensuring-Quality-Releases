@@ -69,51 +69,84 @@ stages:
     #     command:
     #     # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
     #      'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
-    - checkout: self
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-      displayName: 'Terrafom installation'
-      inputs:
-        terraformVersion: '1.5.7'
+    # - checkout: self
+    # - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+    #   displayName: 'Terrafom installation'
+    #   inputs:
+    #     terraformVersion: '1.5.7'
 
-    - checkout: self
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
-      inputs:
-        command: 'init'
-        # commandOptions: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        backendType: azurerm 
-        # backendServiceArm: '$(azureServiceConnectionId)'
-        #backendServiceArm: 'myServiceConnection'
-        # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
-        allowTelemetryCollection: false
+    # - checkout: self
+    # - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+    #   inputs:
+    #     command: 'init'
+    #     # commandOptions: 'init'
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    #     backendType: azurerm 
+    #     # backendServiceArm: '$(azureServiceConnectionId)'
+    #     #backendServiceArm: 'myServiceConnection'
+    #     # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+    #     backendAzureRmResourceGroupName: 'Azuredevops'
+    #     backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+    #     backendAzureRmContainerName: 'tfstate'
+    #     backendAzureRmKey: 'test.terraform.tfstate'
+    #     allowTelemetryCollection: false
         
-    - checkout: self
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+    # - checkout: self
+    # - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+    #   inputs:
+    #     command: 'apply'
+    #     commandOptions: 'apply'
+    #     backendType: 'azurerm'
+    #     backendServiceArm: '$(azureServiceConnectionId)'
+    #     backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+    #     backendAzureRmResourceGroupName: 'Azuredevops'
+    #     backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+    #     backendAzureRmContainerName: 'tfstate'
+    #     backendAzureRmKey: 'test.terraform.tfstate'
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    #     # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+    #     allowTelemetryCollection: false
+    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+      displayName: 'Install Terraform 1.5.7'
       inputs:
-        command: 'apply'
-        commandOptions: 'apply'
-        backendType: 'azurerm'
-        backendServiceArm: '$(azureServiceConnectionId)'
-        backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-        allowTelemetryCollection: false
+      terraformVersion: '1.5.7'
 
-    - checkout: self
-    - task: CmdLine@2
-      displayName: "Run Data Validation Tests"
-      continueOnError: true
-      inputs:
-        script: 'newman run TestSuite.Data-Validation.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+   - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+     displayName: 'Terraform Init'
+     inputs:
+       command: 'init'
+       backendType: 'azurerm'
+       backendServiceArm: '$(azureServiceConnectionId)'
+       backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+       backendAzureRmResourceGroupName: 'Azuredevops'
+       backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+       backendAzureRmContainerName: 'tfstate'
+       backendAzureRmKey: 'test.terraform.tfstate'
+       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+       allowTelemetryCollection: false
+
+   - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+     displayName: 'Terraform Apply'
+     inputs:
+       command: 'apply'
+       commandOptions: 'apply'
+       backendType: 'azurerm'
+       backendServiceArm: '$(azureServiceConnectionId)'
+       backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+       backendAzureRmResourceGroupName: 'Azuredevops'
+       backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+       backendAzureRmContainerName: 'tfstate'
+       backendAzureRmKey: 'test.terraform.tfstate'
+       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+       allowTelemetryCollection: false
+
+       - checkout: self
+       - task: CmdLine@2
+         displayName: "Run Data Validation Tests"
+         continueOnError: true
+         inputs:
+           script: 'newman run TestSuite.Data-Validation.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+           workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
     - checkout: self
     - task: CmdLine@2
