@@ -23,10 +23,10 @@ variables:
   pythonVersion: '3.9'
 
 stages:
-- stage: Build
-  displayName: Build stage
+- stage: 'Build'
+  displayName: 'Build stage'
   jobs:
-  - job: BuildJob
+  - job: 'Build Job'
     pool: myAgentPool
     steps:
     - task: Docker@2
