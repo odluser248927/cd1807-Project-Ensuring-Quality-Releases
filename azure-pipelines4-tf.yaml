@@ -41,7 +41,7 @@ steps:
     
     
 #####
-name: Azure Pipelines
+# name: Azure Pipelines
 variables:
   python.version: '3.9'
   # System.Debug: true
