@@ -101,7 +101,8 @@ stages:
         allowTelemetryCollection: false
         #backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
         #backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
-        environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+        # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+        environmentServiceName: 'myServiceConnection'
         commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
 
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
