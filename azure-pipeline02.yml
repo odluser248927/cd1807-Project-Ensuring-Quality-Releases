@@ -115,7 +115,7 @@ stages:
         backendAzureRmKey: 'test.terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-        commandOptions: '-auto-approve'
+        # commandOptions: '-auto-approve'
         allowTelemetryCollection: false
 
     - task: CmdLine@2
