@@ -46,7 +46,8 @@ stages:
         script: |           
           export PATH=$HOME/.local/bin:$PATH
           make install
-          
+
+    - checkout: self
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
@@ -69,30 +70,28 @@ stages:
     #     command:
     #     # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
     #      'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
-    - checkout: self
+        
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: '1.5.7'
-
-    - checkout: self
+      
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
       inputs:
-        command: 'init'
+        command: init
         # commandOptions: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
-        #backendServiceArm: 'myServiceConnection'
+        backendServiceArm: 'myServiceConnection'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
         allowTelemetryCollection: false
-        
-    - checkout: self
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+
+    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
       inputs:
         command: 'apply'
         commandOptions: 'apply'
@@ -107,7 +106,6 @@ stages:
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         allowTelemetryCollection: false
 
-    - checkout: self
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
       continueOnError: true
@@ -115,7 +113,6 @@ stages:
         script: 'newman run TestSuite.Data-Validation.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
-    - checkout: self
     - task: CmdLine@2
       continueOnError: true
       displayName: "Run data validation commands"
@@ -130,8 +127,7 @@ stages:
         searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
         mergeTestResults: true
         testRunTitle: 'JUnit Results'    
-
-    - checkout: self
+      
     - task: ArchiveFiles@2
       displayName: 'Archive UI Tests'
       inputs:
@@ -141,15 +137,13 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-    
-    # Selenium Test Suite - Publish the package
-    - checkout: self
+
+     # Selenium Test Suite - Publish the package  
     - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
       # Same as the archiveFile artifact above. 
       displayName: 'Upload Package'
       artifact: drop-uitests
 
-    - checkout: self
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
@@ -161,7 +155,6 @@ stages:
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
 
-    - checkout: self
     - task: ArchiveFiles@2
       displayName: 'Archive PerformanceTestSuite'
       inputs:
@@ -173,7 +166,6 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
       displayName: 'Upload Package'
       artifact: drop-perftests
-
 
 - stage: Deploy
   displayName: 'Deploy Web App'
@@ -240,7 +232,6 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
 
-          - checkout: self
           - task: CmdLine@2
             displayName: 'units'
             inputs:
@@ -249,15 +240,13 @@ stages:
           - task: JMeterInstaller@0
             displayName: 'junitInstall'
 
-          - checkout: self
           - task: Bash@3
             displayName: 'unitTests'
             inputs:
               targetType: 'inline'
               script: |
                 'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
-
-          - checkout: self
+            
           - task: Bash@3
             displayName: 'unitTests'
             inputs:
