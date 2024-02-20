@@ -3,15 +3,17 @@ provider "azurerm" {
   subscription_id = "${var.subscription_id}"
   client_id       = "${var.client_id}"
   client_secret   = "${var.client_secret}"
+  # skip_provider_registration = "true"
+  # version = "1.5.7"
   features {}
 }
 
 terraform {
   backend "azurerm" {
-    storage_account_name = "mydevopsblob"
+    storage_account_name = "myazuredevopsdemoblob"
     container_name       = "tfstate"
-    key                  =  "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsblob"
-    access_key           = "SMOBB+WWAkzsAGg5szT277yT9COfDgcdOfM3Dmf3qUHNMcHRpbfjvJiFK+3gD3i4jF/v4BXhulW6+AStrbVKxQ=="
+    key                  =  "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/myazuredevopsdemoblob"
+    access_key           = "SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=="
   }
 }
 
