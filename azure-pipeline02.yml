@@ -73,7 +73,7 @@ stages:
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
-        terraformVersion: '1.5.7'
+        terraformVersion: 'latest'
 
     - checkout: self
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@2
