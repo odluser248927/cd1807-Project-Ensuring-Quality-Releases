@@ -29,6 +29,14 @@ stages:
   - job: BuildJob
     pool: myAgentPool
     steps:
+    - task: Docker@2
+      displayName: 'build and push'
+      inputs:
+        command: docker build -t terraform-docker buildAndPush
+        buildContext: $(Build.Repository.LocalPath)
+        dockefile: $(Build.SourceDirectory)
+        # containerRegistry: 'Container Registry Connection'
+        
     # - script: |
     #     python -m venv mypy3env
     #     source /mypy3env/bin/activate
