@@ -29,12 +29,12 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-    - task: Docker@2
-      displayName: 'build and push'
-      inputs:
-        command: docker build -t terraform-docker
-        buildContext: $(Build.Repository.LocalPath)
-        dockefile: $(Build.SourceDirectory)
+    # - task: Docker@2
+    #   displayName: 'build and push'
+    #   inputs:
+    #     command: docker build -t terraform-docker
+    #     buildContext: $(Build.Repository.LocalPath)
+    #     dockefile: $(Build.SourceDirectory)
         # containerRegistry: 'Container Registry Connection'
         
     # - script: |
