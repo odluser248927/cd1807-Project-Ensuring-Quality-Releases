@@ -78,7 +78,7 @@ stages:
         command: 'init'
         # commandOptions: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        backendType: 'azurerm'
+        # backendType: 'azurerm'
         backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
