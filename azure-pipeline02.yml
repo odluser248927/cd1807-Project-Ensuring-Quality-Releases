@@ -101,7 +101,7 @@ stages:
         backendAzureRmResourceGroupName: 'Azuredevops'
         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmStorageAccountName: 'mydevopsdemoblob'
-        backendAzureRmContainerName: '/terraform/environment/test/tfstate'
+        backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
         allowTelemetryCollection: false
         #backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
