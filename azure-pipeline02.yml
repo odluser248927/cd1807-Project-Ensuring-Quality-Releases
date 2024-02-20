@@ -85,6 +85,7 @@ stages:
         terraformVersion: '1.5.7'
       
     - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+    - bash: ls $(terraform-working-directory)
       inputs:
         command: init
         # commandOptions: 'init'
