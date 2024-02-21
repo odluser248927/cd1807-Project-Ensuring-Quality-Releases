@@ -228,7 +228,7 @@ stages:
             inputs:
               ConnectionType: 'AzureRM'
               azureSubscription: '$(azureServiceConnectionId)'
-              # appName: '$(webAppName)'
+              appName: '$(webAppName)'
               appType: 'webApp'
               WebAppName: 'mywebapp248927'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
