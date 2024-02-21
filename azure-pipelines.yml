@@ -88,6 +88,6 @@ stages:
               WebAppName: 'mywebapp248927'
               appType: 'webAppLinux'
               appName: 'mywebapp248927'
-              deployToSlotOrASE: true
+              #deployToSlotOrASE: true
               resourceGroupName: Azuredevops
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
