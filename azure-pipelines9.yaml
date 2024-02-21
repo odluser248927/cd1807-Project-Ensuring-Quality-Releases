@@ -91,13 +91,13 @@ stages:
 #--------------------------------------------#    
     # Postman - Install Newman    
     # ToDo: Update the command and verify the working directory
-    - task: CmdLine@2
-      displayName: "Install Newman"
-      inputs:
-        script: 'sudo npm install -g newman'
-#          'export NPM_CONFIG_PREFIX="/usr/local"'
-#          'nvm install node --reinstall-packages-from=node'          
-        workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+#     - task: CmdLine@2
+#       displayName: "Install Newman"
+#       inputs:
+#         script: 'sudo npm install -g newman'
+# #          'export NPM_CONFIG_PREFIX="/usr/local"'
+# #          'nvm install node --reinstall-packages-from=node'          
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
    # - task: NewmanPostman@4
    #    displayName: 'Newman - Postman'
