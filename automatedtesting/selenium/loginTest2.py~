@@ -12,10 +12,7 @@ def login (user, password):
     #driver = webdriver.Chrome(options=options)
     driver = webdriver.Chrome()
     print ('Browser started successfully. Navigating to the demo page to login.')
-    driver.get("https://www.saucedemo.com/")
-
-    #def get_item_input_box(login):
-    #return login
+    driver.get('https://www.saucedemo.com/')
 
 login('standard_user', 'secret_sauce')
 

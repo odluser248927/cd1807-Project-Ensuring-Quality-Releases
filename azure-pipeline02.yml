@@ -233,9 +233,9 @@ stages:
               appType: 'webApp'
               WebAppName: 'myAzWebapp248927'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              #SourceFolder: '$(Pipeline.Workspace)/dropScripts'
-              #Contents: '**'
-              #TargetFolder: '$(Agent.TempDirectory)'
+              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              Contents: '**'
+              TargetFolder: '$(Agent.TempDirectory)'
               #OverWrite: true
           - task: Bash@3
             displayName: 'Functional tests'
