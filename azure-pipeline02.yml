@@ -109,6 +109,7 @@ stages:
     # - task: AzureCLI@1
 #      displayName: Terraform init
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+     
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
 #    - task: TerraformTaskV2@2
       inputs:
