@@ -52,8 +52,8 @@ stages:
       continueOnError: true
       displayName: "Run webapp"
       inputs:
-        # script: 'az webapp up --sku B1 -n mywebapp248927 --resource-group azuredevops'
-        script: 'python3 -m app run'
+        script: 'az webapp up --sku B1 -n mywebapp248927 --resource-group azuredevops'
+        #script: 'python3 -m app run'
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
