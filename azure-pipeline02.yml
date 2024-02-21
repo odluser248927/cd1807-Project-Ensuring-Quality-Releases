@@ -231,10 +231,10 @@ stages:
               appName: '$(webAppName)'
               appType: webApp
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              #SourceFolder: '$(Pipeline.Workspace)/dropScripts'
-              #Contents: '**'
-              #TargetFolder: '$(Agent.TempDirectory)'
-              #OverWrite: true
+              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              Contents: '**'
+              TargetFolder: '$(Agent.TempDirectory)'
+              OverWrite: true
           - task: Bash@3
             displayName: 'Functional tests'
             inputs:
