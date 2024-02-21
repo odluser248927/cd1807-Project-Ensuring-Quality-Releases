@@ -112,6 +112,7 @@ stages:
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
     - task: TerraformTaskV4@4
+      displayName: 'Terrafom init'
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
 #    - task: TerraformTaskV2@2
       inputs:
@@ -140,7 +141,9 @@ stages:
         addSpnToEnvironment: true
 
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+    - task: TerraformTaskV4@4
+      displayName: 'Terrafom apply'
       inputs:
         command: 'apply'
         commandOptions: 'apply'
