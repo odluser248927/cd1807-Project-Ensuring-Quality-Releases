@@ -102,6 +102,7 @@ stages:
         
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+    
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: '1.5.7'
@@ -109,23 +110,31 @@ stages:
     # - task: AzureCLI@1
 #      displayName: Terraform init
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+<<<<<<< HEAD
      
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+=======
+    - task: TerraformTaskV4@4
+#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+>>>>>>> 86d5541 (last adjustments)
 #    - task: TerraformTaskV2@2
       inputs:
-        command: init
+        provider: 'azurerm'
+        command: 'init'
         # commandOptions: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
-        backendServiceArm: 'myServiceConnection'
+        #backendServiceArm: 'myServiceConnection'
+        backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
         backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmStorageAccountName: 'mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
+        #backendAzureRmKey: 'test.terraform.tfstate'
+        backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         allowTelemetryCollection: false
         #backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
         #backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
@@ -176,8 +185,8 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive UI Tests'
       inputs:
-        #contents: 'automatedtesting/selenium/**'
-        #targetFolder: '$(Build.StagingDirectory)'
+        contents: 'automatedtesting/selenium/**'
+        targetFolder: '$(Build.StagingDirectory)'
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
         includeRootFolder: false
         archiveType: 'zip'
