@@ -85,9 +85,11 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnectionId)
 #              azureSubscription: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-              WebAppName: 'mywebapp248927'
+#              WebAppName: 'mywebapp248927'
+              WebAppName: 'myAzWebapp248927'
               appType: 'webAppLinux'
-              appName: 'mywebapp248927'
+              #appName: 'mywebapp248927'
+              appName: 'myAzWebapp248927'
               #deployToSlotOrASE: true
               resourceGroupName: Azuredevops
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip

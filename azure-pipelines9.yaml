@@ -205,7 +205,8 @@ stages:
 #              azureSubscription: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
               azureSubscription: '$(azureServiceConnectionId)'
               azureServiceConnectionId: 'myServiceConnection'
-              appName: 'mywebApp248927'               # ToDo
+#              appName: 'mywebApp248927'               # ToDo
+              appName: 'myAzWebapp248927'
               appType: 'webAppLinux'
               #appType: '$(webApp)'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
