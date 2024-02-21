@@ -203,8 +203,8 @@ stages:
           #- task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-#              azureSubscription: '$(azureServiceConnectionId)'
+#              azureSubscription: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+              azureSubscription: '$(azureServiceConnectionId)'
               azureServiceConnectionId: 'myServiceConnection'
               appName: 'mywebApp248927'               # ToDo
               appType: 'webAppLinux'
