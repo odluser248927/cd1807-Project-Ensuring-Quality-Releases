@@ -100,7 +100,8 @@ stages:
     #     # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
     #      'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
         
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+#    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: '1.5.7'
@@ -108,7 +109,8 @@ stages:
     - bash: ls $(terraform-working-directory)
     # - task: AzureCLI@1
       displayName: Terraform init
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+#    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
 #    - task: TerraformTaskV2@2
       inputs:
         command: init
@@ -132,7 +134,8 @@ stages:
         #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
         addSpnToEnvironment: true
 
-    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+#    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
       inputs:
         command: 'apply'
         commandOptions: 'apply'
