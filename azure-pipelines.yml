@@ -85,7 +85,7 @@ stages:
             inputs:
               azureSubscription: $(azureServiceConnectionId)
 #              azureSubscription: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-              appName: 'mywebapp248927'
+              WebAppName: 'mywebapp248927'
               appType: 'webAppLinux'
               #appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
