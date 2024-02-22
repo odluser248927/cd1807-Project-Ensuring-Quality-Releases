@@ -157,14 +157,14 @@ stages:
         # commandOptions: 'apply'
         provider: 'azurerm'
         # backendType: 'azurerm'
-        backendServiceArm: 'myServiceConnection'
+        # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        backendAzureRmStorageAccountName: 'mydevopsdemoblob'
-        backendAzureRmContainerName: '$(tfstate)'
-        backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
+        # backendAzureRmStorageAccountName: 'mydevopsdemoblob'
+        # backendAzureRmContainerName: 'tfstate'
+        # backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        backendAzureRmResourceGroupName: 'Azuredevops'
+        # backendAzureRmResourceGroupName: 'Azuredevops'
         #backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         # backendAzureRmContainerName: 'tfstate'
         # backendAzureRmKey: 'test.terraform.tfstate'
@@ -173,6 +173,15 @@ stages:
         # commandOptions: '-auto-approve'
         # allowTelemetryCollection: false
 
+    - task: TerraformTaskV3@3
+      displayName: 'Terrafom apply'
+      inputs:
+        command: 'apply'
+        provider: 'azurerm'
+        # backendType: 'azurerm'
+        # backendServiceArm: 'myServiceConnection'
+        environmentServiceNameAzureRM: 'myServiceConnection'
+        
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
       continueOnError: true
