@@ -155,7 +155,7 @@ stages:
       displayName: 'Terrafom plan'
       inputs:
         command: 'plan'
-        commandOptions: '--var-file=terraform/environments/test/terraform.tfvars'
+        commandOptions: '--var-file=terraform.tfvars'
         # provider: 'azurerm'
         backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
@@ -184,7 +184,7 @@ stages:
         backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        commandOptions: '--var-file=terraform/environments/test/terraform.tfvars'
+        commandOptions: '--var-file=terraform.tfvars'
         
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
