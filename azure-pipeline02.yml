@@ -141,7 +141,7 @@ stages:
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # environmentServiceName: 'myServiceConnection'
         # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
+        #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # addSpnToEnvironment: true
 
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
@@ -173,7 +173,7 @@ stages:
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # commandOptions: '-auto-approve'
         # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
+        #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # allowTelemetryCollection: false
 
     - task: TerraformTaskV3@3
@@ -184,7 +184,7 @@ stages:
         # backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
+        #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
