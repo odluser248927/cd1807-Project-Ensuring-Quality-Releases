@@ -154,7 +154,8 @@ stages:
     - task: TerraformTaskV3@3
       displayName: 'Terrafom plan'
       inputs:
-        command: 'plan'
+        command: 'terraform plan -var "address_prefix=10.0.1.0/24" -var "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default" -out=./mydevopsdeployment03.plan
+terraform apply "./mydevopsdeployment03.plan'
         # commandOptions: 'apply'
         provider: 'azurerm'
         # backendType: 'azurerm'
@@ -179,7 +180,7 @@ stages:
     - task: TerraformTaskV3@3
       displayName: 'Terrafom apply'
       inputs:
-        command: 'apply'
+        command: 'apply ./mydevopsdeployment03.plan"'
         provider: 'azurerm'
         # backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
