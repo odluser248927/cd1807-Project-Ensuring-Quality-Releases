@@ -169,7 +169,7 @@ stages:
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+        # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # commandOptions: '-auto-approve'
         commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
         # allowTelemetryCollection: false
