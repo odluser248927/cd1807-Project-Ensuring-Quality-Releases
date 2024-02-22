@@ -9,7 +9,7 @@ terraform {
       version = ">=1.5.7"
     }
   }
-  
+}  
    backend "azurerm" {    
      resource_group_name  = "Azuredevops"
      storage_account_name = "myazuredevopsdemoblob"
@@ -22,4 +22,3 @@ terraform {
   # subscription_id = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
   #   features {}
   # }
-}
