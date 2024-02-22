@@ -131,9 +131,9 @@ stages:
         backendAzureRmResourceGroupName: 'Azuredevops'
         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmStorageAccountName: 'mydevopsdemoblob'
-        backendAzureRmContainerName: '$(tfstate)'
-        # backendAzureRmKey: 'test.terraform.tfstate'
-        backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
+        # backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
         # backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # allowTelemetryCollection: false
         # backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
@@ -141,7 +141,7 @@ stages:
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # environmentServiceName: 'myServiceConnection'
         # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        commandOptions: '-backend-config=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachineScaleSets/mydevopsss'
+        commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # addSpnToEnvironment: true
 
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
@@ -168,12 +168,12 @@ stages:
         # backendAzureRmResourceGroupName: 'Azuredevops'
         #backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # commandOptions: '-auto-approve'
         # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        commandOptions: '-backend-config=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachineScaleSets/mydevopsss'
+        commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # allowTelemetryCollection: false
 
     - task: TerraformTaskV3@3
@@ -184,7 +184,7 @@ stages:
         # backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        commandOptions: '-backend-config=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachineScaleSets/mydevopsss'
+        commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
