@@ -18,7 +18,7 @@ variables:
 
   # Project root folder. Point to the folder containing manage.py file.
   # projectRoot: $(System.DefaultWorkingDirectory)
-  projectRoot: $(System.DefaultWorkingDirectory)/terraform/environments/test
+  projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
   # Python version: 3.9
   # pythonVersion: '3.9'
@@ -140,7 +140,8 @@ stages:
         # backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # environmentServiceName: 'myServiceConnection'
-        commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        commandOptions: '-backend-config=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachineScaleSets/mydevopsss'
         # addSpnToEnvironment: true
 
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
@@ -171,7 +172,8 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # commandOptions: '-auto-approve'
-        commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        commandOptions: '-backend-config=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachineScaleSets/mydevopsss'
         # allowTelemetryCollection: false
 
     - task: TerraformTaskV3@3
@@ -182,6 +184,7 @@ stages:
         # backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
+        commandOptions: '-backend-config=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Compute/virtualMachineScaleSets/mydevopsss'
         
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
