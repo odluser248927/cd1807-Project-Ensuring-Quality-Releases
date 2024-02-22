@@ -120,7 +120,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         # commandOptions: 'init'
-        # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
@@ -150,21 +150,26 @@ stages:
         command: 'validate'
     
     - task: TerraformTaskV3@3
-      displayName: 'Terrafom apply'
+      displayName: 'Terrafom plan'
       inputs:
-        command: 'apply'
-        commandOptions: 'apply'
+        command: 'plan'
+        # commandOptions: 'apply'
         backendType: 'azurerm'
-        backendServiceArm: '$(azureServiceConnectionId)'
-        backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
+        backendServiceArm: 'myServiceConnection'
+        environmentServiceNameAzureRM: 'myServiceConnection'
+        backendAzureRmStorageAccountName: '$(mydevopsdemoblob)'
+        backendAzureRmContainerName: '$(tfstate)'
+        backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
+        # backendServiceArm: '$(azureServiceConnectionId)'
+        # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        backendAzureRmResourceGroupName: '$(Azuredevops)'
+        #backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
+        # backendAzureRmContainerName: 'tfstate'
+        # backendAzureRmKey: 'test.terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
+        # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # commandOptions: '-auto-approve'
-        allowTelemetryCollection: false
+        # allowTelemetryCollection: false
 
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
