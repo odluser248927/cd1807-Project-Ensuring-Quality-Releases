@@ -76,9 +76,6 @@ stages:
         script: |           
           export PATH=$HOME/.local/bin:$PATH
           make install
-          # export TF_VAR_address_prefix=10.0.1.0/24
-          # export TF_VAR_resource_group=Azuredevops
-          # export TF_VAR_subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default
 
     - checkout: self
     - task: ArchiveFiles@2
@@ -158,7 +155,7 @@ stages:
       displayName: 'Terrafom plan'
       inputs:
         command: 'plan'
-        commandOptions: '-var-file=terraform.tfvars'
+        commandOptions: '-lock=false -var-file="terraform.tfvars"'
         # provider: 'azurerm'
         backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
@@ -187,7 +184,22 @@ stages:
         backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        commandOptions: '-var-file=terraform.tfvars'
+        commandOptions: '-lock=false -var-file="terraform.tfvars"'
+
+    - task: CopyFile@2
+      displayName: "Deploying IaaC from local env to cloud env."
+      inputs:
+        Contents: '../../terraform/**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        # archiveType: 'zip'
+        # archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+
+    - task: PublishBuildArtifacts@1
+      displayName: "porting to apply stage."
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'output-myArtifacts'
+        publishLocation: 'Container'
         
     - task: CmdLine@2
       displayName: "Run Data Validation Tests"
@@ -201,7 +213,7 @@ stages:
       displayName: "Run data validation commands"
       inputs:
         script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/test_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
-        workingDirectory: $(System.DefaultWorkingDirectory)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
 
     - task: PublishTestResults@2
       inputs:
