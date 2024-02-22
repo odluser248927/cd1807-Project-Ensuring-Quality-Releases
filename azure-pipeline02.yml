@@ -76,9 +76,9 @@ stages:
         script: |           
           export PATH=$HOME/.local/bin:$PATH
           make install
-          export TF_VAR_address_prefix=10.0.1.0/24
-          export TF_VAR_resource_group=Azuredevops
-          export TF_VAR_subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default
+          # export TF_VAR_address_prefix=10.0.1.0/24
+          # export TF_VAR_resource_group=Azuredevops
+          # export TF_VAR_subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default
 
     - checkout: self
     - task: ArchiveFiles@2
