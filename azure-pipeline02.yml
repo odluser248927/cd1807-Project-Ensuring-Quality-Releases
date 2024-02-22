@@ -124,7 +124,7 @@ stages:
         # backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
-        backendServiceArm: 'myServiceConnection'
+        backendServiceArm: '$(myServiceConnection)'
         # backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: '$(Azuredevops)'
@@ -135,11 +135,11 @@ stages:
         backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
         # backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # allowTelemetryCollection: false
-        #backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
+        # backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
         # backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # environmentServiceName: 'myServiceConnection'
-        #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
         # addSpnToEnvironment: true
 
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
@@ -154,9 +154,10 @@ stages:
       inputs:
         command: 'plan'
         # commandOptions: 'apply'
-        backendType: 'azurerm'
-        backendServiceArm: 'myServiceConnection'
-        environmentServiceNameAzureRM: 'myServiceConnection'
+        provider: 'azurerm'
+        # backendType: 'azurerm'
+        backendServiceArm: '$(myServiceConnection)'
+        environmentServiceNameAzureRM: '$(myServiceConnection)'
         backendAzureRmStorageAccountName: '$(mydevopsdemoblob)'
         backendAzureRmContainerName: '$(tfstate)'
         backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
