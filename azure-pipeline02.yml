@@ -17,7 +17,8 @@ variables:
   environmentName: 'mydevopsvmenv'
 
   # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: $(System.DefaultWorkingDirectory)
+  # projectRoot: $(System.DefaultWorkingDirectory)
+  projectRoot: $(System.DefaultWorkingDirectory)/terraform/environments/test
 
   # Python version: 3.9
   # pythonVersion: '3.9'
@@ -101,8 +102,7 @@ stages:
     #      'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
         
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
-    
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
         #terraformVersion: '1.5.7'
@@ -112,24 +112,25 @@ stages:
 #      displayName: Terraform init
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+
     - task: TerraformTaskV3@3
-      displayName: 'Terrafom init'
+      displayName: init
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
 #    - task: TerraformTaskV2@2
       inputs:
         provider: 'azurerm'
         command: 'init'
         # commandOptions: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
-        backendServiceArm: '$(myServiceConnection)'
+        backendServiceArm: 'myServiceConnection'
         # backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        backendAzureRmResourceGroupName: '$(Azuredevops)'
+        backendAzureRmResourceGroupName: 'Azuredevops'
         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
-        backendAzureRmStorageAccountName: '$(mydevopsdemoblob)'
+        backendAzureRmStorageAccountName: 'mydevopsdemoblob'
         backendAzureRmContainerName: '$(tfstate)'
         # backendAzureRmKey: 'test.terraform.tfstate'
         backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
@@ -156,14 +157,14 @@ stages:
         # commandOptions: 'apply'
         provider: 'azurerm'
         # backendType: 'azurerm'
-        backendServiceArm: '$(myServiceConnection)'
-        environmentServiceNameAzureRM: '$(myServiceConnection)'
-        backendAzureRmStorageAccountName: '$(mydevopsdemoblob)'
+        backendServiceArm: 'myServiceConnection'
+        environmentServiceNameAzureRM: 'myServiceConnection'
+        backendAzureRmStorageAccountName: 'mydevopsdemoblob'
         backendAzureRmContainerName: '$(tfstate)'
         backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        backendAzureRmResourceGroupName: '$(Azuredevops)'
+        backendAzureRmResourceGroupName: 'Azuredevops'
         #backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         # backendAzureRmContainerName: 'tfstate'
         # backendAzureRmKey: 'test.terraform.tfstate'
