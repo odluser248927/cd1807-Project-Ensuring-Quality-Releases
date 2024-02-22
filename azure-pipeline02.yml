@@ -180,7 +180,7 @@ terraform apply "./mydevopsdeployment03.plan'
     - task: TerraformTaskV3@3
       displayName: 'Terrafom apply'
       inputs:
-        command: 'apply ./mydevopsdeployment03.plan"'
+        command: '--var-file=terraform.tfvars'
         provider: 'azurerm'
         # backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
