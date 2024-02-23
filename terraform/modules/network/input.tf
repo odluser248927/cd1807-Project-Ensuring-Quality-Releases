@@ -33,5 +33,5 @@ variable "resource_type" {
 }
 
 variable "address_prefixes" {
-  type = list
+  type = string
 }
