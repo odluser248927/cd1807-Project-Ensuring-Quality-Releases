@@ -185,8 +185,8 @@ stages:
         # backendType: 'azurerm'
         # backendAzureRmContainerName: 'tfstate'
         # backendAzureRmKey: 'terraform.tfstate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/modules/resource_group'
-        resourceAddress: 'azurerm_resource_group.rg'
+        # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/modules/resource_group'
+        resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
         resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
         
     - task: TerraformTaskV3@3
