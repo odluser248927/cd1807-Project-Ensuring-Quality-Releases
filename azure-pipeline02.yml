@@ -187,7 +187,7 @@ stages:
         #backendAzureRmContainerName: 'tfstate'
         #backendAzureRmKey: 'terraform.tfstate'
         #environmentServiceNameAzureRM: 'myServiceConnection'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environment/test'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
         resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
         
