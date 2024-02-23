@@ -181,11 +181,15 @@ stages:
       displayName: 'Terrafom apply'
       inputs:
         command: 'apply'
+        commandOptions: '-lock=false -var-file="terraform.tfvars"'
         # provider: 'azurerm'
         backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        commandOptions: '-lock=false -var-file="terraform.tfvars"'
+        #commandOptions: '-lock=false -var-file="terraform.tfvars"'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
