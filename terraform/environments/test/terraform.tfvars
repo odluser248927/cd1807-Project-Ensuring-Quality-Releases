@@ -14,10 +14,11 @@ application_type = "Azuredevops"
 # Network
 virtual_network_name = "mydevopsagent"
 address_space = ["10.0.0.0/16"]
-address_prefixes = ["10.0.1.0/24"]
-address_prefix = ["10.0.1.0/24"]
+# address_prefixes = ["10.0.1.0/24"]
+# address_prefix = ["10.0.1.0/24"]
 
-# address_prefix = "10.0.1.0/24"
+address_prefix = "10.0.1.0/24"
+address_prefixes = "10.0.1.0/24"
 # resource_group = "Azuredevops"
 resource_group = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
 # subnet_id  = "default"
