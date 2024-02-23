@@ -38,7 +38,7 @@ variable "virtual_network_name" {
 }
 
 variable "address_prefixes" {
-  type = list
+  type = string
 }
 
 variable "address_prefix" {
