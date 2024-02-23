@@ -183,7 +183,7 @@ stages:
       inputs:
         command: 'import'
         # commandOptions: '-lock=false -var-file="terraform.tfvars"'
-        # backendType: 'azurerm'
+        backendType: 'azurerm'
         # backendAzureRmContainerName: 'tfstate'
         # backendAzureRmKey: 'terraform.tfstate'
         environmentServiceNameAzureRM: 'myServiceConnection'
