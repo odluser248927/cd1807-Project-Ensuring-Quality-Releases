@@ -186,7 +186,7 @@ stages:
         environmentServiceNameAzureRM: 'myServiceConnection'
         commandOptions: '-lock=false -var-file="terraform.tfvars"'
 
-    - task: AzureFileCopy@2
+    - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
         Contents: '../../terraform/**'
