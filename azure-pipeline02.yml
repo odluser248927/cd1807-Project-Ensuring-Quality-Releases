@@ -202,7 +202,7 @@ stages:
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        environmentServiceNameAzureRM: 'myServiceConnection'
+        #environmentServiceNameAzureRM: 'myServiceConnection'
 
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
