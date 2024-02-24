@@ -114,6 +114,15 @@ stages:
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
 
     - task: TerraformTaskV3@3
+      displayName: refresh
+#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+#    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'refresh'
+        # commandOptions: 'init'
+        
+    - task: TerraformTaskV3@3
       displayName: init
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
 #    - task: TerraformTaskV2@2
