@@ -188,8 +188,13 @@ stages:
         #backendAzureRmKey: 'terraform.tfstate'
         #environmentServiceNameAzureRM: 'myServiceConnection'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
-        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
+        #resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
+        #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
+        resourceAddress: 'module.networksecuritygroup.azurerm_network_security_group.Azuredevops'
+        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
+        resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
+        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
+
         
     - task: TerraformTaskV3@3
       displayName: 'Terrafom apply'
