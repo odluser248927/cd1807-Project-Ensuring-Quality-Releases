@@ -385,5 +385,5 @@ stages:
               targetType: 'inline'
               script: |
                 'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
-#clean-res:
+
 
