@@ -193,7 +193,7 @@ stages:
         #resourceAddress: 'module.networksecuritygroup.azurerm_network_security_group.Azuredevops'
         #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
         resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
-        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet/subnets/default'
+        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
 
         
     - task: TerraformTaskV3@3
