@@ -151,7 +151,7 @@ stages:
         # environmentServiceName: 'myServiceConnection'
         # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
-        # addSpnToEnvironment: true
+        addSpnToEnvironment: true
 
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
@@ -191,6 +191,8 @@ stages:
       displayName: 'Terraform import'
       inputs:
         command: 'import'
+        commandOptions: '-auto-approve'
+        addSpnToEnvironment: true
         #commandOptions: '-lock=false -var-file="terraform.tfvars"'
         #backendType: 'azurerm'
         backendAzureRmContainerName: 'tfstate'
