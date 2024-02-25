@@ -31,6 +31,11 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: '$(KNOWN_HOST_STRING)'
+        sshPublicKey: '$(PUBLIC_KEY)'
+        sshKeySecureFile: 'id_rsa'
     # - task: Docker@2
     #   displayName: 'build and push'
     #   inputs:
