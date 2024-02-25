@@ -6,6 +6,7 @@ trigger:
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'myServiceConnection'
+  System.Debug: true 
 
   # Web app name
   # webAppName: 'mywebapp248927'
