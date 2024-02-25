@@ -165,7 +165,7 @@ stages:
       displayName: 'Terrafom plan'
       inputs:
         command: 'plan'
-        commandOptions: '-lock=false -var-file="terraform.tfvars"'
+        commandOptions: '-lock=false -var-file="terraform.tfvars" -out=mydevopsdeployment03.plan'
         # commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
         # provider: 'azurerm'
         backendType: 'azurerm'
