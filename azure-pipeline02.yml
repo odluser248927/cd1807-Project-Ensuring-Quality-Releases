@@ -97,7 +97,7 @@ stages:
             ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
             ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
 
-    - checkout: self
+    #- checkout: self
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
