@@ -235,7 +235,23 @@ stages:
 #        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
         #resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
         #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
-
+        
+    - task: CopyFiles@2
+      displayName: "Deploying IaaC from local env to cloud env."
+      inputs:
+        SourceFolder: '$(workingDirectory)'
+        Contents: |
+          **/*.tf
+          **/*.tfvars
+          **/*tfplan*
+        TargetFolder: '$(System.ArtifactsDirectory)/terraform/environments/test'
+        
+    # Publish Artifacts:-
+    - task: PublishBuildArtifacts@1
+      displayName: 'PUBLISH ARTIFACTS'
+      inputs:
+        targetPath: '$(System.ArtifactsDirectory)/terraform/environments/test'
+        artifactName: 'output-myArtifacts'
         
     - task: TerraformTaskV3@3
       displayName: 'Terrafom apply'
@@ -250,25 +266,25 @@ stages:
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'terraform.tfstate'
         #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
+        workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test'
         #environmentServiceNameAzureRM: 'myServiceConnection'
 
-    - task: CopyFiles@2
-      displayName: "Deploying IaaC from local env to cloud env."
-      inputs:
-        SourceFolder: '$(workingDirectory)'
-        Contents: |
-          **/*.tf
-          **/*.tfvars
-          **/*tfplan*
-        TargetFolder: '$(Target)'
+    # - task: CopyFiles@2
+    #   displayName: "Deploying IaaC from local env to cloud env."
+    #   inputs:
+    #     SourceFolder: '$(workingDirectory)'
+    #     Contents: |
+    #       **/*.tf
+    #       **/*.tfvars
+    #       **/*tfplan*
+    #     TargetFolder: '$(Target)'
         
-    # Publish Artifacts:-
-    - task: PublishBuildArtifacts@1
-      displayName: PUBLISH ARTIFACTS
-      inputs:
-        targetPath: '$(Target)'
-        artifactName: '$(Artifact)'
+    # # Publish Artifacts:-
+    # - task: PublishBuildArtifacts@1
+    #   displayName: PUBLISH ARTIFACTS
+    #   inputs:
+    #     targetPath: '$(Target)'
+    #     artifactName: '$(Artifact)'
         #Contents: '../../terraform/**'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)'
         #archiveType: 'zip'
