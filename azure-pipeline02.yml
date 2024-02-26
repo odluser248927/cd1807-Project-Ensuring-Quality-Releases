@@ -97,16 +97,16 @@ stages:
           #   ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
           #   ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
 
-    - task: CopyFiles@2
-      displayName: "Deploying IaaC from local env to cloud env."
-      inputs:
-        #SourceFolder: '$(Pipeline.Workspace)/dropScripts'
-        SourceFolder: $(projectRoot)
-        Contents: '**'
-        #TargetFolder: '$(Agent.TempDirectory)'
-        OverWrite: true
-        #Contents: '../../terraform/**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    # - task: CopyFiles@2
+    #   displayName: "Deploying IaaC from local env to cloud env."
+    #   inputs:
+    #     #SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+    #     SourceFolder: $(projectRoot)
+    #     Contents: '**'
+    #     #TargetFolder: '$(Agent.TempDirectory)'
+    #     OverWrite: true
+    #     #Contents: '../../terraform/**'
+    #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
     #- checkout: self
     # - task: ArchiveFiles@2
@@ -241,7 +241,7 @@ stages:
       displayName: 'Terrafom apply'
       inputs:
         command: 'apply'
-        commandOptions: '-lock=false -var-file="terraform.tfvars"'
+        commandOptions: '-lock=false -var-file="terraform.tfvars" -out="mydevopsdeployment03.plan"'
         # provider: 'azurerm'
         backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
@@ -249,16 +249,30 @@ stages:
         #commandOptions: '-lock=false -var-file="terraform.tfvars"'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'terraform.tfstate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
         #environmentServiceNameAzureRM: 'myServiceConnection'
 
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
-        Contents: '../../terraform/**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-        # archiveType: 'zip'
-        # archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+        SourceFolder: '$(workingDir)'
+        Contents: |
+          **/*.tf
+          **/*.tfvars
+          **/*tfplan*
+        TargetFolder: '$(Target)'
+        
+     # Publish Artifacts:-
+     - task: PublishBuildArtifacts@1
+       displayName: PUBLISH ARTIFACTS
+       inputs:
+         targetPath: '$(Target)'
+         artifactName: '$(Artifact)'
+        #Contents: '../../terraform/**'
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        #archiveType: 'zip'
+        #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
 
     - task: PublishBuildArtifacts@1
       displayName: "porting to apply stage."
