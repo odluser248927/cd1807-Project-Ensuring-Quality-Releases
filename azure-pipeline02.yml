@@ -6,7 +6,7 @@ trigger:
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'myServiceConnection'
-  System.Debug: true 
+  # System.Debug: true 
 
   # Web app name
   # webAppName: 'mywebapp248927'
@@ -31,11 +31,6 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-    - task: InstallSSHKey@0
-      inputs:
-        knownHostsEntry: '$(KNOWN_HOST_STRING)'
-        sshPublicKey: '$(PUBLIC_KEY)'
-        sshKeySecureFile: 'id_rsa'
     # - task: Docker@2
     #   displayName: 'build and push'
     #   inputs:
@@ -44,26 +39,26 @@ stages:
     #     dockefile: $(Build.SourceDirectory)
         # containerRegistry: 'Container Registry Connection'
         
-    # - script: |
-    #     # Get Azure account details
-    #     echo "==> Setting Subscription environment variables"
-    #     if [[ ! -z "${servicePrincipalId:-}" ]]; then
-    #       SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
-    #       TENANT_ID=$(az account show --query 'tenantId' --output tsv)
-    #       CLIENT_ID=${servicePrincipalId:-}
-    #       CLIENT_SECRET=${servicePrincipalKey:-}
-    #     else
-    #       SUBSCRIPTION_ID="64b5de4c-738a-488c-9d2c-0a702a6d086a"
-    #       TENANT_ID="6b6c018c-f2e6-48d8-b64f-4cd02807e329"
-    #       CLIENT_ID="9a513571-892f-4e40-94b4-06c8e3ef61fe"
-    #       CLIENT_SECRET="mgV8Q~0bqPqRhX-BQ~VUgJhMeeB7IJ2~pfyjfbVO"
-    #     fi
+    - script: |
+        # Get Azure account details
+        echo "==> Setting Subscription environment variables"
+        if [[ ! -z "${servicePrincipalId:-}" ]]; then
+          SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
+          TENANT_ID=$(az account show --query 'tenantId' --output tsv)
+          CLIENT_ID=${servicePrincipalId:-}
+          CLIENT_SECRET=${servicePrincipalKey:-}
+        else
+          SUBSCRIPTION_ID="64b5de4c-738a-488c-9d2c-0a702a6d086a"
+          TENANT_ID="6b6c018c-f2e6-48d8-b64f-4cd02807e329"
+          CLIENT_ID="ae725b36-42c2-45c0-9ba0-6048b7e9be83"
+          CLIENT_SECRET="Uab8Q~bUxolUL~wPY_4YP1-n9WO1BjXnRftLqcXZ"
+        fi
 
-    #     # Define environment variables
-    #     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
-    #       ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
-    #       ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
-    #       ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
+        # Define environment variables
+        export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
+          ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
+          ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
+          ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
 
     #     terraform init
     #     python -m venv mypy3env
