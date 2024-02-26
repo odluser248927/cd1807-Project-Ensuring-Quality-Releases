@@ -239,7 +239,7 @@ stages:
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
-        SourceFolder: '$(workingDirectory)'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         Contents: |
           **/*.tf
           **/*.tfvars
