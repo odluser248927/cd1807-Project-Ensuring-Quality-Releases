@@ -90,12 +90,23 @@ stages:
             CLIENT_ID="ae725b36-42c2-45c0-9ba0-6048b7e9be83"
             CLIENT_SECRET="Uab8Q~bUxolUL~wPY_4YP1-n9WO1BjXnRftLqcXZ"
           fi
+          'echo $
 
           # Define environment variables
-          export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
-            ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
-            ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
-            ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
+          # export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
+          #   ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
+          #   ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
+          #   ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
+
+    - task: CopyFiles@2
+      displayName: "Deploying IaaC from local env to cloud env."
+      inputs:
+        SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+        Contents: '**'
+        TargetFolder: '$(Agent.TempDirectory)'
+        OverWrite: true
+        #Contents: '../../terraform/**'
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
     #- checkout: self
     - task: ArchiveFiles@2
