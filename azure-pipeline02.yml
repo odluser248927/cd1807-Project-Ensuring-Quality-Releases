@@ -256,19 +256,19 @@ stages:
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
-        SourceFolder: '$(workingDir)'
+        SourceFolder: '$(workingDirectory)'
         Contents: |
           **/*.tf
           **/*.tfvars
           **/*tfplan*
         TargetFolder: '$(Target)'
         
-     # Publish Artifacts:-
-     - task: PublishBuildArtifacts@1
-       displayName: PUBLISH ARTIFACTS
-       inputs:
-         targetPath: '$(Target)'
-         artifactName: '$(Artifact)'
+    # Publish Artifacts:-
+    - task: PublishBuildArtifacts@1
+      displayName: PUBLISH ARTIFACTS
+      inputs:
+        targetPath: '$(Target)'
+        artifactName: '$(Artifact)'
         #Contents: '../../terraform/**'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)'
         #archiveType: 'zip'
