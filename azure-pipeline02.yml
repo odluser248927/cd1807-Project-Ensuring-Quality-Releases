@@ -254,8 +254,8 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
         # targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
         # targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-        # artifactName: '$(Artifact)'
-        ArtifactName: 'output-myArtifacts'
+        artifactName: '$(Artifact)'
+        # ArtifactName: 'output-myArtifacts'
         publishLocation: 'Container'
         
     # - task: TerraformTaskV3@3
@@ -325,8 +325,8 @@ stages:
             inputs:
               buildType: 'current'
               downloadType: 'single'
-              artifactName: 'output-myArtifacts'
-              # artifactname: '$(Artifact)'
+              # artifactName: 'output-myArtifacts'
+              artifactname: '$(Artifact)'
               # downloadPath: '$(System.ArtifactDirectory)'
               downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
 
