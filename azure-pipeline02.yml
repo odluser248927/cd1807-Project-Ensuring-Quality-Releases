@@ -336,6 +336,7 @@ stages:
             inputs:
               #terraformVersion: '1.5.7'
               terraformVersion: 'latest'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
 
           - task: TerraformTaskV3@3
           # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
