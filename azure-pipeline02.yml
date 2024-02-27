@@ -374,7 +374,7 @@ stages:
               # workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
               # workingDirectory: 'output-myArtifacts/'
               # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
               commandOptions: '--var-file="terraform.tfvars"'
               # backendType: 'azurerm'
               backendServiceArm: 'myServiceConnection'
