@@ -337,7 +337,8 @@ stages:
               command: 'init'
               # commandOptions: 'init'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
               # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
@@ -355,7 +356,8 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               commandOptions: '--var-file="terraform.tfvars"'
               # backendType: 'azurerm'
               # backendServiceArm: 'myServiceConnection'
