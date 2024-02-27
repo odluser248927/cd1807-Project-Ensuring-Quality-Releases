@@ -351,13 +351,14 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
 
-          - task: TerraformTaskV3@3
-            displayName: 'Terrafom apply'
+          - task: TerraformTaskV2@2
+            #displayName: 'Terrafom apply'
+            displayName: TERRAFORM APPLY
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
+              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               commandOptions: '--var-file="terraform.tfvars"'
               # backendType: 'azurerm'
               # backendServiceArm: 'myServiceConnection'
