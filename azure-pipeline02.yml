@@ -354,7 +354,7 @@ stages:
             displayName: 'Terrafom apply'
             inputs:
               command: 'apply'
-              commandOptions: '-lock=false -var-file="terraform.tfvars" --out="mydevopsdeployment03.plan"'
+              commandOptions: '-lock=false -var-file="terraform.tfvars"'
               # provider: 'azurerm'
               backendType: 'azurerm'
               # backendServiceArm: 'myServiceConnection'
