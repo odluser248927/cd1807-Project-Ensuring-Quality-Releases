@@ -329,7 +329,6 @@ stages:
               terraformVersion: 'latest'
 
           - task: TerraformTaskV3@3
-            
           # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
             displayName: init
       #    - task: TerraformTaskV2@2
@@ -337,8 +336,8 @@ stages:
               provider: 'azurerm'
               command: 'init'
               # commandOptions: 'init'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
-              # workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test/'
+              # workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test/'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
               # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
@@ -350,7 +349,6 @@ stages:
               backendAzureRmStorageAccountName: 'mydevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
-
 
           - task: TerraformTaskV3@3
             displayName: 'Terrafom apply'
@@ -364,8 +362,8 @@ stages:
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test'
         
               # ConnectionType: 'AzureRM'
               # azureSubscription: '$(azureServiceConnectionId)'
