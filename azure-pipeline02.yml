@@ -328,14 +328,16 @@ stages:
               terraformVersion: 'latest'
 
           - task: TerraformTaskV3@3
+            
+          # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
             displayName: init
-      #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
       #    - task: TerraformTaskV2@2
             inputs:
               provider: 'azurerm'
               command: 'init'
               # commandOptions: 'init'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/output-myArtifacts/terraform/environments/test/'
+              # workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
               # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
