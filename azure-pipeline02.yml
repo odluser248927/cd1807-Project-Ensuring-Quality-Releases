@@ -305,7 +305,7 @@ stages:
 - stage: Deploy
 # displayName: 'Deploy Web App'
   # dependsOn: Build
-  dependsOn: 'plan'
+  dependsOn: PLAN
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
