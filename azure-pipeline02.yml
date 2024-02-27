@@ -337,7 +337,7 @@ stages:
               command: 'init'
               # commandOptions: 'init'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test/'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
               # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
