@@ -245,7 +245,8 @@ stages:
           **/*.tfvars
           **/*tfplan*
         # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+        # TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+          TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
         
     # Publish Artifacts:-
     - task: PublishBuildArtifacts@1
@@ -375,7 +376,7 @@ stages:
               # workingDirectory: 'output-myArtifacts/'
               # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
               workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
-              commandOptions: '--var-file="terraform.tfvars"'
+              commandOptions: '--var-file="terraform.tfvars" ./mydevopsdeployment03.plan'
               # backendType: 'azurerm'
               backendServiceArm: 'myServiceConnection'
               environmentServiceNameAzureRM: 'myServiceConnection'
