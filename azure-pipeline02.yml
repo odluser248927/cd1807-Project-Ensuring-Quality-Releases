@@ -364,7 +364,7 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
+              workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test'
         
               # ConnectionType: 'AzureRM'
               # azureSubscription: '$(azureServiceConnectionId)'
