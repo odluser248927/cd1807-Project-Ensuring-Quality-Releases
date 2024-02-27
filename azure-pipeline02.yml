@@ -327,8 +327,9 @@ stages:
               downloadType: 'single'
               # artifactName: 'output-myArtifacts'
               artifactname: '$(Artifact)'
-              downloadPath: '$(System.ArtifactDirectory)/'
+              # downloadPath: '$(System.ArtifactDirectory)/'
               # downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+              downloadPath: '$(System.DefaultWorkingDirectory)/terraform/'
 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
             displayName: 'Terrafom installation'
@@ -345,8 +346,8 @@ stages:
               command: 'init'
               # commandOptions: 'init'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/environments/test/'
-              # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+              # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
               # workingDirectory: 'output-myArtifacts/'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               # backendType: azurerm 
@@ -369,9 +370,9 @@ stages:
               command: 'apply'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/environments/test/'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-              # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
               # workingDirectory: 'output-myArtifacts/'
-              workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
+              # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               commandOptions: '--var-file="terraform.tfvars"'
               # backendType: 'azurerm'
