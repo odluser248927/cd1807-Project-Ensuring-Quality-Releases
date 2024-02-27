@@ -245,13 +245,13 @@ stages:
           **/*.tfvars
           **/*tfplan*
         # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
         
     # Publish Artifacts:-
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
         # targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
         # targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         # artifactName: '$(Artifact)'
@@ -328,7 +328,7 @@ stages:
               artifactName: 'output-myArtifacts'
               # artifactname: '$(Artifact)'
               # downloadPath: '$(System.ArtifactDirectory)'
-              downloadPath: '$(Build.ArtifactStagingDirectory)'
+              downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
             displayName: 'Terrafom installation'
@@ -344,7 +344,7 @@ stages:
               provider: 'azurerm'
               command: 'init'
               # commandOptions: 'init'
-              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               # workingDirectory: '$(Build.ArtifactStagingDirectory)/environments/test/'
               # workingDirectory: 'output-myArtifacts/'
@@ -367,7 +367,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
               # workingDirectory: 'output-myArtifacts/'
