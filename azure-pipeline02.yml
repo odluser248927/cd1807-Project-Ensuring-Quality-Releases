@@ -329,14 +329,14 @@ stages:
               artifactname: '$(Artifact)'
               # downloadPath: '$(System.ArtifactDirectory)'
               # downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-              downloadPath: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/'
+              downloadPath: '$(System.DefaultWorkingDirectory)/'
 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
             displayName: 'Terrafom installation'
             inputs:
               #terraformVersion: '1.5.7'
               terraformVersion: 'latest'
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              # workingDirectory: '$(System.DefaultWorkingDirectory)'
 
           - task: TerraformTaskV3@3
           # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
@@ -378,7 +378,7 @@ stages:
               commandOptions: '--var-file="terraform.tfvars"'
               # backendType: 'azurerm'
               backendServiceArm: 'myServiceConnection'
-              # environmentServiceNameAzureRM: 'myServiceConnection'
+              environmentServiceNameAzureRM: 'myServiceConnection'
               # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               backendAzureRmContainerName: 'tfstate'
