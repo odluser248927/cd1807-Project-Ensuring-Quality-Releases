@@ -195,7 +195,7 @@ stages:
       displayName: 'Terrafom plan'
       inputs:
         command: 'plan'
-        commandOptions: '-lock=false -var-file="terraform.tfvars" -out=mydevopsdeployment03.plan'
+        commandOptions: '-lock=false -var-file="terraform.tfvars" -out=./mydevopsdeployment03.plan'
         # commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
         # provider: 'azurerm'
         backendType: 'azurerm'
@@ -236,6 +236,14 @@ stages:
         #resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
         #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
         
+    - task: ArchiveFiles@1
+      displayName: "Archiving from local env to cloud env."
+      inputs:
+        rootFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+        includeRootFolder: true
+        archiveType: 'tar'
+        archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
+        
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
@@ -248,16 +256,16 @@ stages:
         TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
         # TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
 
-    - task: CopyFiles@2
-      displayName: "Deploying IaaC from local env to cloud env."
-      inputs:
-        SourceFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-        Contents: |
-          **/*.tf
-          **/*.tfvars
-          **/*tfplan*
-        # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-        TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
+    # - task: CopyFiles@2
+    #   displayName: "Deploying IaaC from local env to cloud env."
+    #   inputs:
+    #     SourceFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+    #     Contents: |
+    #       **/*.tf
+    #       **/*.tfvars
+    #       **/*tfplan*
+    #     # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
+    #     TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
         
     # Publish Artifacts:-
     - task: PublishBuildArtifacts@1
