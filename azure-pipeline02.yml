@@ -250,7 +250,8 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
+        #targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
+        targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         artifactName: 'output-myArtifacts'
         
     # - task: TerraformTaskV3@3
@@ -294,7 +295,7 @@ stages:
       displayName: "porting to apply stage."
       inputs:
         # PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
+        targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         ArtifactName: 'output-myArtifacts'
         publishLocation: 'Container'
 
@@ -337,7 +338,7 @@ stages:
               command: 'init'
               # commandOptions: 'init'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
@@ -351,13 +352,14 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
 
-          - task: TerraformTaskV2@2
-            #displayName: 'Terrafom apply'
-            displayName: TERRAFORM APPLY
+          - task: TerraformTaskV3@3
+            displayName: 'Terrafom apply'
+            # displayName: TERRAFORM APPLY
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               commandOptions: '--var-file="terraform.tfvars"'
               # backendType: 'azurerm'
