@@ -246,7 +246,7 @@ stages:
           **/*tfplan*
         # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         # TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-          TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
+        TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
         
     # Publish Artifacts:-
     - task: PublishBuildArtifacts@1
