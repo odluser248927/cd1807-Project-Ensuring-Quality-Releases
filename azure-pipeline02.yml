@@ -252,7 +252,8 @@ stages:
       inputs:
         #targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
         targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-        artifactName: 'output-myArtifacts'
+        artifactName: '$(Artifact)'
+        # artifactName: 'output-myArtifacts'
         
     # - task: TerraformTaskV3@3
     #   displayName: 'Terrafom apply'
@@ -292,18 +293,19 @@ stages:
         #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
 
     - task: PublishBuildArtifacts@1
-      displayName: "porting to apply stage."
+      displayName: 'porting to apply stage.'
       inputs:
         # PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-        ArtifactName: 'output-myArtifacts'
+        #ArtifactName: 'output-myArtifacts'
+        ArtifactName: '$(Artifact)'
         publishLocation: 'Container'
 
     ##deploymentStage:
 - stage: Deploy
 # displayName: 'Deploy Web App'
-  dependsOn: Build
-  # dependsOn: PLAN
+  # dependsOn: Build
+  dependsOn: 'plan'
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
@@ -320,7 +322,8 @@ stages:
             inputs:
               buildType: 'current'
               downloadType: 'single'
-              artifactName: 'output-myArtifacts'
+              # artifactName: 'output-myArtifacts'
+              artifactname: '$(Artifact)'
               downloadPath: '$(System.ArtifactDirectory)'
 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
@@ -338,7 +341,7 @@ stages:
               command: 'init'
               # commandOptions: 'init'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: 'myArtifacts/$(Artifact)/terraform/'
+              # workingDirectory: 'myArtifacts/$(Artifact)/terraform/'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
@@ -360,7 +363,8 @@ stages:
               command: 'apply'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-              workingDirectory: 'myArtifacts/$(Artifact)/terraform/'
+              workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
+              # workingDirectory: 'myArtifacts/$(Artifact)/terraform/'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               commandOptions: '--var-file="terraform.tfvars"'
               # backendType: 'azurerm'
