@@ -162,7 +162,7 @@ stages:
         command: 'init'
         # commandOptions: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        # backendType: azurerm 
+        backendType: azurerm 
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
         backendServiceArm: 'myServiceConnection'
@@ -180,7 +180,7 @@ stages:
         # backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         # environmentServiceName: 'myServiceConnection'
-        # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # addSpnToEnvironment: true
 
@@ -239,12 +239,12 @@ stages:
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
         Contents: |
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
+        TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         
     # Publish Artifacts:-
     - task: PublishBuildArtifacts@1
@@ -338,7 +338,7 @@ stages:
               # commandOptions: 'init'
               # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
+              # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
               # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
