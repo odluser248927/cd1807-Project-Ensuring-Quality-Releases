@@ -338,7 +338,7 @@ stages:
       runOnce:
         preDeploy:
           steps:
-            - scripts: |
+            - script: |
                  echo Begin deployment
                  cd /home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform
         deploy:
