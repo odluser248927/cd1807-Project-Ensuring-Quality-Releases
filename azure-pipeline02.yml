@@ -245,7 +245,18 @@ stages:
           **/*.tfvars
           **/*tfplan*
         # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-        # TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+        # TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
+
+    - task: CopyFiles@2
+      displayName: "Deploying IaaC from local env to cloud env."
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+        Contents: |
+          **/*.tf
+          **/*.tfvars
+          **/*tfplan*
+        # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
         
     # Publish Artifacts:-
