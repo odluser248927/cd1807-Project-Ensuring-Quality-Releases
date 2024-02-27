@@ -318,7 +318,7 @@ stages:
             inputs:
               buildType: 'current'
               downloadType: 'single'
-              artifactName: '$(Artifact)'
+              artifactName: 'output-myArtifacts'
               downloadPath: '$(System.ArtifactDirectory)'
 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
