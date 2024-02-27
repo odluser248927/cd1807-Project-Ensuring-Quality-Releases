@@ -253,20 +253,20 @@ stages:
         targetPath: '$(System.ArtifactsDirectory)/terraform/environments/test'
         artifactName: 'output-myArtifacts'
         
-    - task: TerraformTaskV3@3
-      displayName: 'Terrafom apply'
-      inputs:
-        command: 'apply'
-        commandOptions: '-lock=false -var-file="terraform.tfvars" --out="mydevopsdeployment03.plan"'
-        # provider: 'azurerm'
-        backendType: 'azurerm'
-        # backendServiceArm: 'myServiceConnection'
-        environmentServiceNameAzureRM: 'myServiceConnection'
-        #commandOptions: '-lock=false -var-file="terraform.tfvars"'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'terraform.tfstate'
-        #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test'
+    # - task: TerraformTaskV3@3
+    #   displayName: 'Terrafom apply'
+    #   inputs:
+    #     command: 'apply'
+    #     commandOptions: '-lock=false -var-file="terraform.tfvars" --out="mydevopsdeployment03.plan"'
+    #     # provider: 'azurerm'
+    #     backendType: 'azurerm'
+    #     # backendServiceArm: 'myServiceConnection'
+    #     environmentServiceNameAzureRM: 'myServiceConnection'
+    #     #commandOptions: '-lock=false -var-file="terraform.tfvars"'
+    #     backendAzureRmContainerName: 'tfstate'
+    #     backendAzureRmKey: 'terraform.tfstate'
+    #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    #     workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test'
         #environmentServiceNameAzureRM: 'myServiceConnection'
 
     # - task: CopyFiles@2
