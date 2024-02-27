@@ -250,7 +250,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        targetPath: '$(System.ArtifactsDirectory)/terraform/environments/test'
+        targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
         artifactName: 'output-myArtifacts'
         
     # - task: TerraformTaskV3@3
@@ -293,7 +293,8 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: "porting to apply stage."
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        # PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
         ArtifactName: 'output-myArtifacts'
         publishLocation: 'Container'
 
@@ -336,8 +337,8 @@ stages:
               provider: 'azurerm'
               command: 'init'
               # commandOptions: 'init'
-              # workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
-              workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
+              # workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test/'
               # backendType: azurerm 
               # backendServiceArm: '$(azureServiceConnectionId)'
               # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
