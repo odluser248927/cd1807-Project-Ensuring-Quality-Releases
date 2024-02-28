@@ -387,7 +387,8 @@ stages:
               # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
               backendAzureRmStorageAccountName: 'mydevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+              # backendAzureRmKey: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfstate'
 
           - task: TerraformTaskV3@3
             displayName: 'Terrafom apply'
