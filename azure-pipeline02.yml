@@ -325,15 +325,17 @@ stages:
         # publishLocation: 'Container'
 
     ##deploymentStage:
-- stage: Deploy
-# displayName: 'Deploy Web App'
+- stage: Deployment
+  displayName: 'Deploy Web App'
   dependsOn: Build
   # dependsOn: PLAN
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
     pool: myAgentPool
-    environment: '$(environmentName)'
+    environment:
+      name: '$(environmentName)'
+      resourceType: VirtualMachine
     strategy:
       runOnce:
         # preDeploy:
