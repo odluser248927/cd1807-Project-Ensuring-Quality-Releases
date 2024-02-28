@@ -336,11 +336,11 @@ stages:
     environment: '$(environmentName)'
     strategy:
       runOnce:
-        preDeploy:
-          steps:
-            - script: |
-                 echo Begin deployment
-                 cd /home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform
+        # preDeploy:
+        #   steps:
+        #     - script: |
+        #          echo Begin deployment
+        #          cd /home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform
         deploy:
           steps:
           # - task: AzureWebApp@1
