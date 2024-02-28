@@ -9,9 +9,9 @@ provider "azurerm" {
   features {}
 }
 
-terraform {
-  backend "local" {}
-}
+# terraform {
+#   backend "local" {}
+# }
 
 # terraform {
 #   backend "azurerm" {
