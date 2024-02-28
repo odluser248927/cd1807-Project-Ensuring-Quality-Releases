@@ -323,25 +323,6 @@ stages:
     #     ArtifactName: 'output-myArtifacts'
         # ArtifactName: '$(Artifact)'
         # publishLocation: 'Container'
-
-# - task: TerraformCLI@0
-    # # - task: TerraformTaskV3@3
-    #   displayName: 'Terraform import'
-    #   inputs:
-    #     command: 'import'
-    #     commandOptions: '-lock=false -var-file="terraform.tfvars"'
-    #     #backendType: 'azurerm'
-    #     backendAzureRmContainerName: 'tfstate'
-    #     backendAzureRmKey: 'terraform.tfstate'
-    #     environmentServiceNameAzureRM: 'myServiceConnection'
-    # #     addSpnToEnvironment: true
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-    #     resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
-    #     resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
-#        resourceAddress: 'module.networksecuritygroup.azurerm_network_security_group.Azuredevops'
-#        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
-        #resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
-        #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
         
     ##deploymentStage:
 - stage: Deploy
@@ -383,7 +364,26 @@ stages:
               # downloadPath: '$(System.DefaultWorkingDirectory)/'
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
               downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
-          
+              
+          # - task: TerraformCLI@0
+          - task: TerraformTaskV3@3
+            displayName: 'Terraform import'
+            inputs:
+              command: 'import'
+              commandOptions: '-lock=false -var-file="terraform.tfvars"'
+              #backendType: 'azurerm'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+              environmentServiceNameAzureRM: 'myServiceConnection'
+              #addSpnToEnvironment: true
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
+              resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
+     #        resourceAddress: 'module.networksecuritygroup.azurerm_network_security_group.Azuredevops'
+     #        resourceId:     '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
+             #resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
+             #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
+        
           - task: TerraformTaskV3@3
           # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
             displayName: init
