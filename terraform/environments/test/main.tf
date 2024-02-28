@@ -9,6 +9,10 @@ provider "azurerm" {
   features {}
 }
 
+terraform {
+  backend "local" {}
+}
+
 # terraform {
 #   backend "azurerm" {
 #     storage_account_name = "myazuredevopsdemoblob"
