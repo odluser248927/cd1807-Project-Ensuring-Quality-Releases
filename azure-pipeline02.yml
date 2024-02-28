@@ -324,6 +324,25 @@ stages:
         # ArtifactName: '$(Artifact)'
         # publishLocation: 'Container'
 
+# - task: TerraformCLI@0
+    # # - task: TerraformTaskV3@3
+    #   displayName: 'Terraform import'
+    #   inputs:
+    #     command: 'import'
+    #     commandOptions: '-lock=false -var-file="terraform.tfvars"'
+    #     #backendType: 'azurerm'
+    #     backendAzureRmContainerName: 'tfstate'
+    #     backendAzureRmKey: 'terraform.tfstate'
+    #     environmentServiceNameAzureRM: 'myServiceConnection'
+    # #     addSpnToEnvironment: true
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    #     resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
+    #     resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
+#        resourceAddress: 'module.networksecuritygroup.azurerm_network_security_group.Azuredevops'
+#        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
+        #resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
+        #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
+        
     ##deploymentStage:
 - stage: Deploy
 # displayName: 'Deploy Web App'
@@ -335,6 +354,7 @@ stages:
     pool: myAgentPool
     environment: '$(environmentName)'
     strategy:
+      
       runOnce:
         # preDeploy:
         #   steps:
@@ -357,6 +377,7 @@ stages:
               downloadType: 'single'
               # artifactName: 'output-myArtifacts'
               artifactname: '$(Artifact)'
+              addSpnToEnvironment: true
               # downloadPath: '$(System.ArtifactDirectory)'
               # downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
               # downloadPath: '$(System.DefaultWorkingDirectory)/'
@@ -382,13 +403,14 @@ stages:
               # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
               backendServiceArm: 'myServiceConnection'
               # backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
-              backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
+              # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
               backendAzureRmResourceGroupName: 'Azuredevops'
               # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
               backendAzureRmStorageAccountName: 'mydevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
               # backendAzureRmKey: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfstate'
+              addSpnToEnvironment: true
 
           - task: TerraformTaskV3@3
             displayName: 'Terrafom apply'
