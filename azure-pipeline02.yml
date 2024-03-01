@@ -189,8 +189,9 @@ stages:
     - task: TerraformTaskV3@3
       displayName: 'Terrafom validate'
       inputs:
-        #provider: 'azurerm'
+        provider: 'azurerm'
         command: 'validate'
+        commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
     
     - task: TerraformTaskV3@3
       displayName: 'Terrafom plan'
