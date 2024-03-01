@@ -189,14 +189,15 @@ stages:
     - task: TerraformTaskV3@3
       displayName: 'Terrafom validate'
       inputs:
+        #provider: 'azurerm'
         command: 'validate'
     
     - task: TerraformTaskV3@3
       displayName: 'Terrafom plan'
       inputs:
         command: 'plan'
-        commandOptions: '-lock=false -var-file="terraform.tfvars" -out=./mydevopsdeployment03.plan'
-        # commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
+        # commandOptions: '-lock=false -var-file="terraform.tfvars" -out=./mydevopsdeployment03.plan'
+        commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
         # provider: 'azurerm'
         backendType: 'azurerm'
         # backendServiceArm: 'myServiceConnection'
