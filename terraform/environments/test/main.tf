@@ -10,7 +10,7 @@ provider "azurerm" {
 }
 
 import {
-  id = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
+  id = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet"
   to = module.network.azurerm_virtual_network.Azuredevops
 }
 
