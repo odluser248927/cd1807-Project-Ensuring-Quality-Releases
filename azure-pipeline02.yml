@@ -416,14 +416,15 @@ stages:
               # backendAzureRmKey: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfstate'
               #addSpnToEnvironment: true
 
-          - task: AzureCLI@2
-            continueOnError: true
-            inputs:
-              addSpnToEnvironment: true
-              scriptLocation: inlineScript
+          # - task: AzureCLI@2
+          #   continueOnError: true
+          #   inputs:
+          #     addSpnToEnvironment: true
+          #     scriptLocation: inlineScript
               # az deployment group create ... --parameters SPId=$env:servicePrincipalId
 
           - task: TerraformTaskV3@3
+            continueOnError: true
             displayName: 'Terrafom apply'
             # displayName: TERRAFORM APPLY
             inputs:
