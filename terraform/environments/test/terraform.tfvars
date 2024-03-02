@@ -29,4 +29,4 @@ address_prefixes = ["10.0.0.0/16"]
 # resource_group = "Azuredevops"
 resource_group = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
 # subnet_id  = "default"
-subnet_id = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsvm-vnet/subnets/default"
+subnet_id = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet/subnets/default"
