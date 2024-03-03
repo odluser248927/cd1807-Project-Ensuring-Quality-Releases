@@ -424,7 +424,7 @@ stages:
               # az deployment group create ... --parameters SPId=$env:servicePrincipalId
 
           - task: TerraformTaskV3@3
-            continueOnError: true
+            # continueOnError: true
             displayName: 'Terrafom apply'
             # displayName: TERRAFORM APPLY
             inputs:
