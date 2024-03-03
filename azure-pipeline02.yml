@@ -422,7 +422,16 @@ stages:
           #     addSpnToEnvironment: true
           #     scriptLocation: inlineScript
               # az deployment group create ... --parameters SPId=$env:servicePrincipalId
-
+          - task: TerraformTaskV3@3
+            # continueOnError: true
+            displayName: 'Terrafom plan'          
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+              environmentServiceNameAzureRM: 'myServiceConnection'
+              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+          
           - task: TerraformTaskV3@3
             # continueOnError: true
             displayName: 'Terrafom apply'
@@ -438,9 +447,9 @@ stages:
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
               # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
-              commandOptions: '-var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+              commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               # backendType: 'azurerm'
-              backendServiceArm: 'myServiceConnection'
+              # backendServiceArm: 'myServiceConnection'
               environmentServiceNameAzureRM: 'myServiceConnection'
               # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
