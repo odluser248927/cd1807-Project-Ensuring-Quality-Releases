@@ -3,7 +3,7 @@ provider "azurerm" {
   subscription_id = "${var.subscription_id}"
   client_id       = "${var.client_id}"
   client_secret   = "${var.client_secret}"
-  skip_provider_registration = "true"
+  # skip_provider_registration = "true"
   # version     = ">= 2.61.0"
   # version = ">=1.5.7"
   features {}
@@ -28,19 +28,19 @@ provider "azurerm" {
 #   backend "local" {}
 # }
 
-terraform {
-  backend "azurerm" {
-    storage_account_name = "myazuredevopsdemoblob"
-    #resource_group       = "${var.resource_group}"
-    resource_group       = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
-    #container_name       = "terraform.tfstate"
-    container_name       = "tfstate"
-    #key                  = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
-    key                  = "terraform.tfstate"
-    tenant_id            = "6b6c018c-f2e6-48d8-b64f-4cd02807e329"
-    access_key           = "SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=="
-  }
-}
+# terraform {
+#   backend "azurerm" {
+#     storage_account_name = "myazuredevopsdemoblob"
+#     #resource_group       = "${var.resource_group}"
+#     resource_group       = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
+#     #container_name       = "terraform.tfstate"
+#     container_name       = "tfstate"
+#     #key                  = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
+#     key                  = "terraform.tfstate"
+#     tenant_id            = "6b6c018c-f2e6-48d8-b64f-4cd02807e329"
+#     access_key           = "SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=="
+#   }
+# }
 
 # terraform {
 #  backend "azurerm" {
