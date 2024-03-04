@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "Azuredevops" {
   name     = "Azuredevops"
   location = "${var.location}"
-  #resource_group = "/subscriptions/373225e3-4428-4fd7-bd11-c0f187aa1371/resourceGroups/Azuredevops"
+  #resource_group = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
 }
 

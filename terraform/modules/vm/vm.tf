@@ -16,11 +16,11 @@ resource "azurerm_linux_virtual_machine" "Azuredevops" {
   location            = "eastus"
   resource_group_name = "Azuredevops"
   size                = "Standard_B1s"
-  admin_username      = "devopsagent"
-  address_prefixes    = "10.0.1.0/24"
+  admin_username      = "mydevopsagent"
+  address_prefixes    = "10.0.0.0/16"
   network_interface_ids = []
   admin_ssh_key {
-    username   = "devopsagent"
+    username   = "mydevopsagent"
     public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBglURo0vKhST04npxGHTcmY+5JPYJCVBq0IuQs5HpgI1REDQ/pnUL9zwWZbYTZfF8WZv5i8BC6TU+004JFcNBBEdVzv3L1xcgYGps0euKDYLIpKfdrPN/1KYU2CHLhvQC/ZBvZ9TKXDYTJMXbUl6UzFcLHuMfBKNfjPWqtwsxPM5fjXwm3HAq4j4gHa3w3TChCnS4U+T0r17P1JrBKtw2HYy6hNMyAAIx+CWBbgHh9616/6MAwfTjEZ8p2pz/rAexORGtoZNCcFigL250Ch7+hpl6mYXbg2wLXsdSPf9ffynLwxZamhUqFg9J4OcwiHMeAvvv1LU4pxAdPzoplhqFxSPhiT1vMTF+CXezRMD8IyJNwtbVL++8MBSNKWrG/J+xdzMzNcJmUzugQcC0MZCx/1IVX9WMTupPfdIuyMvBI/7DzhNSfKQk3quU7WQoxs9AZl1Bheb+Aft9EQNNydaLvRKqde7ElstzR+tLUPwinFfP2n+I8/UCvKLHAbTQ9YM= odluser248927@gmail.com"
   }
   os_disk {
