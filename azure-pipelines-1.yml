@@ -1,11 +1,22 @@
 trigger:
 - main
 
+# env:
+#   AZURE_WEBAPP_NAME: "cicd-test"
+#   AZURE_WEBAPP_PACKAGE_PATH: "build"
+#   NODE_VERSION: '16.16.0'
+#   RESOURCEGROUPNAME: "Azuredevops"
+#   LOCATION: "eastus"
+#   HOSTINGPLANNAME: "Azure subscription 1"
+#   APPINSIGHTLOCATION: "eastus"
+#   SKU: "S1 standard"
+
+
 variables:
   azureServiceConnectionId: 'myServiceConnection'
   webAppName: 'mywebapp248927'
   vmImageName: 'ubuntu-latest'
-  environmentName: 'mydevopsvm'
+  environmentName: 'mydevopsagentvm'
   projectRoot: $(System.DefaultWorkingDirectory)
   pythonVersion: '3.9'
 
@@ -44,6 +55,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+#    - uses: actions/checkout@2
     - script: |
         python -m venv antenv
         source antenv/bin/activate
