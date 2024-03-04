@@ -445,6 +445,7 @@ stages:
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
+              addSpnToEnvironment: true 
               # backendAzureRmKey: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfstate'
               #addSpnToEnvironment: true
 
@@ -480,9 +481,11 @@ stages:
               # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
               commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
-              # backendType: 'azurerm'
-              # backendServiceArm: 'myServiceConnection'
+              backendType: 'azurerm'
+              backendServiceArm: 'myServiceConnection'
               environmentServiceNameAzureRM: 'myServiceConnection'
+              addSpnToEnvironment: true
+              OverWrite: true
               # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               # backendAzureRmContainerName: 'tfstate'
@@ -496,8 +499,8 @@ stages:
               # appName: 'myAzWebapp248927'
               # appType: 'webApp'
               # WebAppName: 'myAzWebapp248927'
-              # package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              # SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              # package: '$(Pipeline.Workspace)/$(Artifact)/$(Build.BuildId).zip'
+              # SourceFolder: '$(Pipeline.Workspace)/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
               # Contents: '**'
               # TargetFolder: '$(Agent.TempDirectory)'
               #OverWrite: true
