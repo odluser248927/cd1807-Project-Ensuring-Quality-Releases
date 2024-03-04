@@ -336,7 +336,8 @@ stages:
   jobs:
   - deployment: DeploymentJob
     pool: myAgentPool
-    environment: '$(environmentName)'
+    # environment: '$(environmentName)'
+    environment: 'mydevopsagentvm'
     strategy:
       
       runOnce:
