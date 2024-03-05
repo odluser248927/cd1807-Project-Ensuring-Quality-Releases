@@ -9,15 +9,15 @@ provider "azurerm" {
   features {}
 }
 
-import {
-  id = "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default"
-  to = module.network.azurerm_virtual_network.Azuredevops
- }
+# import {
+#   id = "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default"
+#   to = module.network.azurerm_virtual_network.Azuredevops
+#  }
 
-import {
-  id = "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
-  to = module.resource_group.azurerm_resource_group.Azuredevops
-}
+# import {
+#   id = "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
+#   to = module.resource_group.azurerm_resource_group.Azuredevops
+# }
 
  # import {
  #   id = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg"
