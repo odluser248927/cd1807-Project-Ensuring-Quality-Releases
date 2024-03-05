@@ -31,7 +31,7 @@ provider "azurerm" {
 terraform {
   backend "azurerm" {
     storage_account_name = "myazuredevopsdemoblob"
-    #resource_group       = "${var.resource_group}"
+    resource_group       = "${var.resource_group}"
     #resource_group       = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
     #container_name       = "terraform.tfstate"
     container_name       = "tfstate"
