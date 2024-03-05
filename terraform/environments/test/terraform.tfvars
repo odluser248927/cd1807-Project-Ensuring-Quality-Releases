@@ -6,8 +6,8 @@ subscription_id = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
 # client_id = "18764fa3-e8bc-44ec-865c-0297cfe2d38d"
 # client_id = "a3772693-b071-4d86-82a1-636c52594183"
 #
-# client_id = "1d36b4d2-d387-4d57-9003-6d20dc9b0a31"
-client_id = "281325c8-9077-4dc8-9441-d6ab961ca49c"
+client_id = "1d36b4d2-d387-4d57-9003-6d20dc9b0a31"
+# client_id = "281325c8-9077-4dc8-9441-d6ab961ca49c"
 #client_id = "cb725380-0ace-452a-8a6f-4a8419eceb70"
 
 # client_secret = "4VK8Q~KrO~3uigRbNaualeVCj~MrCjUtm-67lbF1"
