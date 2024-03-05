@@ -21,10 +21,10 @@ provider "azurerm" {
 #   to = module.resource_group.azurerm_resource_group.Azuredevops
 # }
 
- import {
-   id = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg"
-   to = module.network.azurerm_network_security_group.Azuredevops
- }
+ # import {
+ #   id = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg"
+ #   to = module.network.azurerm_network_security_group.Azuredevops
+ # }
  
 # terraform {
 #   backend "local" {}
