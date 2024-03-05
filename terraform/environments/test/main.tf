@@ -36,7 +36,7 @@ terraform {
     #resource_group       = "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops"
     #container_name       = "terraform.tfstate"
     container_name       = "tfstate"
-    subscription_id      = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
+    key      = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
     # key                  = "terraform.tfstate"
     tenant_id            = "6b6c018c-f2e6-48d8-b64f-4cd02807e329"
     access_key           = "SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=="
