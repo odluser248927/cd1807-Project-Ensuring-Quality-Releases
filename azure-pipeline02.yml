@@ -332,7 +332,9 @@ stages:
 # displayName: 'Deploy Web App'
   # dependsOn: Build
   # dependsOn: PLAN
-  condition: succeeded()
+  # condition: succeeded()
+  dependsOn: [terraform_plan]
+  condition: succeeded('terraform_plan')  
   jobs:
   - deployment: DeploymentJob
     pool: myAgentPool
@@ -462,7 +464,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars" -out=./tf.plan'
+              commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars" -out=tf.plan'
               environmentServiceNameAzureRM: 'myServiceConnection'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
           
