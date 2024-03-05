@@ -331,10 +331,10 @@ stages:
 - stage: Deploy
 # displayName: 'Deploy Web App'
   # dependsOn: Build
-  # dependsOn: PLAN
-  # condition: succeeded()
-  dependsOn: [terraform_plan]
-  condition: succeeded('terraform_plan')  
+  dependsOn: PLAN
+  condition: succeeded()
+  # dependsOn: [terraform_plan]
+  # condition: succeeded('terraform_plan')  
   jobs:
   - deployment: DeploymentJob
     pool: myAgentPool
