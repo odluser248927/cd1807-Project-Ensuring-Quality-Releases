@@ -370,6 +370,25 @@ stages:
               # downloadPath: '$(System.DefaultWorkingDirectory)/'
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
               downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
+
+          - task: AzureCLI@1
+            displayName: Terraform init
+            inputs:
+              azureSubscription: $(scConn)
+              scriptLocation: inlineScript
+              inlineScript: |
+                set -eux  # fail on error
+                terraform init \
+                  -backend-config=storage_account_name=$(storageAccountName) \
+                  -backend-config=container_name=$(container_name) \
+                  -backend-config=key=$(key)/terraform.tfstate \
+                  #-backend-config=sas_token=$(artifactsLocationSasToken) \
+                  -backend-config=subscription_id="$(ARM_SUBSCRIPTION_ID)" \
+                  -backend-config=tenant_id="$(ARM_TENANT_ID)" \
+                  -backend-config=client_id="$(ARM_CLIENT_ID)" \
+                  -backend-config=client_secret="$(ARM_CLIENT_SECRET)" 
+              addSpnToEnvironment: true
+              workingDirectory: "/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/modules/"
               
           # - task: TerraformCLI@0
           # - task: TerraformTaskV3@3
