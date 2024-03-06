@@ -427,7 +427,8 @@ stages:
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
-              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              # workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
               scriptLocation: inlineScript
               inlineScript: |
                 #set -eux  # fail on error                
