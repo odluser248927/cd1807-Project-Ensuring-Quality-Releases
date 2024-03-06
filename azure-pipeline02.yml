@@ -371,25 +371,7 @@ stages:
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
               downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
 
-          - task: AzureCLI@1
-            displayName: Terraform check 
-            inputs:
-              azureSubscription: "myServiceConnection"
-              scriptLocation: inlineScript
-              inlineScript: |
-                #set -eux  # fail on error
-                terraform init \
-                  -backend-config=storage_account_name="myazuredevopsdemoblob" \
-                  -backend-config=container_name="tfstate" \
-                  #-backend-config=key=$(key)/terraform.tfstate \
-                  #-backend-config=sas_token=$(artifactsLocationSasToken) \
-                  #-backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
-                  #-backend-config=tenant_id="6b6c018c-f2e6-48d8-b64f-4cd02807e329" \
-                  #-backend-config=client_id="1d36b4d2-d387-4d57-9003-6d20dc9b0a31" \
-                  #-backend-config=client_secret="BUY8Q~RhjLfBjR88LFqzH0K76vHCJ7dtFDQmHa9M" 
-              addSpnToEnvironment: true
-              workingDirectory: "/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/modules/"
-              
+             
           # - task: TerraformCLI@0
           # - task: TerraformTaskV3@3
           #   displayName: 'Terraform import'
@@ -441,7 +423,27 @@ stages:
           #    ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
           #    ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
           #    ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
-             
+          - task: AzureCLI@1
+            displayName: Terraform check 
+            inputs:
+              azureSubscription: "myServiceConnection"
+              scriptLocation: inlineScript
+              inlineScript: |
+                #set -eux  # fail on error
+                workingDirectory: "/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/"
+                terraform init \
+                  -backend-config=storage_account_name="myazuredevopsdemoblob" \
+                  -backend-config=container_name="tfstate" \
+                  #-backend-config=key=$(key)/terraform.tfstate \
+                  #-backend-config=sas_token=$(artifactsLocationSasToken) \
+                  #-backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
+                  #-backend-config=tenant_id="6b6c018c-f2e6-48d8-b64f-4cd02807e329" \
+                  #-backend-config=client_id="1d36b4d2-d387-4d57-9003-6d20dc9b0a31" \
+                  #-backend-config=client_secret="BUY8Q~RhjLfBjR88LFqzH0K76vHCJ7dtFDQmHa9M" 
+              addSpnToEnvironment: true
+            
+
+              
           - task: TerraformTaskV3@3
           # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
             displayName: init
