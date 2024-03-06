@@ -427,10 +427,10 @@ stages:
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
+              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
               scriptLocation: inlineScript
               inlineScript: |
-                #set -eux  # fail on error
-                workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+                #set -eux  # fail on error                
                 terraform init \
                   -backend-config=storage_account_name="myazuredevopsdemoblob" \
                   -backend-config=container_name="tfstate" \
