@@ -374,7 +374,7 @@ stages:
           - task: AzureCLI@1
             displayName: Terraform init
             inputs:
-              azureSubscription: "Azure subscription 1"
+              azureSubscription: "myServiceConnection"
               scriptLocation: inlineScript
               inlineScript: |
                 set -eux  # fail on error
