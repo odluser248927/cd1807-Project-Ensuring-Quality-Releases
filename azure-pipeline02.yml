@@ -372,7 +372,7 @@ stages:
               downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
 
           - task: AzureCLI@1
-            displayName: Terraform init
+            displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
               scriptLocation: inlineScript
@@ -381,7 +381,7 @@ stages:
                 terraform init \
                   -backend-config=storage_account_name= "myazuredevopsdemoblob" \
                   -backend-config=container_name= "tfstate" \
-                  -backend-config=key=$(key)/terraform.tfstate \
+                  #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
                   -backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
                   -backend-config=tenant_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
