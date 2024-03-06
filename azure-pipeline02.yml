@@ -39,21 +39,6 @@ stages:
     #     dockefile: $(Build.SourceDirectory)
         # containerRegistry: 'Container Registry Connection'
         
-    # - script: |
-    #     # Get Azure account details
-    #     echo "==> Setting Subscription environment variables"
-    #     if [[ ! -z "${servicePrincipalId:-}" ]]; then
-    #       SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
-    #       TENANT_ID=$(az account show --query 'tenantId' --output tsv)
-    #       CLIENT_ID=${servicePrincipalId:-}
-    #       CLIENT_SECRET=${servicePrincipalKey:-}
-    #     else
-    #       SUBSCRIPTION_ID="64b5de4c-738a-488c-9d2c-0a702a6d086a"
-    #       TENANT_ID="6b6c018c-f2e6-48d8-b64f-4cd02807e329"
-    #       CLIENT_ID="ae725b36-42c2-45c0-9ba0-6048b7e9be83"
-    #       CLIENT_SECRET="Uab8Q~bUxolUL~wPY_4YP1-n9WO1BjXnRftLqcXZ"
-    #     fi
-
     #     # Define environment variables
     #     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
     #       ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
@@ -70,27 +55,7 @@ stages:
     #   # workingDirectory: $(projectRoot)
     #   displayName: "Install requirements"
 
-    - task: CmdLine@2
-      continueOnError: true
-      displayName: "Run commands"
-      inputs:
-        script: |           
-          #export PATH=$HOME/.local/bin:$PATH
-          #make install
-          # Get Azure account details
-          echo "==> Setting Subscription environment variables"
-          if [[ ! -z "${servicePrincipalId:-}" ]]; then
-            SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
-            TENANT_ID=$(az account show --query 'tenantId' --output tsv)
-            CLIENT_ID=${servicePrincipalId:-}
-            CLIENT_SECRET=${servicePrincipalKey:-}
-          else
-            SUBSCRIPTION_ID="64b5de4c-738a-488c-9d2c-0a702a6d086a"
-            TENANT_ID="6b6c018c-f2e6-48d8-b64f-4cd02807e329"
-            CLIENT_ID="ae725b36-42c2-45c0-9ba0-6048b7e9be83"
-            CLIENT_SECRET="Uab8Q~bUxolUL~wPY_4YP1-n9WO1BjXnRftLqcXZ"
-          fi
-
+    
           # Define environment variables
           # export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
           #   ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
@@ -166,8 +131,6 @@ stages:
         # backendServiceArm: '$(azureServiceConnectionId)'
         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
         backendServiceArm: 'myServiceConnection'
-        # backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
-        # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         backendAzureRmResourceGroupName: 'Azuredevops'
         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
@@ -215,8 +178,7 @@ stages:
         backendAzureRmKey: 'terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-        # commandOptions: '-auto-approve'
-        # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+        # commandOptions: '-auto-approve'        
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # allowTelemetryCollection: false
 
@@ -371,27 +333,6 @@ stages:
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
               downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
 
-             
-          # - task: TerraformCLI@0
-          # - task: TerraformTaskV3@3
-          #   displayName: 'Terraform import'
-          #   inputs:
-          #     command: 'import'
-          #     commandOptions: '-lock=false -var-file="terraform.tfvars"'
-          #     #backendType: 'azurerm'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     backendAzureRmKey: 'terraform.tfstate'
-          #     environmentServiceNameAzureRM: 'myServiceConnection'
-          #     #addSpnToEnvironment: true
-          #     # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
-          #     resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
-          #     resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
-     #        resourceAddress: 'module.networksecuritygroup.azurerm_network_security_group.Azuredevops'
-     #        resourceId:     '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
-             #resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
-             #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
-
           # - task: TerraformTaskV3@3
           #   displayName: init
           #   inputs:
@@ -404,20 +345,7 @@ stages:
           #     backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
          
-          #  # Get Azure account details
-          #  echo "==> Setting Subscription environment variables"
-          #  if [[ ! -z "${servicePrincipalId:-}" ]]; then
-          #    SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
-          #    TENANT_ID=$(az account show --query 'tenantId' --output tsv)
-          #    CLIENT_ID=${servicePrincipalId:-}
-          #    CLIENT_SECRET=${servicePrincipalKey:-}
-          #  else
-          #    SUBSCRIPTION_ID=64b5de4c-738a-488c-9d2c-0a702a6d086a
-          #    TENANT_ID=6b6c018c-f2e6-48d8-b64f-4cd02807e329
-          #    CLIENT_ID=cb725380-0ace-452a-8a6f-4a8419eceb70
-          #    CLIENT_SECRET=.z.8Q~zJv3oYw5zYcJI2Fq0qZgtXEZz3hgUrxaOT
-          #  fi
-
+          
           #  # Define environment variables
           #  export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
           #    ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
@@ -437,10 +365,7 @@ stages:
                   -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
-                  #-backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
-                  #-backend-config=tenant_id="6b6c018c-f2e6-48d8-b64f-4cd02807e329" \
-                  #-backend-config=client_id="1d36b4d2-d387-4d57-9003-6d20dc9b0a31" \
-                  #-backend-config=client_secret="BUY8Q~RhjLfBjR88LFqzH0K76vHCJ7dtFDQmHa9M" 
+                  
               addSpnToEnvironment: true
             
 
@@ -463,10 +388,7 @@ stages:
       #         # backendServiceArm: '$(azureServiceConnectionId)'
       #         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
       #         backendServiceArm: 'myServiceConnection'
-      #         # backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
-      #         # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
       #         backendAzureRmResourceGroupName: 'Azuredevops'
-      #         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
       #         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
       #         backendAzureRmContainerName: 'tfstate'
       #         backendAzureRmKey: 'terraform.tfstate'
@@ -487,11 +409,6 @@ stages:
           #         -backend-config=container_name="tfstate" \
           #         #-backend-config=key=$(key)/terraform.tfstate \
           #         #-backend-config=sas_token=$(artifactsLocationSasToken) \
-          #         #-backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
-          #         #-backend-config=tenant_id="6b6c018c-f2e6-48d8-b64f-4cd02807e329" \
-          #         #-backend-config=client_id="1d36b4d2-d387-4d57-9003-6d20dc9b0a31" \
-          #         #-backend-config=client_secret="BUY8Q~RhjLfBjR88LFqzH0K76vHCJ7dtFDQmHa9M" 
-          #     addSpnToEnvironment: true    
 
           # - task: AzureCLI@2
           #   continueOnError: true
@@ -531,7 +448,6 @@ stages:
               environmentServiceNameAzureRM: 'myServiceConnection'
               addSpnToEnvironment: true
               OverWrite: true
-              # commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               # backendAzureRmContainerName: 'tfstate'
               # backendAzureRmKey: 'terraform.tfstate'
