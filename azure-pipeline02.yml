@@ -423,7 +423,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars" -out=tfplan'
+              commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               environmentServiceNameAzureRM: 'myServiceConnection'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
           
@@ -442,7 +442,7 @@ stages:
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
               # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
-              commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars" tfplan'
+              commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
               backendServiceArm: 'myServiceConnection'
               environmentServiceNameAzureRM: 'myServiceConnection'
