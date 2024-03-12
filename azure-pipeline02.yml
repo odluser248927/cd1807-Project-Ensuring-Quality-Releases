@@ -353,7 +353,7 @@ stages:
                 -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
-                addSpnToEnvironment: true
+                  addSpnToEnvironment: true
 
           - task: TerraformTaskV3@3
             displayName: init
