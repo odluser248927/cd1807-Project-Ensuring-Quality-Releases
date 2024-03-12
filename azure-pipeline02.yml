@@ -361,10 +361,9 @@ stages:
               workingDirectory: '/home/devopsagent/myagent/_work/'
               scriptLocation: inlineScript
               inlineScript: |
-                #set -eux  # fail on error                
                 terraform init -reconfigure \
-                  -backend-config=storage_account_name="myazuredevopsdemoblob" \
-                  -backend-config=container_name="tfstate" \
+                -backend-config=storage_account_name="myazuredevopsdemoblob" \
+                -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
                   
