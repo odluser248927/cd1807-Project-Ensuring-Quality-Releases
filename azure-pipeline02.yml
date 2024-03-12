@@ -349,11 +349,12 @@ stages:
               scriptLocation: inlineScript
               inlineScript: |
                 terraform init \
+                addSpnToEnvironment: true \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
-                  addSpnToEnvironment: true
+                  
 
           - task: TerraformTaskV3@3
             displayName: init
