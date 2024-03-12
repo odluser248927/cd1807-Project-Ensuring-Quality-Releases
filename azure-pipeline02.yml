@@ -331,7 +331,8 @@ stages:
               # downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
               # downloadPath: '$(System.DefaultWorkingDirectory)/'
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
-              downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
+              # downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
+              downloadPath: '/home/devopsagent/myagent/_work/_temp/'
 
           # - task: TerraformTaskV3@3
           #   displayName: init
@@ -360,7 +361,7 @@ stages:
               scriptLocation: inlineScript
               inlineScript: |
                 #set -eux  # fail on error                
-                terraform init -reconfigure \
+                terraform init -migrate-state \
                   -backend-config=storage_account_name="myazuredevopsdemoblob" \
                   -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
