@@ -353,7 +353,7 @@ stages:
                 -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
-              # addSpnToEnvironment: true
+                addSpnToEnvironment: true
 
           - task: TerraformTaskV3@3
             displayName: init
@@ -364,7 +364,7 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              commandOptions: '-reconfigure'
+              #commandOptions: '-reconfigure'
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
