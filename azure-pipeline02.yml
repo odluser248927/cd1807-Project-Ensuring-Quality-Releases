@@ -440,14 +440,15 @@ stages:
               # workingDirectory: 'output-myArtifacts/'
               # workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              addSpnToEnvironment: true
               # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
               commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
-              backendServiceArm: 'myServiceConnection'
+              # backendServiceArm: 'myServiceConnection'
               environmentServiceNameAzureRM: 'myServiceConnection'
               addSpnToEnvironment: true
-              # OverWrite: true
+              OverWrite: true
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               # backendAzureRmContainerName: 'tfstate'
               # backendAzureRmKey: 'terraform.tfstate'
