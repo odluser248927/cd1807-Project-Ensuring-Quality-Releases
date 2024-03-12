@@ -332,7 +332,7 @@ stages:
               # downloadPath: '$(System.DefaultWorkingDirectory)/'
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
               # downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
-              downloadPath: '/home/devopsagent/myagent/_work/_temp/'
+              downloadPath: '/home/devopsagent/myagent/_work/'
 
           # - task: TerraformTaskV3@3
           #   displayName: init
@@ -356,18 +356,19 @@ stages:
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
-              rootDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              #rootDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
+              workingDirectory: '/home/devopsagent/myagent/_work/'
               scriptLocation: inlineScript
               inlineScript: |
                 #set -eux  # fail on error                
-                terraform init -migrate-state \
+                terraform init -reconfigure \
                   -backend-config=storage_account_name="myazuredevopsdemoblob" \
                   -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
                   
-              addSpnToEnvironment: true
+              # addSpnToEnvironment: true
             
 
               
@@ -427,6 +428,7 @@ stages:
               commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               environmentServiceNameAzureRM: 'myServiceConnection'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_temp/'
           
           - task: TerraformTaskV3@3
             # continueOnError: true
