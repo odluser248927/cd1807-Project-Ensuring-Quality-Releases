@@ -344,17 +344,16 @@ stages:
             inputs:
               azureSubscription: "myServiceConnection"
               #rootDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-              #AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
-              # workingDirectory: '/home/devopsagent/myagent/_work/'
+              AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
+              #workingDirectory: '/home/devopsagent/myagent/_work/'
               scriptLocation: inlineScript
               inlineScript: |
                 terraform init \
-                # addSpnToEnvironment: true \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
-                  
+              # addSpnToEnvironment: true
 
           - task: TerraformTaskV3@3
             displayName: init
@@ -365,7 +364,7 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              #commandOptions: '-reconfigure'
+              commandOptions: '-reconfigure'
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
