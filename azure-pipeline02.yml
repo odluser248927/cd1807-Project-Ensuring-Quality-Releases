@@ -348,7 +348,7 @@ stages:
               workingDirectory: '/home/devopsagent/myagent/_work/'
               scriptLocation: inlineScript
               inlineScript: |
-                terraform import azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/myazuredevopsdemoblob \
+                terraform import "var.resource_group=Azuredevops" \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
