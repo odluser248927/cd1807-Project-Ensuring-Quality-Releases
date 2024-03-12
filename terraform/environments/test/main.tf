@@ -3,7 +3,7 @@ provider "azurerm" {
   # subscription_id = "${var.subscription_id}"
   client_id       = "${var.client_id}"
   client_secret   = "${var.client_secret}"
-  # subscription_id      = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
+  subscription_id      = "64b5de4c-738a-488c-9d2c-0a702a6d086a"
   # tenant_id            = "6b6c018c-f2e6-48d8-b64f-4cd02807e329"
   skip_provider_registration = "true"
   # version     = ">= 2.61.0"
