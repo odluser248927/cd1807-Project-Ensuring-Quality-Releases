@@ -333,19 +333,6 @@ stages:
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
               # downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
               downloadPath: '/home/devopsagent/myagent/_work/'
-
-          # - task: TerraformTaskV3@3
-          #   displayName: init
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'init'
-          #     backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
-          #     backendAzureRmResourceGroupName: 'Azuredevops'
-          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-         
           
           #  # Define environment variables
           #  export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
@@ -366,9 +353,20 @@ stages:
                 -backend-config=container_name="tfstate" \
                   #-backend-config=key=$(key)/terraform.tfstate \
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
-                  
               # addSpnToEnvironment: true
-            
+
+          - task: TerraformTaskV3@3
+            displayName: init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
+              backendAzureRmResourceGroupName: 'Azuredevops'
+              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+              backendAzureRmContainerName: 'tfstate'
+              commandOptions: '-reconfigure'
+              backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
               
           # - task: TerraformTaskV3@3
