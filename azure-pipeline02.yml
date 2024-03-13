@@ -135,7 +135,7 @@ stages:
         # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'terraform.tfstate'
+        backendAzureRmKey: 'test.terraform.tfstate'
         # backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
         # backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # allowTelemetryCollection: false
@@ -149,6 +149,7 @@ stages:
 
 #    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
     - task: TerraformTaskV3@3
       displayName: 'Terrafom validate'
       inputs:
@@ -156,7 +157,8 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         #commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
-    
+        
+#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
     - task: TerraformTaskV3@3
       displayName: 'Terrafom plan'
       inputs:
@@ -355,6 +357,7 @@ stages:
                   #-backend-config=sas_token=$(artifactsLocationSasToken) \
               # addSpnToEnvironment: true
 
+#          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
           - task: TerraformTaskV3@3
             displayName: init
             inputs:
@@ -417,7 +420,8 @@ stages:
           #     scriptLocation: inlineScript
               # az deployment group create ... --parameters SPId=$env:servicePrincipalId
               
-          - task: TerraformTaskV3@3
+#          - task: TerraformTaskV3@3
+          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
             displayName: 'Terrafom plan'          
             inputs:
@@ -428,7 +432,8 @@ stages:
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/'
           
-          - task: TerraformTaskV3@3
+#          - task: TerraformTaskV3@3
+          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
             displayName: 'Terrafom apply'
             # displayName: TERRAFORM APPLY
