@@ -448,7 +448,7 @@ stages:
               # backendServiceArm: 'myServiceConnection'
               environmentServiceNameAzureRM: 'myServiceConnection'
               addSpnToEnvironment: true
-              # OverWrite: true
+              OverWrite: true
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               # backendAzureRmContainerName: 'tfstate'
               # backendAzureRmKey: 'terraform.tfstate'
