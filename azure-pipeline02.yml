@@ -329,10 +329,10 @@ stages:
               addSpnToEnvironment: true
               # downloadPath: '$(System.ArtifactDirectory)'
               # downloadPath: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/'
-              # downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+              downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
               # downloadPath: '$(System.DefaultWorkingDirectory)/'
               # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
-              downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
+              # downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
               # downloadPath: '/home/devopsagent/myagent/_work/'
           
           #  # Define environment variables
