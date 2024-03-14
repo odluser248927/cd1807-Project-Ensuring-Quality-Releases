@@ -184,6 +184,13 @@ stages:
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # allowTelemetryCollection: false
 
+    - task: CmdLine@2
+      displayName: "newman install"
+      # continueOnError: true
+      inputs:
+        script: 'sudo npm install -g newman'
+        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+
     # - task: TerraformCLI@0
     # # - task: TerraformTaskV3@3
     #   displayName: 'Terraform import'
@@ -538,12 +545,12 @@ stages:
           #     script: |
           #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
 
-          - task: CmdLine@2
-            displayName: "newman install"
-            # continueOnError: true
-            inputs:
-              script: 'sudo npm install -g newman'
-              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+          # - task: CmdLine@2
+          #   displayName: "newman install"
+          #   # continueOnError: true
+          #   inputs:
+          #     script: 'sudo npm install -g newman'
+          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           # - task: CmdLine@2
           #   continueOnError: true
