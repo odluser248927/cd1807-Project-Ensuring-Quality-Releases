@@ -538,20 +538,27 @@ stages:
           #     script: |
           #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
 
-    
+    - task: CmdLine@2
+      displayName: "newman install"
+      # continueOnError: true
+      inputs:
+        script: 'sudo npm install -g newman'
+        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/automatedtesting/postman'
+          
     # - task: CmdLine@2
-    #   displayName: "Run Data Validation Tests"
-    #   continueOnError: true
+    #   displayName: "Run Tests"
+    #   # continueOnError: true
     #   inputs:
     #     script: 'newman run TestSuite.Data-Validation.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+    #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/automatedtesting/postman'
 
-    # - task: CmdLine@2
-    #   continueOnError: true
-    #   displayName: "Run data validation commands"
-    #   inputs:
-    #     script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/test_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)'
+        
+    - task: CmdLine@2
+      continueOnError: true
+      displayName: "Run automated testing commands"
+      inputs:
+        script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
+        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)'
 
     # - task: PublishTestResults@2
     #   inputs:
@@ -573,7 +580,6 @@ stages:
 
     #  # Selenium Test Suite - Publish the package  
     # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-    #   # Same as the archiveFile artifact above. 
     #   displayName: 'Upload Package'
     #   artifact: drop-uitests
 
