@@ -538,27 +538,27 @@ stages:
           #     script: |
           #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
 
-    - task: CmdLine@2
-      displayName: "newman install"
-      # continueOnError: true
-      inputs:
-        script: 'sudo npm install -g newman'
-        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/automatedtesting/postman'
-          
-    # - task: CmdLine@2
-    #   displayName: "Run Tests"
-    #   # continueOnError: true
-    #   inputs:
-    #     script: 'newman run TestSuite.Data-Validation.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-    #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/automatedtesting/postman'
+          - task: CmdLine@2
+            displayName: "newman install"
+            # continueOnError: true
+            inputs:
+              script: 'sudo npm install -g newman'
+              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/automatedtesting/postman'
 
-        
-    - task: CmdLine@2
-      continueOnError: true
-      displayName: "Run automated testing commands"
-      inputs:
-        script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
-        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)'
+          # - task: CmdLine@2
+          #   displayName: "Run Tests"
+          #   # continueOnError: true
+          #   inputs:
+          #     script: 'newman run TestSuite.Data-Validation.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/automatedtesting/postman'
+
+
+          - task: CmdLine@2
+            continueOnError: true
+            displayName: "Run automated testing commands"
+            inputs:
+              script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
+              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)'
 
     # - task: PublishTestResults@2
     #   inputs:
