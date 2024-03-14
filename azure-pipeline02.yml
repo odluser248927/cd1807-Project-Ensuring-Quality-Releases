@@ -189,7 +189,7 @@ stages:
       # continueOnError: true
       inputs:
         script: 'sudo npm install -g newman'
-        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman'
 
     # - task: TerraformCLI@0
     # # - task: TerraformTaskV3@3
