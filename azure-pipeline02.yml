@@ -184,12 +184,12 @@ stages:
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # allowTelemetryCollection: false
 
-    - task: CmdLine@2
-      displayName: "newman install"
-      # continueOnError: true
-      inputs:
-        script: 'sudo npm install -g newman'
-        workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/'
+    # - task: CmdLine@2
+    #   displayName: "newman install"
+    #   # continueOnError: true
+    #   inputs:
+    #     script: 'sudo npm install -g newman'
+    #     workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/'
 
     # - task: TerraformCLI@0
     # # - task: TerraformTaskV3@3
