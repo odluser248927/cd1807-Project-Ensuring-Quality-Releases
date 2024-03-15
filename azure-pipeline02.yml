@@ -4,24 +4,19 @@ trigger:
 - main
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'myServiceConnection'
   # System.Debug: true 
 
-  # Web app name
-  # webAppName: 'mywebapp248927'
-
-  # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
   # Environment name
+  #environmentName: 'test'
   environmentName: 'mydevopsagentvm'
 
-  # Project root folder. Point to the folder containing manage.py file.
   # projectRoot: $(System.DefaultWorkingDirectory)
   projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-  # Python version: 3.9
+  # python.version: 3.9
   # pythonVersion: '3.9'
 
 stages:
@@ -97,11 +92,9 @@ stages:
     #     # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
     #      'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
         
-#    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
-        #terraformVersion: '1.5.7'
         terraformVersion: 'latest'
     # - bash: ls $(terraform-working-directory)
     # - task: AzureCLI@1
@@ -147,9 +140,8 @@ stages:
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
         # addSpnToEnvironment: true
 
-#    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
 #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+
     - task: TerraformTaskV3@3
       displayName: 'Terrafom validate'
       inputs:
@@ -158,7 +150,6 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         #commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
         
-#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
     - task: TerraformTaskV3@3
       displayName: 'Terrafom plan'
       inputs:
@@ -167,29 +158,21 @@ stages:
         commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
         # provider: 'azurerm'
         backendType: 'azurerm'
-        # backendServiceArm: 'myServiceConnection'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        # backendAzureRmStorageAccountName: 'mydevopsdemoblob'
-        # backendAzureRmContainerName: 'tfstate'
-        # backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
-        # backendServiceArm: '$(azureServiceConnectionId)'
-        # backendAzureRmSubscriptionId: '64b5de4c-738a-488c-9d2c-0a702a6d086a'
         # backendAzureRmResourceGroupName: 'Azuredevops'
-        #backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-        # commandOptions: '-auto-approve'        
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
-        # allowTelemetryCollection: false
 
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   # continueOnError: true
-    #   inputs:
-    #     script: 'sudo npm install -g newman'
-    #     workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/'
+    - task: CmdLine@2
+      displayName: "newman install"
+      continueOnError: true
+      inputs:
+        script: 'sudo npm install -g newman'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/'
+        # workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/'
 
     # - task: TerraformCLI@0
     # # - task: TerraformTaskV3@3
