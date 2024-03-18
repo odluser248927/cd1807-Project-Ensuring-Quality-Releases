@@ -173,25 +173,6 @@ stages:
         script: 'sudo npm install -g newman'
         workingDirectory: '$(System.DefaultWorkingDirectory)/'
         # workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/'
-
-    # - task: TerraformCLI@0
-    # # - task: TerraformTaskV3@3
-    #   displayName: 'Terraform import'
-    #   inputs:
-    #     command: 'import'
-    #     commandOptions: '-lock=false -var-file="terraform.tfvars"'
-    #     #backendType: 'azurerm'
-    #     backendAzureRmContainerName: 'tfstate'
-    #     backendAzureRmKey: 'terraform.tfstate'
-    #     environmentServiceNameAzureRM: 'myServiceConnection'
-    # #     addSpnToEnvironment: true
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-    #     resourceAddress: 'module.resource_group.azurerm_resource_group.Azuredevops'
-    #     resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops'
-#        resourceAddress: 'module.networksecuritygroup.azurerm_network_security_group.Azuredevops'
-#        resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg'
-        #resourceAddress: 'module.network.azurerm_virtual_network.Azuredevops'
-        #resourceId: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet'
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
@@ -212,17 +193,6 @@ stages:
         # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
         # TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
-
-    # - task: CopyFiles@2
-    #   displayName: "Deploying IaaC from local env to cloud env."
-    #   inputs:
-    #     SourceFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-    #     Contents: |
-    #       **/*.tf
-    #       **/*.tfvars
-    #       **/*tfplan*
-    #     # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-    #     TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
         
     # Publish Artifacts:-
     - task: PublishBuildArtifacts@1
