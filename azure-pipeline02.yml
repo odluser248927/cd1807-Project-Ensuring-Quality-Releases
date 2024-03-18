@@ -166,22 +166,22 @@ stages:
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
 
-    - task: CmdLine@2
-      displayName: "newman install"
-      continueOnError: true
-      inputs:
-        script: 'sudo npm install -g newman'
-        # workingDirectory: $(System.DefaultWorkingDirectory)
-        # workingDirectory: '/home/devopsagent/myagent/_work/_tool/'
-        workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/
+    # - task: CmdLine@2
+    #   displayName: "newman install"
+    #   continueOnError: true
+    #   inputs:
+    #     script: 'sudo npm install -g newman'
+    #     # workingDirectory: $(System.DefaultWorkingDirectory)
+    #     # workingDirectory: '/home/devopsagent/myagent/_work/_tool/'
+    #     workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/
 
     - task: CmdLine@2
       displayName: "regression check"
       continueOnError: true
       inputs:
         script: 'newman run StartAPIs.json'
-        # workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
-        workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/automatedtesting/postman
+        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
+        # workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/automatedtesting/postman
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
