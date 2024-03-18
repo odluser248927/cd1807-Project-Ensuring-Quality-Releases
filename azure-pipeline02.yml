@@ -166,19 +166,19 @@ stages:
         # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
         #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
 
-       - task: AzureCLI@1
-         displayName: "regression check w/ azCLI"
-         continueOnError: true
-         inputs:
-           azureSubscription: "myServiceConnection"
-           #rootDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-           #AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
-           # workingDirectory: '/home/devopsagent/myagent/_work/'
-           workingDirectory: $(System.DefaultWorkingDirectory)
-           scriptLocation: inlineScript
-           inlineScript: |
-             script: 'newman run StartAPIs.json'
-             workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
+    - task: AzureCLI@1
+      displayName: "regression check w/ azCLI"
+      continueOnError: true
+      inputs:
+        azureSubscription: "myServiceConnection"
+        #rootDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        #AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
+        # workingDirectory: '/home/devopsagent/myagent/_work/'
+        workingDirectory: $(System.DefaultWorkingDirectory)
+        scriptLocation: inlineScript
+        inlineScript: |
+          script: 'newman run StartAPIs.json'
+          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
         
     # - task: CmdLine@2
     #   displayName: "newman install"
