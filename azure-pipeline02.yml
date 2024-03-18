@@ -171,8 +171,8 @@ stages:
       continueOnError: true
       inputs:
         script: 'sudo npm install -g newman'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/'
-        # workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/'
+        # workingDirectory: '$(System.DefaultWorkingDirectory)/'
+        workingDirectory: '/home/devopsagent/myagent/_work/_tool/'
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
