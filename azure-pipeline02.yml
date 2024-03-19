@@ -69,8 +69,139 @@ stages:
       displayName: "regression check"
       continueOnError: true
       inputs:
-        script: 'newman run StarterAPI.json -e Test.environment1.json'
+        script: 'newman run StarterAPI.json -e Test.environment1.json --reporters cli, junit --reporter-junit-export junitReport.xml'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
+
+    - task: Bash@3
+      displayName: 'Functional tests'
+      inputs:
+        targetType: 'inline'
+        script: |           
+          #! /bin/bash
+          
+          sudo apt-get upgrade -y
+          sudo apt-get install python3-pip -y
+          sudo apt-get install unzip -y
+          sudo apt-get install -y chromium-browser
+          pip3 install selenium
+          wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
+          unzip ~/chromedriver_linux64.zip -d ~/                
+          sudo mv -f ~/chromedriver $HOME/.local/bin/chromedriver
+          sudo chown root:root $HOME/.local/bin/chromedriver
+          sudo chmod 0774 $HOME/.local/bin/chromedriver
+          wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
+          tar -xf apache-jmeter-5.6.1.tgz
+          unzip -o $(Build.BuildId)-perftests.zip
+          ./apache-jmeter-5.6.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
+          cat jmeter.log
+          cd ~/
+          DIR=/home/testuser/app
+          if [ ! -d "$DIR" ]; then
+              mkdir app
+          fi
+          mv /home/testuser/devopsagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+          cd app
+          unzip -o $(Build.BuildId)-uitests.zip
+          FILE=/home/testuser/app/chromedriver_linux64.zip
+          if [ ! -f "$FILE" ]; then
+              LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+              wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+              unzip -o chromedriver_linux64.zip
+              sudo ln -s $PWD/chromedriver $HOME/.local/bin/chromedriver
+          fi
+          export PATH=$PATH:/home/testuser/app
+          echo "Starting Selenium Tests"
+          python3 add_remove_from_cart.py >> selenium.log
+
+    - task: CmdLine@2
+      displayName: 'units tests'
+      inputs:
+        script: |
+          python3 $(System.DefaultWorkingDirectory)/login.py
+          
+    - task: JMeterInstaller@0
+      displayName: 'junitInstall'
+
+    - task: Bash@3
+      displayName: 'unitTests'
+      inputs:
+        targetType: 'inline'
+        script: |
+          'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
+
+    - task: Bash@3
+      displayName: 'unitTests'
+      inputs:
+        targetType: 'inline'
+        script: |
+          'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
+
+    - task: CmdLine@2
+      displayName: "newman install"
+      # continueOnError: true
+      inputs:
+         script: 'sudo npm install -g newman'
+         workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+
+    - task: CmdLine@2
+      continueOnError: true
+      displayName: "Run automated testing commands"
+      inputs:
+        script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
+        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+
+    - task: CmdLine@2
+      displayName: "Run Tests"
+      # continueOnError: true
+      inputs:
+        script: 'newman run TestSuite.Regression.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+        workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/TEST-*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        mergeTestResults: true
+        testRunTitle: 'JUnit Results'    
+      
+    - task: ArchiveFiles@2
+      displayName: 'Archive UI Tests'
+      inputs:
+        contents: 'automatedtesting/selenium/**'
+        targetFolder: '$(Build.StagingDirectory)'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+
+     # Selenium Test Suite - Publish the package  
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+      displayName: 'Upload Package'
+      artifact: drop-uitests
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive FakeRestAPI'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+      displayName: 'Upload Package'
+      artifact: drop-fakerestapi
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive PerformanceTestSuite'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+    # JMeter Test Suite - Publish    
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+      displayName: 'Upload Package'
+      artifact: drop-perftests
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
@@ -194,136 +325,7 @@ stages:
            #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
            #     environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
               
-          # - task: Bash@3
-          #   displayName: 'Functional tests'
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: |           
-          #       #! /bin/bash
-              
-          #       sudo apt-get upgrade -y
-          #       sudo apt-get install python3-pip -y
-          #       sudo apt-get install unzip -y
-          #       sudo apt-get install -y chromium-browser
-          #       pip3 install selenium
-          #       wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
-          #       unzip ~/chromedriver_linux64.zip -d ~/                
-          #       sudo mv -f ~/chromedriver $HOME/.local/bin/chromedriver
-          #       sudo chown root:root $HOME/.local/bin/chromedriver
-          #       sudo chmod 0774 $HOME/.local/bin/chromedriver
-          #       wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
-          #       tar -xf apache-jmeter-5.6.1.tgz
-          #       unzip -o $(Build.BuildId)-perftests.zip
-          #       ./apache-jmeter-5.6.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
-          #       cat jmeter.log
-          #       cd ~/
-          #       DIR=/home/testuser/app
-          #       if [ ! -d "$DIR" ]; then
-          #           mkdir app
-          #       fi
-          #       mv /home/testuser/devopsagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
-          #       cd app
-          #       unzip -o $(Build.BuildId)-uitests.zip
-          #       FILE=/home/testuser/app/chromedriver_linux64.zip
-          #       if [ ! -f "$FILE" ]; then
-          #           LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          #           wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-          #           unzip -o chromedriver_linux64.zip
-          #           sudo ln -s $PWD/chromedriver $HOME/.local/bin/chromedriver
-          #       fi
-          #       export PATH=$PATH:/home/testuser/app
-          #       echo "Starting Selenium Tests"
-          #       python3 add_remove_from_cart.py >> selenium.log
-          #       echo "Completed Selenium Tests. Check selenium.log for results."
-
-          # - task: CmdLine@2
-          #   displayName: 'units'
-          #   inputs:
-          #     script: |
-          #       python3 $(System.DefaultWorkingDirectory)/login.py
-          # - task: JMeterInstaller@0
-          #   displayName: 'junitInstall'
-
-          # - task: Bash@3
-          #   displayName: 'unitTests'
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: |
-          #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
-            
-          # - task: Bash@3
-          #   displayName: 'unitTests'
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: |
-          #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
-
-          # - task: CmdLine@2
-          #   displayName: "newman install"
-          #   # continueOnError: true
-          #   inputs:
-          #     script: 'sudo npm install -g newman'
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-          # - task: CmdLine@2
-          #   continueOnError: true
-          #   displayName: "Run automated testing commands"
-          #   inputs:
-          #     script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
           
-          # - task: CmdLine@2
-          #   displayName: "Run Tests"
-          #   # continueOnError: true
-          #   inputs:
-          #     script: 'newman run TestSuite.Regression.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-    # - task: PublishTestResults@2
-    #   inputs:
-    #     testResultsFormat: 'JUnit'
-    #     testResultsFiles: '**/TEST-*.xml'
-    #     searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
-    #     mergeTestResults: true
-    #     testRunTitle: 'JUnit Results'    
-      
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive UI Tests'
-    #   inputs:
-    #     contents: 'automatedtesting/selenium/**'
-    #     targetFolder: '$(Build.StagingDirectory)'
-    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-
-    #  # Selenium Test Suite - Publish the package  
-    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-    #   displayName: 'Upload Package'
-    #   artifact: drop-uitests
-
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive FakeRestAPI'
-    #   inputs:
-    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-    #   displayName: 'Upload Package'
-    #   artifact: drop-fakerestapi
-
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive PerformanceTestSuite'
-    #   inputs:
-    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-    # # JMeter Test Suite - Publish    
-    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-    #   displayName: 'Upload Package'
-    #   artifact: drop-perftests
 
 
 
