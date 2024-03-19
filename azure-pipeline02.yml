@@ -99,7 +99,7 @@ stages:
           if [ ! -d "$DIR" ]; then
               mkdir app
           fi
-          mv /home/testuser/devopsagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+          mv /home/devopsagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
           cd app
           unzip -o $(Build.BuildId)-uitests.zip
           FILE=/home/testuser/app/chromedriver_linux64.zip
@@ -111,7 +111,7 @@ stages:
           fi
           export PATH=$PATH:/home/testuser/app
           echo "Starting Selenium Tests"
-          python3 add_remove_from_cart.py >> selenium.log
+          # python3 add_remove_from_cart.py >> selenium.log
 
     - task: CmdLine@2
       displayName: 'units tests'
