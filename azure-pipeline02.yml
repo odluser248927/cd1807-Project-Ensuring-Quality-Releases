@@ -113,24 +113,24 @@ stages:
           echo "Starting Selenium Tests"
           # python3 add_remove_from_cart.py >> selenium.log
 
-    - task: CmdLine@2
-      displayName: 'units tests'
-      inputs:
-        script: |
-          python3 $(System.DefaultWorkingDirectory)/login.py
+    # - task: CmdLine@2
+    #   displayName: 'units tests'
+    #   inputs:
+    #     script: |
+    #       python3 $(System.DefaultWorkingDirectory)/login.py
           
     - task: JMeterInstaller@0
       displayName: 'junitInstall'
 
     - task: Bash@3
-      displayName: 'unitTests'
+      displayName: 'unitTests1'
       inputs:
         targetType: 'inline'
         script: |
           'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
 
     - task: Bash@3
-      displayName: 'unitTests'
+      displayName: 'unitTests2'
       inputs:
         targetType: 'inline'
         script: |
