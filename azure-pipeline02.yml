@@ -8,16 +8,10 @@ variables:
   # System.Debug: true 
 
   vmImageName: 'ubuntu-latest'
-
-  # Environment name
-  #environmentName: 'test'
   environmentName: 'mydevopsagentvm'
 
-  # projectRoot: $(System.DefaultWorkingDirectory)
   projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-  # python.version: 3.9
-  # pythonVersion: '3.9'
 
 stages:
 - stage: 'Build'
@@ -26,121 +20,25 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-    # - task: Docker@2
-    #   displayName: 'build and push'
-    #   inputs:
-    #     command: docker build -t terraform-docker
-    #     buildContext: $(Build.Repository.LocalPath)
-    #     dockefile: $(Build.SourceDirectory)
-        # containerRegistry: 'Container Registry Connection'
-        
-    #     # Define environment variables
-    #     export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
-    #       ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
-    #       ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
-    #       ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
 
-    #     terraform init
-    #     python -m venv mypy3env
-    #     source /mypy3env/bin/activate
-    #     python -m pip install --upgrade pip
-    #     pip install setup
-    #     pip install -r requirements.txt
-    #   # workingDirectory: '${System.DefaultWorkingDirectory}'
-    #   # workingDirectory: $(projectRoot)
-    #   displayName: "Install requirements"
-
-    
-          # Define environment variables
-          # export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
-          #   ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
-          #   ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
-          #   ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
-
-    # - task: CopyFiles@2
-    #   displayName: "Deploying IaaC from local env to cloud env."
-    #   inputs:
-    #     #SourceFolder: '$(Pipeline.Workspace)/dropScripts'
-    #     SourceFolder: $(projectRoot)
-    #     Contents: '**'
-    #     #TargetFolder: '$(Agent.TempDirectory)'
-    #     OverWrite: true
-    #     #Contents: '../../terraform/**'
-    #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-    #- checkout: self
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive files'
-    #   inputs:
-    #     rootFolderOrFile: $(projectRoot)
-    #     # rootFolderOrFile: '${System.DefaultWorkingDirectory}'
-    #     includeRootFolder: false
-    #     archiveType: zip
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    #     replaceExistingArchive: true
-
-    # - upload: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    #   displayName: 'Upload package'
-    #   artifact: drop
-
-    # - task: AzureWebApp@1
-    #   displayName: 'runWebApp'
-    #   inputs:
-    #     rootFolderOrFile: $(projectRoot)
-    #     # rootFolderOrFile: '${System.DefaultWorkingDirectory}'
-    #     command:
-    #     # 'az webapp up --runtime PYTHON:3.9 --sku B1s --logs --name mywebapp248927 --resource-group azuredevops'
-    #      'az webapp up --name myWebApp248927 --resource-group Azuredevops --sku F1s --logs --runtime PYTHON:3.9'
-        
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: 'latest'
-    # - bash: ls $(terraform-working-directory)
-    # - task: AzureCLI@1
-#      displayName: Terraform init
-#    - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
-#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
-
-#     - task: TerraformTaskV3@3
-#       displayName: refresh
-# #    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
-# #    - task: TerraformTaskV2@2
-#       inputs:
-#         provider: 'azurerm'
-#         command: 'refresh'
-#         # commandOptions: 'init'
         
     - task: TerraformTaskV3@3
       displayName: init
-#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
-#    - task: TerraformTaskV2@2
       inputs:
         provider: 'azurerm'
         command: 'init'
-        # commandOptions: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendType: azurerm 
-        # backendServiceArm: '$(azureServiceConnectionId)'
-        # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
         backendServiceArm: 'myServiceConnection'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        # backendAzureRmStorageAccountName: '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Storage/storageAccounts/mydevopsdemoblob'
         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
-        # backendAzureRmKey: 'SuLBd1YGQF4aMCukZa7CMlRBKCydv7alo8CMRPJl6N03etepMrNTxGw3MUjw7scLD1r8yG7X42Je+AStVvMVlA=='
-        # backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        # allowTelemetryCollection: false
-        # backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
-        # backendAzureRmKey: '${{ parmeters.componenets }}.tfstate'
-        # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-        # environmentServiceName: 'myServiceConnection'
         commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-        #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
-        # addSpnToEnvironment: true
-
-#    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
 
     - task: TerraformTaskV3@3
       displayName: 'Terrafom validate'
@@ -148,45 +46,23 @@ stages:
         provider: 'azurerm'
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        #commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
         
     - task: TerraformTaskV3@3
       displayName: 'Terrafom plan'
       inputs:
         command: 'plan'
-        # commandOptions: '-lock=false -var-file="terraform.tfvars" -out=./mydevopsdeployment03.plan'
         commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
-        # provider: 'azurerm'
         backendType: 'azurerm'
         environmentServiceNameAzureRM: 'myServiceConnection'
-        # backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        # environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-        #commandOptions: '-backend-config=/$(System.DefaultWorkingDirectory)/terraform/environments/test/backend.tf'
-
-    # - task: AzureCLI@1
-    #   displayName: "regression check w/ azCLI"
-    #   continueOnError: true
-    #   inputs:
-    #     azureSubscription: "myServiceConnection"
-    #     #rootDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-    #     #AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
-    #     # workingDirectory: '/home/devopsagent/myagent/_work/'
-    #     workingDirectory: $(System.DefaultWorkingDirectory)
-    #     scriptLocation: inlineScript
-    #     inlineScript: |
-    #       script: 'newman run StartAPIs.json'
-    #       workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
         
     - task: CmdLine@2
       displayName: "newman install"
       continueOnError: true
       inputs:
         script: 'sudo npm install -g newman'
-        # workingDirectory: $(System.DefaultWorkingDirectory)
-        # workingDirectory: '/home/devopsagent/myagent/_work/_tool/'
         workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/
 
     - task: CmdLine@2
@@ -195,7 +71,6 @@ stages:
       inputs:
         script: 'newman run StarterAPI.json -e Test.environment1.json'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
-        # workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/automatedtesting/postman
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
@@ -213,79 +88,25 @@ stages:
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        # TargetFolder: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-        # TargetFolder: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
+
         
     # Publish Artifacts:-
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-        # targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/environments/test'
-        # targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
         artifactName: '$(Artifact)'
-        # ArtifactName: 'output-myArtifacts'
         publishLocation: 'Container'
-        
-    # - task: TerraformTaskV3@3
-    #   displayName: 'Terrafom apply'
-    #   inputs:
-    #     command: 'apply'
-    #     commandOptions: '-lock=false -var-file="terraform.tfvars" --out="mydevopsdeployment03.plan"'
-    #     # provider: 'azurerm'
-    #     backendType: 'azurerm'
-    #     # backendServiceArm: 'myServiceConnection'
-    #     environmentServiceNameAzureRM: 'myServiceConnection'
-    #     #commandOptions: '-lock=false -var-file="terraform.tfvars"'
-    #     backendAzureRmContainerName: 'tfstate'
-    #     backendAzureRmKey: 'terraform.tfstate'
-    #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-    #     workingDirectory: '$(System.ArtifactsDirectory)/terraform/environments/test'
-        #environmentServiceNameAzureRM: 'myServiceConnection'
-
-    # - task: CopyFiles@2
-    #   displayName: "Deploying IaaC from local env to cloud env."
-    #   inputs:
-    #     SourceFolder: '$(workingDirectory)'
-    #     Contents: |
-    #       **/*.tf
-    #       **/*.tfvars
-    #       **/*tfplan*
-    #     TargetFolder: '$(Target)'
-        
-    # # Publish Artifacts:-
-    # - task: PublishBuildArtifacts@1
-    #   displayName: PUBLISH ARTIFACTS
-    #   inputs:
-    #     targetPath: '$(Target)'
-    #     artifactName: '$(Artifact)'
-        #Contents: '../../terraform/**'
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)'
-        #archiveType: 'zip'
-        #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-
-    # - task: PublishBuildArtifacts@1
-    #   displayName: 'porting to apply stage.'
-    #   inputs:
-    #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    #     # targetPath: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-    #     ArtifactName: 'output-myArtifacts'
-        # ArtifactName: '$(Artifact)'
-        # publishLocation: 'Container'
         
     ##deploymentStage:
 - stage: Deploy
-# displayName: 'Deploy Web App'
   dependsOn: Build
-  # dependsOn: PLAN
   condition: succeeded()
-  # dependsOn: [terraform_plan]
-  # condition: succeeded('terraform_plan')  
+
   jobs:
   - deployment: DeploymentJob
     pool: myAgentPool
-    # environment: '$(environmentName)'
     environment: 'mydevopsagentvm'
     strategy:
       
@@ -300,36 +121,21 @@ stages:
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
             displayName: 'Terrafom installation'
             inputs:
-              #terraformVersion: '1.5.7'
               terraformVersion: 'latest'
 
           - task: DownloadBuildArtifacts@0
             displayName: 'Download artifacts for deployment.'
-            # displayName: 'Deploy Azure Web App : mywebapp248927'
             inputs:
               buildType: 'current'
               downloadType: 'single'
-              # artifactName: 'output-myArtifacts'
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
-              # downloadPath: '$(System.ArtifactDirectory)'
-              # downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-              # downloadPath: '$(System.DefaultWorkingDirectory)/'
-              # downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform/'
-              # downloadPath: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
               downloadPath: '/home/devopsagent/myagent/_work/'
           
-          #  # Define environment variables
-          #  export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID:-$SUBSCRIPTION_ID} \
-          #    ARM_TENANT_ID=${ARM_TENANT_ID:-$TENANT_ID} \
-          #    ARM_CLIENT_ID=${ARM_CLIENT_ID:-$CLIENT_ID} \
-          #    ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET:-$CLIENT_SECRET}
           - task: AzureCLI@1
             displayName: Terraform check 
             inputs:
-              azureSubscription: "myServiceConnection"
-              #rootDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-              #AZURE_CONFIG_DIR: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test'
+              azureSubscription: "myServiceConnection"        
               workingDirectory: '/home/devopsagent/myagent/_work/'
               scriptLocation: inlineScript
               inlineScript: |
@@ -337,17 +143,12 @@ stages:
                 terraform init \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
-                  #-backend-config=key=$(key)/terraform.tfstate \
-                  #-backend-config=sas_token=$(artifactsLocationSasToken) \
-              # addSpnToEnvironment: true
 
-#          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
           - task: TerraformTaskV3@3
             displayName: init
             inputs:
               provider: 'azurerm'
               command: 'init'
-              # backendServiceArm: 'Azure subscription 1 (64b5de4c-738a-488c-9d2c-0a702a6d086a)'
               backendServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
@@ -355,58 +156,8 @@ stages:
               commandOptions: '-reconfigure'
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-
-              
-          # - task: TerraformTaskV3@3
-      #     # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
-      #       displayName: init
-      # #    - task: TerraformTaskV2@2
-      #       inputs:
-      #         provider: 'azurerm'
-      #         command: 'init'
-      #         # commandOptions: 'init'
-      #         # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-      #         # workingDirectory: '$(System.DefaultWorkingDirectory)/'
-      #         # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
-      #         # workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
-      #         workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-      #         # workingDirectory: '$(System.DefaultWorkingDirectory)/[InputArtifactSourceAlias]/drop/[TfScriptDir]'
-      #         # backendType: azurerm 
-      #         # backendServiceArm: '$(azureServiceConnectionId)'
-      #         # backendAzureRmContainerName: '${{ parameters.backendcontainername }}'
-      #         backendServiceArm: 'myServiceConnection'
-      #         backendAzureRmResourceGroupName: 'Azuredevops'
-      #         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-      #         backendAzureRmContainerName: 'tfstate'
-      #         backendAzureRmKey: 'terraform.tfstate'
-      #         addSpnToEnvironment: true 
-              # backendAzureRmKey: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfstate'
-              #addSpnToEnvironment: true
-
-          # - task: AzureCLI@1
-          #   displayName: Terraform check 
-          #   inputs:
-          #     azureSubscription: "myServiceConnection"
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-          #     scriptLocation: inlineScript
-          #     inlineScript: |
-          #       #set -eux  # fail on error                
-          #       terraform init \
-          #         -backend-config=storage_account_name="myazuredevopsdemoblob" \
-          #         -backend-config=container_name="tfstate" \
-          #         #-backend-config=key=$(key)/terraform.tfstate \
-          #         #-backend-config=sas_token=$(artifactsLocationSasToken) \
-
-          # - task: AzureCLI@2
-          #   continueOnError: true
-          #   inputs:
-          #     addSpnToEnvironment: true
-          #     scriptLocation: inlineScript
-              # az deployment group create ... --parameters SPId=$env:servicePrincipalId
-              
-#          - task: TerraformTaskV3@3
+                            
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-            # continueOnError: true
             displayName: 'Terrafom plan'          
             inputs:
               provider: 'azurerm'
@@ -414,9 +165,7 @@ stages:
               commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               environmentServiceNameAzureRM: 'myServiceConnection'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-              #workingDirectory: '/home/devopsagent/myagent/_work/_temp/'
           
-#          - task: TerraformTaskV3@3
           # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
           #   # continueOnError: true
           #   displayName: 'Terrafom apply'
@@ -424,15 +173,8 @@ stages:
           #   inputs:
           #     provider: 'azurerm'
           #     command: 'apply'
-          #     # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/environments/test/'
-          #     # workingDirectory: '$(System.ArtifactsDirectory)/$(Artifact)/terraform/'
-          #     # workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/terraform/environments/test/'
-          #     # workingDirectory: 'output-myArtifacts/'
-          #     # workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
           #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-          #     # addSpnToEnvironment: true
-          #     # workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/'
-          #     #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/'
+          #     # addSpnToEnvironment: true          
           #     commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
           #     backendType: 'azurerm'
           #     # backendServiceArm: 'myServiceConnection'
@@ -442,21 +184,15 @@ stages:
               # OverWrite: true
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               # backendAzureRmContainerName: 'tfstate'
-              # backendAzureRmKey: 'terraform.tfstate'
-              # workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              # backendAzureRmKey: 'terraform.tfstate'        
               
-        
-              # ConnectionType: 'AzureRM'
-              # azureSubscription: '$(azureServiceConnectionId)'
-              #appName: '$(webAppName)'
-              # appName: 'myAzWebapp248927'
-              # appType: 'webApp'
-              # WebAppName: 'myAzWebapp248927'
-              # package: '$(Pipeline.Workspace)/$(Artifact)/$(Build.BuildId).zip'
-              # SourceFolder: '$(Pipeline.Workspace)/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/'
-              # Contents: '**'
-              # TargetFolder: '$(Agent.TempDirectory)'
-              #OverWrite: true
+           # - task: TerraformTaskV3@3
+           #   displayName: Terraform destroy
+           #   inputs:
+           #     provider: 'azurerm'
+           #     command: 'destroy'
+           #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+           #     environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
               
           # - task: Bash@3
           #   displayName: 'Functional tests'
