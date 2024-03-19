@@ -117,7 +117,7 @@ stages:
     #   displayName: 'units tests'
     #   inputs:
     #     script: |
-    #       python3 $(System.DefaultWorkingDirectory)/login.py
+    #       python3 $(System.DefaultWorkingDirectory)/automatedlogin.py
           
     - task: JMeterInstaller@0
       displayName: 'junitInstall'
@@ -134,7 +134,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
+          'jmeter -n -t /home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
 
     - task: CmdLine@2
       displayName: "newman install"
@@ -161,7 +161,7 @@ stages:
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '**/TEST-*.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
         mergeTestResults: true
         testRunTitle: 'JUnit Results'    
       
@@ -170,7 +170,7 @@ stages:
       inputs:
         contents: 'automatedtesting/selenium/**'
         targetFolder: '$(Build.StagingDirectory)'
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/selenium'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
@@ -183,7 +183,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
+        rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -194,7 +194,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive PerformanceTestSuite'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
