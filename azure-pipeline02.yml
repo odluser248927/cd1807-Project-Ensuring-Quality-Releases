@@ -180,20 +180,20 @@ stages:
     #       script: 'newman run StartAPIs.json'
     #       workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
         
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   continueOnError: true
-    #   inputs:
-    #     script: 'sudo npm install -g newman'
-    #     # workingDirectory: $(System.DefaultWorkingDirectory)
-    #     # workingDirectory: '/home/devopsagent/myagent/_work/_tool/'
-    #     workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/
+    - task: CmdLine@2
+      displayName: "newman install"
+      continueOnError: true
+      inputs:
+        script: 'sudo npm install -g newman'
+        # workingDirectory: $(System.DefaultWorkingDirectory)
+        # workingDirectory: '/home/devopsagent/myagent/_work/_tool/'
+        workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/
 
     - task: CmdLine@2
       displayName: "regression check"
       continueOnError: true
       inputs:
-        script: 'newman run StartAPIs.json'
+        script: 'newman run StarterAPI.json -e Test.environment1.json'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
         # workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/automatedtesting/postman
         
@@ -333,6 +333,7 @@ stages:
               workingDirectory: '/home/devopsagent/myagent/_work/'
               scriptLocation: inlineScript
               inlineScript: |
+                az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
                 terraform init \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
