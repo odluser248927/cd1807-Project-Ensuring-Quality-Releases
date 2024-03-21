@@ -128,8 +128,8 @@ stages:
     #     script: |
     #       python3 $(System.DefaultWorkingDirectory)/automatedlogin.py
           
-    - task: JMeterInstaller@0
-      displayName: 'junitInstall'
+    # - task: JMeterInstaller@0
+    #   displayName: 'junitInstall'
 
     - task: Bash@3
       displayName: 'unitTests1'
