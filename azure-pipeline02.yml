@@ -104,21 +104,21 @@ stages:
           ./apache-jmeter-5.6.3/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
           cat jmeter.log
           cd ~/
-          DIR=/home/testuser/app
+          DIR=/home/devopsagent/myagent/_work/_tool/app
           if [ ! -d "$DIR" ]; then
               mkdir app
           fi
-          mv /home/devopsagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+          mv /home/devopsagent/myagent/_work/_tool/1/drop-uitests/$(Build.BuildId)-uitests.zip app
           cd app
           unzip -o $(Build.BuildId)-uitests.zip
-          FILE=/home/testuser/app/chromedriver_linux64.zip
+          FILE=/home/devopsagent/app/chromedriver_linux64.zip
           if [ ! -f "$FILE" ]; then
               LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
               wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
               unzip -o chromedriver_linux64.zip
               sudo ln -s $PWD/chromedriver $HOME/.local/bin/chromedriver
           fi
-          export PATH=$PATH:/home/testuser/app
+          export PATH=$PATH:/home/devopsagent/myagent/_work/_tool/app
           echo "Starting Selenium Tests"
           # python3 add_remove_from_cart.py >> selenium.log
 
