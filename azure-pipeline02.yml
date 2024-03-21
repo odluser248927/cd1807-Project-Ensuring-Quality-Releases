@@ -5,7 +5,7 @@ trigger:
 
 variables:
   azureServiceConnectionId: 'myServiceConnection'
-  System.Debug: true 
+  # System.Debug: true 
 
   vmImageName: 'ubuntu-latest'
   environmentName: 'mydevopsagentvm'
