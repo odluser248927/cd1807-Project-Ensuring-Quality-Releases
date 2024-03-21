@@ -79,47 +79,47 @@ stages:
         script: 'newman run StarterAPI.json -e Test.environment1.json --reporters cli, junit --reporter-junit-export junitReport.xml'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
 
-    - task: Bash@3
-      displayName: 'Functional tests'
-      inputs:
-        targetType: 'inline'
-        script: |           
-          #! /bin/bash
+    # - task: Bash@3
+    #   displayName: 'Functional tests'
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |           
+    #       #! /bin/bash
           
-          sudo apt-get upgrade -y
-          sudo apt-get install python3-pip -y
-          sudo apt-get install unzip -y
-          #sudo apt install default-jdk
-          #sudo apt install default-jre
-          sudo apt-get install -y chromium-browser
-          pip3 install selenium
-          wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
-          unzip ~/chromedriver_linux64.zip -d ~/                
-          sudo mv -f ~/chromedriver $HOME/.local/bin/chromedriver
-          sudo chown root:root $HOME/.local/bin/chromedriver
-          sudo chmod 0774 $HOME/.local/bin/chromedriver
-          wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
-          tar -xf apache-jmeter-5.6.3.tgz
-          unzip -o $(Build.BuildId)-perftests.zip
-          ./apache-jmeter-5.6.3/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
-          cat jmeter.log
-          cd ~/
-          DIR=/home/devopsagent/myagent/_work/_tool/app
-          if [ ! -d "$DIR" ]; then
-              mkdir app
-          fi
-          mv /home/devopsagent/myagent/_work/_tool/1/drop-uitests/$(Build.BuildId)-uitests.zip app
-          cd app
-          unzip -o $(Build.BuildId)-uitests.zip
-          FILE=/home/devopsagent/app/chromedriver_linux64.zip
-          if [ ! -f "$FILE" ]; then
-              LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-              wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-              unzip -o chromedriver_linux64.zip
-              sudo ln -s $PWD/chromedriver $HOME/.local/bin/chromedriver
-          fi
-          export PATH=$PATH:/home/devopsagent/myagent/_work/_tool/app
-          echo "Starting Selenium Tests"
+    #       sudo apt-get upgrade -y
+    #       sudo apt-get install python3-pip -y
+    #       sudo apt-get install unzip -y
+    #       #sudo apt install default-jdk
+    #       #sudo apt install default-jre
+    #       sudo apt-get install -y chromium-browser
+    #       pip3 install selenium
+    #       wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
+    #       unzip ~/chromedriver_linux64.zip -d ~/                
+    #       sudo mv -f ~/chromedriver $HOME/.local/bin/chromedriver
+    #       sudo chown root:root $HOME/.local/bin/chromedriver
+    #       sudo chmod 0774 $HOME/.local/bin/chromedriver
+    #       wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
+    #       tar -xf apache-jmeter-5.6.3.tgz
+    #       unzip -o $(Build.BuildId)-perftests.zip
+    #       ./apache-jmeter-5.6.3/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
+    #       cat jmeter.log
+    #       cd ~/
+    #       DIR=/home/devopsagent/myagent/_work/_tool/app
+    #       if [ ! -d "$DIR" ]; then
+    #           mkdir app
+    #       fi
+    #       mv /home/devopsagent/myagent/_work/_tool/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+    #       cd app
+    #       unzip -o $(Build.BuildId)-uitests.zip
+    #       FILE=/home/devopsagent/app/chromedriver_linux64.zip
+    #       if [ ! -f "$FILE" ]; then
+    #           LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+    #           wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+    #           unzip -o chromedriver_linux64.zip
+    #           sudo ln -s $PWD/chromedriver $HOME/.local/bin/chromedriver
+    #       fi
+    #       export PATH=$PATH:/home/devopsagent/myagent/_work/_tool/app
+    #       echo "Starting Selenium Tests"
           # python3 add_remove_from_cart.py >> selenium.log
 
     # - task: CmdLine@2
