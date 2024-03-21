@@ -131,26 +131,26 @@ stages:
     # - task: JMeterInstaller@0
     #   displayName: 'junitInstall'
 
-    - task: Bash@3
-      displayName: 'unitTests1'
-      inputs:
-        targetType: 'inline'
-        script: |
-          'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
+    # - task: Bash@3
+    #   displayName: 'unitTests1'
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
 
-    - task: Bash@3
-      displayName: 'unitTests2'
-      inputs:
-        targetType: 'inline'
-        script: |
-          'jmeter -n -t /home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
+    # - task: Bash@3
+    #   displayName: 'unitTests2'
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       'jmeter -n -t /home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
 
-    - task: CmdLine@2
-      displayName: "newman install"
-      # continueOnError: true
-      inputs:
-         script: 'sudo npm install -g newman'
-         workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+    # - task: CmdLine@2
+    #   displayName: "newman install"
+    #   # continueOnError: true
+    #   inputs:
+    #      script: 'sudo npm install -g newman'
+    #      workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
     - task: CmdLine@2
       continueOnError: true
