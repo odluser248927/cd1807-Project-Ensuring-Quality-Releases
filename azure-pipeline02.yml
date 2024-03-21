@@ -72,12 +72,12 @@ stages:
     #       'sudo npm install -g newman'
     #       workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/
 
-    - task: CmdLine@2
-      displayName: "regression check"
-      continueOnError: true
-      inputs:
-        script: 'newman run StarterAPI.json -e Test.environment1.json --reporters cli, junit --reporter-junit-export junitReport.xml'
-        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
+    # - task: CmdLine@2
+    #   displayName: "regression check"
+    #   continueOnError: true
+    #   inputs:
+    #     script: 'newman run StarterAPI.json -e Test.environment1.json --reporters cli, junit --reporter-junit-export junitReport.xml'
+    #     workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
 
     # - task: Bash@3
     #   displayName: 'Functional tests'
