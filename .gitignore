@@ -27,6 +27,7 @@ override.tf.json
 # automatedtesting/postman/Test.environment1.json~
 **/screeshots/*
 azure-pipelines10-tf.yml
+azure-pipelines02.yml~
 azure-pipelines10-tf.yml~
 azure-pipelines.yml
 azure-pipelines.yml~
