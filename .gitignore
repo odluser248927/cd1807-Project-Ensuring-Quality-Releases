@@ -1,8 +1,8 @@
-**/*.tfstate
-**/*.json
+#**/*.tfstate
+#**/*.json
 **/*.exe
 # Local .terraform directories
-**/.terraform/*
+#**/.terraform/*
 
 # .tfstate files
 *.tfstate
@@ -23,6 +23,7 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+automatedtesting/postman/Test.environmrnt1.json~
 azure-pipelines10-tf.yml
 azure-pipelines10-tf.yml~
 azure-pipelines.yml
