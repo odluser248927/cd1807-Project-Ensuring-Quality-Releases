@@ -3,6 +3,7 @@
 **/*.exe
 # Local .terraform directories
 **/.terraform/*
+terraform/environments/test/.terraform/*
 
 # .tfstate files
 *.tfstate
