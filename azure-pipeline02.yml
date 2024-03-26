@@ -77,7 +77,8 @@ stages:
       continueOnError: true
       inputs:
         script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
-        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
+        # workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
+        workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.7.5/x64/terraform/automatedtesting/postman'
 
     # - task: Bash@3
     #   displayName: 'Functional tests'
