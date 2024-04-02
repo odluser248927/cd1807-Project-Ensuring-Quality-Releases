@@ -20,16 +20,17 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-    - task: CmdLine@2
-      displayName: "newman install"
-      continueOnError: true
-      inputs:
-        workingDirectory: '$(System.DefaultWorkingDirectory)/'
-        script: |
-          'sudo apt-get install npm'
-          'sudo npm install -g newman'
-          'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
-        
+    # install if not installed in env:      
+    # - task: CmdLine@2
+    #   displayName: "newman install"
+    #   continueOnError: true
+    #   inputs:
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)/'
+    #     script: |
+    #       'sudo apt-get install npm'
+    #       'sudo npm install -g newman'
+    #       'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
+    
     - task: CmdLine@2
       displayName: "regression check"
       continueOnError: true
