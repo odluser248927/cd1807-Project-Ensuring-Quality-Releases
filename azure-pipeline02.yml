@@ -58,26 +58,18 @@ stages:
         backendAzureRmKey: 'terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   continueOnError: true
-    #   inputs:
-    #     script: |
-    #       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-    #       nvm ls-remote
-    #       ls -alF
-    #       cd .nvm/
-    #       ls -alF
-    #       ./install.sh
-    #       'sudo npm install -g newman'
-    #       workingDirectory: /home/devopsagent/myagent/_work/_tool/terraform/
+    - task: CmdLine@2
+      displayName: "newman install"
+      continueOnError: true
+      inputs:
+        script: 'sudo npm install -g newman'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/'
 
     - task: CmdLine@2
       displayName: "regression check"
       continueOnError: true
       inputs:
-        script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
-        # workingDirectory: $(System.DefaultWorkingDirectory)/terraform/automatedtesting/postman
+        script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
         workingDirectory: '$(System.DefaultWorkingDirectory)'
 
     # - task: Bash@3
