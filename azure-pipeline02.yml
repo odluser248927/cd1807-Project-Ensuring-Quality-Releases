@@ -424,7 +424,7 @@ stages:
               azureSubscription: 'Azure subscription 1'
               appName: 'mydevopsapp'
               appType: webApp
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
 
   - job: Jmeter
     dependsOn: FakeRestAPI
