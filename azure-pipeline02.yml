@@ -22,14 +22,14 @@ stages:
     steps:
       
     # install if not installed in env:      
-    - task: CmdLine@2
-      displayName: "newman install"
-      continueOnError: true
-      inputs:        
-        script: |
-          #'sudo apt-get install npm'
-          'sudo npm install -g newman'
-          WorkingDirectory: '$(System.DefaultWorkingDirectory)'
+    # - task: CmdLine@2
+    #   displayName: "newman install"
+    #   continueOnError: true
+    #   inputs:        
+    #     script: |
+    #       #'sudo apt-get install npm'
+    #       'sudo npm install -g newman'
+    #       WorkingDirectory: '$(System.DefaultWorkingDirectory)'
           #'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
                   
     - task: CmdLine@2
@@ -368,7 +368,93 @@ stages:
            #     command: 'destroy'
            #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
            #     environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-              
+- stage: Deploy
+  dependsOn: Build
+  jobs:
+  - deployment: VMDeploy
+    displayName: Install packages for testing
+    environment:
+      name:  MyLinuxDev
+      resourceType: VirtualMachine
+      tags: web
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: dropScripts
+          - task: CopyFiles@2
+            displayName: Copy login script to Temp folder
+            inputs:
+              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              Contents: '**'
+              TargetFolder: '$(Agent.TempDirectory)'
+              OverWrite: true
+          - task: Bash@3
+            displayName: "file script install"
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                
+                CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
+                sudo apt-get upgrade -y
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                sudo apt-get install unzip
+                pip3 install webdriver-manager
+                pip3 install selenium
+                echo CHROME_DRIVER_VERSION
+                wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
+                unzip ~/chromedriver_linux64.zip -d ~/
+                rm ~/chromedriver_linux64.zip
+                sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
+                sudo chown root:root /usr/local/bin/chromedriver
+                sudo chmod 0755 /usr/local/bin/chromedriver
+          - task: CmdLine@2
+            condition: succeededOrFailed()
+            displayName: Run Selenium Tests
+            inputs:
+              script: |
+                python3 $(Agent.TempDirectory)/login.py
+  - deployment: FakeRestAPI
+    pool:
+      vmImage: 'ubuntu-latest'
+      environmentName: 'mydevopsagentvm'    
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Azure Web App deployment'
+            inputs:
+              azureSubscription: 'Azure subscription 1'
+              appName: 'mydevopsapp'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
+  - job: Jmeter
+    dependsOn: FakeRestAPI
+    pool:
+        vmImage: 'ubuntu-latest'
+    steps:
+    - task: JMeterInstaller@0
+      displayName: 'Install JMeter 5.6.3'
+      inputs:
+        jmeterVersion: '5.6.3'
+    - task: Bash@3
+      displayName: 'Run Jmeter Stress test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0
+    - task: Bash@3
+      displayName: 'Run Jmeter Endurance test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=0 -JEnduranceTestUsers=10              
           
 
 
