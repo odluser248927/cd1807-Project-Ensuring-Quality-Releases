@@ -36,7 +36,7 @@ stages:
       continueOnError: true
       inputs:
         azureSubscription: "myServiceConnection"        
-        workingDirectory: '/home/devopsagent/myagent/_work/'
+        workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
         script: |
           'sudo apt-get install npm'
           'sudo npm install -g newman'
