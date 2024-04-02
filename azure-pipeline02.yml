@@ -31,6 +31,17 @@ stages:
     #       'sudo npm install -g newman'
     #       'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
     
+    - task: AzureCLI@1
+      displayName: "regression check."
+      continueOnError: true
+      inputs:
+        azureSubscription: "myServiceConnection"        
+        workingDirectory: '/home/devopsagent/myagent/_work/'
+        script: |
+          'sudo apt-get install npm'
+          'sudo npm install -g newman'
+#          'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
+              
     - task: CmdLine@2
       displayName: "regression check"
       continueOnError: true
