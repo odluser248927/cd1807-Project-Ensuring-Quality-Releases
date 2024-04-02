@@ -410,7 +410,7 @@ stages:
             inputs:
               script: |
                 python3 $(Agent.TempDirectory)/login.py
-  - deployment: FakeRestAPI
+  - deployment: DeploymentJob2
     pool:
       vmImage: 'ubuntu-latest'
       environmentName: 'mydevopsagentvm'    
@@ -427,7 +427,7 @@ stages:
               package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
 
   - job: Jmeter
-    dependsOn: FakeRestAPI
+    dependsOn: Build
     pool:
         vmImage: 'ubuntu-latest'
     steps:
