@@ -368,28 +368,19 @@ stages:
            #     command: 'destroy'
            #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
            #     environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-- stage: Deploy
-  dependsOn: Build
-  jobs:
-  - deployment: VMDeploy
-    displayName: Install packages for testing
-    environment:
-      name:  MyLinuxDev
-      resourceType: VirtualMachine
-      tags: web
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - download: current
-            artifact: dropScripts
+
+          # steps:
+          # - download: current
+          #   artifact: dropScripts
+            
           - task: CopyFiles@2
-            displayName: Copy login script to Temp folder
+            displayName: "login Script"
             inputs:
               SourceFolder: '$(Pipeline.Workspace)/dropScripts'
               Contents: '**'
               TargetFolder: '$(Agent.TempDirectory)'
               OverWrite: true
+              
           - task: Bash@3
             displayName: "file script install"
             inputs:
@@ -412,6 +403,7 @@ stages:
                 sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
                 sudo chown root:root /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
+                
           - task: CmdLine@2
             condition: succeededOrFailed()
             displayName: Run Selenium Tests
