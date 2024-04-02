@@ -23,12 +23,12 @@ stages:
     - task: CmdLine@2
       displayName: "newman install"
       continueOnError: true
+      workingDirectory: '$(System.DefaultWorkingDirectory)/'
       inputs:
         script: |
           'sudo apt-get install npm'
           'sudo npm install -g newman'
-          'export NPM_CONFIG_PREFIX="/home/devopsagent/myagent/_work/"'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/'
+          'export NPM_CONFIG_PREFIX="/home/devopsagent/myagent/_work/_temp/"'        
 
     - task: CmdLine@2
       displayName: "regression check"
