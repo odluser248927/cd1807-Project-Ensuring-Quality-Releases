@@ -421,7 +421,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure Web App deployment'
             inputs:
-              azureSubscription: 'Azure subscription 1'
+              environmentServiceNameAzureRM: 'myServiceConnection'
               appName: 'mydevopsapp'
               appType: webApp
               package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
