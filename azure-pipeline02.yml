@@ -371,12 +371,12 @@ stages:
 
           # steps:
           # - download: current
-          #   artifact: dropScripts
+          #   artifact: drops
             
           - task: CopyFiles@2
             displayName: "login Script"
             inputs:
-              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              SourceFolder: '$(Pipeline.Workspace)/drops'
               Contents: '**'
               TargetFolder: '$(Agent.TempDirectory)'
               OverWrite: true
