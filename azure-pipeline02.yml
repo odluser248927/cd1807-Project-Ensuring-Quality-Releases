@@ -266,7 +266,7 @@ stages:
         TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
 
         
-    # Publish Artifacts:-
+    # Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
