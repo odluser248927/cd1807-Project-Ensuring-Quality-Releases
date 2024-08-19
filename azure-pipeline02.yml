@@ -22,22 +22,24 @@ stages:
     steps:
       
     # install if not installed in env:      
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   continueOnError: true
-    #   inputs:        
-    #     script: |
-    #       #'sudo apt-get install npm'
-    #       'sudo npm install -g newman'
-    #       WorkingDirectory: '$(System.DefaultWorkingDirectory)'
-    #       'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
+    - task: CmdLine@2
+      condition: succeededOrFailed()
+      displayName: "newman install"
+      continueOnError: true
+      inputs:        
+        script: 'sudo npm install -g newman'
+        WorkingDirectory: '$(System.DefaultWorkingDirectory)'
+          #'sudo apt-get install npm'
+          # 'sudo npm install -g newman'
+          # WorkingDirectory: '$(System.DefaultWorkingDirectory)'
+          # 'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
                   
     - task: CmdLine@2
       condition: succeededOrFailed()
       displayName: "regression check"
       continueOnError: true
       inputs:
-        script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
+        script: 'newman run automatedtesting/postman/StarterAPI.json -e automatedtesting/postman/Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
         WorkingDirectory: '$(System.DefaultWorkingDirectory)'
 
     - task: PublishTestResults@2
