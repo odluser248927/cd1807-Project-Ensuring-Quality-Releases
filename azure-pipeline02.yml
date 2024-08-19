@@ -28,11 +28,13 @@ stages:
       continueOnError: true
       inputs:        
         script: 'sudo npm install -g newman'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        workingDirectory: '/home/devopsagent/myagent/_work/20/s'
           #'sudo apt-get install npm'
           # 'sudo npm install -g newman'
           # workingDirectory: '$(System.DefaultWorkingDirectory)'
+          # workingDirectory: '$(System.DefaultWorkingDirectory)'
           # workingDirectory: '/home/devopsagent/myagent/_work/_temp/'
+          #workingDirectory: '/home/devopsagent/myagent/_work/20/s'
           # 'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/"'
                   
     - task: CmdLine@2
