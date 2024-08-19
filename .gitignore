@@ -5,6 +5,7 @@
 **/.terraform/*
 **/terraform/environments/test/.terraform/*
 **/terraform/environments/test/terraform.tfvars
+/home/dahsage3/eegrOrg/eegrOsPrac/azNotes/project3Files/p5sub/Project-Ensuring-Quality-Releases-/terraform/environments/test/terraform.tfvars
 
 # .tfstate files
 *.tfstate
