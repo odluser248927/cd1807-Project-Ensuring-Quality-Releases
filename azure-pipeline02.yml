@@ -48,7 +48,7 @@ stages:
       inputs:
         testResultsFormat: 'Junit'
         testResultsFiles: '**/TEST-*.xml'
-        searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
+        searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/automatedtesting/jmeter'
         mergeTestResults: true
         failTaskOnFailedTests: false
         testRunTitle: 'Jmeter Results'    
