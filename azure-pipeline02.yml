@@ -332,7 +332,7 @@ stages:
               command: 'plan'
               commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
-              #environmentServiceNameAzureRM: 'myServiceConnection'
+              environmentServiceNameAzureRM: 'myServiceConnection'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
