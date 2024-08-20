@@ -342,16 +342,16 @@ stages:
               environmentServiceNameAzureRM: 'myServiceConnection'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
           
-          # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-          #   # continueOnError: true
-          #   displayName: 'Terrafom apply'
-          #   # displayName: TERRAFORM APPLY
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'apply'
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-          #     # addSpnToEnvironment: true          
-          #     commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+            # continueOnError: true
+            displayName: 'Terrafom apply'
+            # displayName: TERRAFORM APPLY
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              # addSpnToEnvironment: true          
+              commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
           #     backendType: 'azurerm'
           #     # backendServiceArm: 'myServiceConnection'
           #     # environmentServiceNameAzureRM: 'myServiceConnection'
