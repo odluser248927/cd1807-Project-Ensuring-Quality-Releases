@@ -324,23 +324,23 @@ stages:
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
-          - task: TerraformTaskV3@3
-            displayName: 'Terrafom plan'
-            inputs:
-              command: 'plan'
-              commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
-              backendType: 'azurerm'
-              environmentServiceNameAzureRM: 'myServiceConnection'
-              backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'terraform.tfstate'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              
-          # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-          #   displayName: 'Terrafom plan'          
+          # - task: TerraformTaskV3@3
+          #   displayName: 'Terrafom plan'
           #   inputs:
-          #     provider: 'azurerm'
           #     command: 'plan'
-          #     commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+          #     commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
+          #     backendType: 'azurerm'
+          #     environmentServiceNameAzureRM: 'myServiceConnection'
+          #     backendAzureRmContainerName: 'tfstate'
+          #     backendAzureRmKey: 'terraform.tfstate'
+          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              
+          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+            displayName: 'Terrafom plan'          
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
           #     environmentServiceNameAzureRM: 'myServiceConnection'
           #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
           
