@@ -41,15 +41,15 @@ stages:
     #     script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
     #     WorkingDirectory: '$(System.DefaultWorkingDirectory)'
 
-    - task: PublishTestResults@2
-      condition: succeededOrFailed()
-      inputs:
-        testResultsFormat: 'Junit'
-        testResultsFiles: '**/TEST-*.xml'
-        searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
-        mergeTestResults: true
-        failTaskOnFailedTests: false
-        testRunTitle: 'Jmeter Results'    
+    # - task: PublishTestResults@2
+    #   condition: succeededOrFailed()
+    #   inputs:
+    #     testResultsFormat: 'Junit'
+    #     testResultsFiles: '**/TEST-*.xml'
+    #     searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
+    #     mergeTestResults: true
+    #     failTaskOnFailedTests: false
+    #     testRunTitle: 'Jmeter Results'    
         
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       displayName: 'Terrafom installation'
@@ -341,7 +341,7 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
-          #     environmentServiceNameAzureRM: 'myServiceConnection'
+              environmentServiceNameAzureRM: 'myServiceConnection'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
           
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
