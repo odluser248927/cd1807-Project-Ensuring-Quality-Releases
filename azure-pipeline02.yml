@@ -321,7 +321,7 @@ stages:
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               #commandOptions: '-reconfigure'
-              backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
@@ -331,7 +331,7 @@ stages:
               command: 'plan'
               commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
-              environmentServiceNameAzureRM: 'myServiceConnection'
+              #environmentServiceNameAzureRM: 'myServiceConnection'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
