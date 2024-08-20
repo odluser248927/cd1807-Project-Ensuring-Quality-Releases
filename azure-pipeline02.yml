@@ -322,7 +322,8 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               #commandOptions: '-reconfigure'
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
           - task: TerraformTaskV3@3
             displayName: 'Terrafom plan'
