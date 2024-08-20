@@ -353,17 +353,17 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-              # addSpnToEnvironment: true          
+              addSpnToEnvironment: true          
               #commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
-          #     backendType: 'azurerm'
-              # backendServiceArm: 'myServiceConnection'
+              backendType: 'azurerm'
+              backendServiceArm: 'myServiceConnection'
               #environmentServiceNameAzureRM: 'myServiceConnection'
               environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-          #     addSpnToEnvironment: true
+              # addSpnToEnvironment: true
               # OverWrite: true
-              #commandOptions: '-lock=false -var-file="terraform.tfvars"'
-              # backendAzureRmContainerName: 'tfstate'
-              # backendAzureRmKey: 'terraform.tfstate'        
+              commandOptions: '-lock=false -var-file="terraform.tfvars"'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'        
               
            # - task: TerraformTaskV3@3
            #   displayName: Terraform destroy
