@@ -337,9 +337,9 @@ stages:
               backendServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-              backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'test.terraform.tfstate'
-              commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'              
+              #backendAzureRmContainerName: 'tfstate'
+              #backendAzureRmKey: 'test.terraform.tfstate'
+              #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'              
 
           # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
           #   displayName: 'Terrafom plan'          
