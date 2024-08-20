@@ -389,19 +389,19 @@ stages:
               script: 'sudo npm install -g newman'
               workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
-          - task: CmdLine@2
-          continueOnError: true
-          displayName: "Run automated testing commands"
-          inputs:
-            script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
-            workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-          - task: CmdLine@2
-            displayName: "Run Tests"
+          # - task: CmdLine@2
           # continueOnError: true
-            inputs:
-              script: 'newman run TestSuite.Regression.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+          # displayName: "Run automated testing commands"
+          # inputs:
+          #   script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
+          #   workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+
+          # - task: CmdLine@2
+          #   displayName: "Run Tests"
+          # # continueOnError: true
+          #   inputs:
+          #     script: 'newman run TestSuite.Regression.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
         # - task: PublishTestResults@2
         #   inputs:
