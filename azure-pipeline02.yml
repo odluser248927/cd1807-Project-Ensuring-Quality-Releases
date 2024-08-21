@@ -21,12 +21,12 @@ stages:
     pool: myAgentPool
     steps:
 
-    # - task: InstallSSHKey@0
-    #   inputs:
+    - task: InstallSSHKey@0
+      inputs:
     #     #knownHostsEntry: '$(KNOWN_HOST_STRING)'
     #     sshPublicKey: '$(PUBLIC_KEY)'
-          sshPublicKey: 'id_rsa.pub'
-          sshKeySecureFile: 'id_rsa'
+        sshPublicKey: 'id_rsa.pub'
+        sshKeySecureFile: 'id_rsa'
         
     # install if not installed in env:      
     # - task: CmdLine@2
