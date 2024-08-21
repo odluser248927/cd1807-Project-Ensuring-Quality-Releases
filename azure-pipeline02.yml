@@ -21,11 +21,11 @@ stages:
     pool: myAgentPool
     steps:
 
-    # - task: InstallSSHKey@0
-    #   inputs:
-    #     knownHostsEntry: '$(KNOWN_HOST_STRING)'
-    #     sshPublicKey: '$(PUBLIC_KEY)'
-    #     sshKeySecureFile: 'id_rsa'
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: '$(KNOWN_HOST_STRING)'
+        sshPublicKey: '$(PUBLIC_KEY)'
+        sshKeySecureFile: 'id_rsa'
         
     # install if not installed in env:      
     # - task: CmdLine@2
@@ -61,6 +61,11 @@ stages:
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: 'latest'
+
+    - task: DownloadSecureFile@1
+      displayName: 'Download secure file $(terraform.tfvars)'
+      inputs:
+        secureFile: 'terraform.tfvars'
         
     - task: TerraformTaskV3@3
       displayName: init
