@@ -23,7 +23,7 @@ stages:
 
     - task: InstallSSHKey@0
       inputs:
-        knownHostsEntry: '$(KNOWN_HOST_STRING)'
+        #knownHostsEntry: '$(KNOWN_HOST_STRING)'
         sshPublicKey: '$(PUBLIC_KEY)'
         sshKeySecureFile: 'id_rsa.pub'
         
