@@ -374,7 +374,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-              workingDirectory : '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
+              workingDirectory : '$(Agent.TempDirectory)/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               addSpnToEnvironment: true
               commandOptions: '-var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
