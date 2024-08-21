@@ -20,7 +20,13 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-      
+
+    # - task: InstallSSHKey@0
+    #   inputs:
+    #     knownHostsEntry: '$(KNOWN_HOST_STRING)'
+    #     sshPublicKey: '$(PUBLIC_KEY)'
+    #     sshKeySecureFile: 'id_rsa'
+        
     # install if not installed in env:      
     # - task: CmdLine@2
     #   displayName: "newman install"
@@ -381,16 +387,29 @@ stages:
            #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
            #     environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
 
+          - task: ArchiveFiles@2
+            displayName: 'Archive FakeRestAPI'
+            inputs:
+              rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+          - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+            displayName: 'Upload Package'
+            artifact: drop-fakerestapi 
+
           # steps:
           # - download: current
           #   artifact: drops
             
           - task: CopyFiles@2
-            displayName: "login Script"
+            displayName: "login test"
             inputs:
               SourceFolder: '$(Pipeline.Workspace)/drops'
-              Contents: '**'
-              TargetFolder: '$(Agent.TempDirectory)'
+              #Contents: '**'
+              contents: 'automatedtesting/selenium/**'
+              TargetFolder: '$(System.DefaultWorkingDirectory)'
+              #TargetFolder: '$(Agent.TempDirectory)'
               OverWrite: true
 
           - task: CmdLine@2
@@ -398,7 +417,8 @@ stages:
             continueOnError: true
             inputs:
               script: 'sudo npm install -g newman'
-              workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           # - task: CmdLine@2
           # continueOnError: true
@@ -437,16 +457,7 @@ stages:
         #   displayName: 'Upload Package'
         #   artifact: drop-uitests
 
-        # - task: ArchiveFiles@2
-        #   displayName: 'Archive FakeRestAPI'
-        #   inputs:
-        #     rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
-        #     includeRootFolder: false
-        #     archiveType: 'zip'
-        #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-        # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-        #   displayName: 'Upload Package'
-        #   artifact: drop-fakerestapi
+        
 
         # - task: ArchiveFiles@2
         #   displayName: 'Archive PerformanceTestSuite'
