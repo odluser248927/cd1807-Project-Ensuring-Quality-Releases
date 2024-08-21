@@ -373,12 +373,14 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              commandOptions: '-auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test"'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               addSpnToEnvironment: true
               #commandOptions: '-var-file="/home/devopsagent/myagent/_work/_temp/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
-              commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+              #commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               #backendType: 'azurerm'
               #backendServiceArm: 'myServiceConnection'
               environmentServiceNameAzureRM: 'myServiceConnection'
