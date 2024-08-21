@@ -427,26 +427,33 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           # - task: CmdLine@2
-          # continueOnError: true
+          # #continueOnError: true
+          # conditon: succededOrFailed()
           # displayName: "Run automated testing commands"
           # inputs:
           #   script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
-          #   workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+          #   workingDirectory: '$(System.DefaultWorkingDirectory)'
+          #   #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
-          # - task: CmdLine@2
-          #   displayName: "Run Tests"
-          # # continueOnError: true
-          #   inputs:
-          #     script: 'newman run TestSuite.Regression.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-          #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
+          - task: CmdLine@2
+            conditon: succededOrFailed()
+            displayName: "Run automated Testing"
+          # continueOnError: true
+            inputs:
+              script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/Test.environment1.json --reporters cli,junit --reporter-junit-export Results/Test-DataValidation.xml'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
-        # - task: PublishTestResults@2
-        #   inputs:
-        #     testResultsFormat: 'JUnit'
-        #     testResultsFiles: '**/TEST-*.xml'
-        #     searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
-        #     mergeTestResults: true
-        #     testRunTitle: 'JUnit Results'    
+          - task: PublishTestResults@2
+            conditon: succededOrFailed()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '**/Results/Test-DataValidation.xml'
+              #searchFolder: '$(System.DefaultWorkingDirectory)/terraform/automatedtesting/jmeter'
+              #searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
+              #mergeTestResults: true
+              failTaskOnFailedTests: false
+              testRunTitle: 'JUnit Results'    
 
         # - task: ArchiveFiles@2
         #   displayName: 'Archive UI Tests'
