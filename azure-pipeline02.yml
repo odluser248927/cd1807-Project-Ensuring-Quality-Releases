@@ -436,7 +436,7 @@ stages:
           #   #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           - task: CmdLine@2
-            conditon: succededOrFailed()
+            condition: succededOrFailed()
             displayName: "Run automated Testing"
           # continueOnError: true
             inputs:
