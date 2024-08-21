@@ -436,16 +436,17 @@ stages:
           #   #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           - task: CmdLine@2
-            condition: succededOrFailed()
+            #condition: succededOrFailed()
             displayName: "Run automated Testing"
-          # continueOnError: true
+            continueOnError: true
             inputs:
               script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/Test.environment1.json --reporters cli,junit --reporter-junit-export Results/Test-DataValidation.xml'
               workingDirectory: '$(System.DefaultWorkingDirectory)'
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           - task: PublishTestResults@2
-            condition: succededOrFailed()
+            #condition: succededOrFailed()
+            continueOnError: true
             inputs:
               testResultsFormat: 'JUnit'
               testResultsFiles: '**/Results/Test-DataValidation.xml'
