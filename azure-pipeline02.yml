@@ -25,7 +25,8 @@ stages:
     #   inputs:
     #     #knownHostsEntry: '$(KNOWN_HOST_STRING)'
     #     sshPublicKey: '$(PUBLIC_KEY)'
-    #     sshKeySecureFile: 'id_rsa.pub'
+          sshPublicKey: 'id_rsa.pub'
+          sshKeySecureFile: 'id_rsa'
         
     # install if not installed in env:      
     # - task: CmdLine@2
