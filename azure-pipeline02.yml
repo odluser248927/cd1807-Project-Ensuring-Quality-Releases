@@ -78,7 +78,8 @@ stages:
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
+        #backendAzureRmKey: 'test.terraform.tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
         commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
 
     - task: TerraformTaskV3@3
