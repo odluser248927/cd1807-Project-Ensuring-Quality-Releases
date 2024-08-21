@@ -445,7 +445,7 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           - task: PublishTestResults@2
-            conditon: succededOrFailed()
+            condition: succededOrFailed()
             inputs:
               testResultsFormat: 'JUnit'
               testResultsFiles: '**/Results/Test-DataValidation.xml'
