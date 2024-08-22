@@ -312,8 +312,8 @@ stages:
               downloadType: 'single'
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
-              #downloadPath: '/home/devopsagent/myagent/_work/2'
-              downloadPath: '$(Agent.TempDirectory)/terraform/'
+              downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
+              #downloadPath: '$(Agent.TempDirectory)/terraform/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
@@ -381,7 +381,8 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)'
+              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
