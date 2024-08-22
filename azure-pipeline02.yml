@@ -68,11 +68,11 @@ stages:
       inputs:
         secureFile: 'terraform.tfvars'
 
-    - task: CmdLine@2
-      displayName: 'Copy terraform.tfvars to local working directory'
-      inputs:
-        script: |
-          mv '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
+    # - task: CmdLine@2
+    #   displayName: 'Copy terraform.tfvars to local working directory'
+    #   inputs:
+    #     script: |
+    #       mv '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
         
     - task: TerraformTaskV3@3
       displayName: init
@@ -392,9 +392,9 @@ stages:
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
-              commandOptions: '-auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
+              #commandOptions: '-auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/'
-              workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
+              #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               addSpnToEnvironment: true
               #commandOptions: '-var-file="/home/devopsagent/myagent/_work/_temp/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
