@@ -317,8 +317,8 @@ stages:
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
-              #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               scriptLocation: inlineScript
               inlineScript: |
                 az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
