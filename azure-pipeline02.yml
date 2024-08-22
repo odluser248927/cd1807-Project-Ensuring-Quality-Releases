@@ -312,10 +312,10 @@ stages:
               downloadType: 'single'
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
-              downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
+              #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #downloadPath: '$(Agent.TempDirectory)/terraform/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-              #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+              downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           
           - task: AzureCLI@1
