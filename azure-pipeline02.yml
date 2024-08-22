@@ -67,6 +67,12 @@ stages:
       displayName: 'Download secure file $(terraform.tfvars)'
       inputs:
         secureFile: 'terraform.tfvars'
+
+    - task: CmdLine@2
+      displayName: 'Copy terraform.tfvars to local working directory'
+      inputs:
+        script: |
+          mv '$(Agent.TempDirectory)/terraform.tfvars' './terraform.tfvars'
         
     - task: TerraformTaskV3@3
       displayName: init
@@ -381,7 +387,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
