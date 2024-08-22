@@ -269,15 +269,15 @@ stages:
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)'
 
         
     # Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
         
@@ -313,9 +313,9 @@ stages:
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/2'
-              #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
+              downloadPath: '$(Agent.TempDirectory)/terraform/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
-              downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+              #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           
           - task: AzureCLI@1
@@ -381,10 +381,11 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'apply'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
-              #commandOptions: '-auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
+              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
+              #commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/terraform/environments/test/'
               addSpnToEnvironment: true
