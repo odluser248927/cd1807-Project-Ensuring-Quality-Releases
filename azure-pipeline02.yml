@@ -310,13 +310,15 @@ stages:
               downloadType: 'single'
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
-              downloadPath: '/home/devopsagent/myagent/_work/'
+              #downloadPath: '/home/devopsagent/myagent/_work/2'
+              downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
           
           - task: AzureCLI@1
             displayName: Terraform check 
             inputs:
-              azureSubscription: "myServiceConnection"        
-              workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              azureSubscription: "myServiceConnection"
+              #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               scriptLocation: inlineScript
               inlineScript: |
                 az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
@@ -373,8 +375,8 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               commandOptions: '-auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/terraform/environments/test/'
@@ -404,7 +406,8 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Archive FakeRestAPI'
             inputs:
-              rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
+              #rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
+              rootFolderOrFile: '$(Agent.TempDirectory)/terraform/environments/test/'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -420,9 +423,10 @@ stages:
             displayName: "login test"
             inputs:
               SourceFolder: '$(Pipeline.Workspace)/drops'
-              #Contents: '**'
-              contents: 'automatedtesting/selenium/**'
-              TargetFolder: '$(System.DefaultWorkingDirectory)'
+              contents: '**'
+              #contents: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium/**'
+              #TargetFolder: '$(System.DefaultWorkingDirectory)/'
+              TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
               #TargetFolder: '$(Agent.TempDirectory)'
               OverWrite: true
 
