@@ -68,11 +68,11 @@ stages:
       inputs:
         secureFile: 'terraform.tfvars'
 
-    - task: CmdLine@2
-      displayName: 'Copy terraform.tfvars to local working directory'
-      inputs:
-        script: |
-          mv '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
+    # - task: CmdLine@2
+    #   displayName: 'Copy terraform.tfvars to local working directory'
+    #   inputs:
+    #     script: |
+    #       mv '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
         
     - task: TerraformTaskV3@3
       displayName: init
@@ -276,16 +276,16 @@ stages:
           **/*.tfvars
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)'
-        TargetFolder: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
+        #TargetFolder: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
         
     # Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
+        #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
         
@@ -332,8 +332,8 @@ stages:
             inputs:
               azureSubscription: "myServiceConnection"
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |
                 az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
@@ -353,8 +353,8 @@ stages:
               commandOptions: '-reconfigure'
               #backendAzureRmKey : 'terraform.tfstate'
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               
 
           # - task: TerraformTaskV3@3
@@ -379,9 +379,10 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+              commandOptions: '-input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               environmentServiceNameAzureRM: 'myServiceConnection'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               backendServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
@@ -396,17 +397,17 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              #commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-input=false -auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               addSpnToEnvironment: true
               #commandOptions: '-var-file="/home/devopsagent/myagent/_work/_temp/terraform/environments/test/terraform.tfvars"'
-              commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+              #commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               #commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               #backendType: 'azurerm'
               #backendServiceArm: 'myServiceConnection'
