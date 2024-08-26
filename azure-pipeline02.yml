@@ -276,7 +276,7 @@ stages:
           **/*.tfvars
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
+        TargetFolder: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
         #TargetFolder: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
         
