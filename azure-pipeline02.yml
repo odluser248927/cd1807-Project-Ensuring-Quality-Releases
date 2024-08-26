@@ -321,8 +321,8 @@ stages:
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
-              #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/'
+              #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
+              downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
