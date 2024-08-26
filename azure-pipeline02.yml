@@ -276,7 +276,7 @@ stages:
           **/*.tfvars
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        TargetFolder: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
         
@@ -322,10 +322,10 @@ stages:
               addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
-              downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)/environments/test/'
+              #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
+              downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
           
           - task: AzureCLI@1
             displayName: Terraform check 
