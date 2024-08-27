@@ -388,7 +388,13 @@ stages:
           #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               #backendAzureRmContainerName: 'tfstate'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-          
+              
+          - task: CmdLine@2
+            displayName: 'Copy terraform.tfvars to local working directory'
+            inputs:
+              script: |
+                mv '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
+    
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
             displayName: 'Terrafom apply'
@@ -399,8 +405,8 @@ stages:
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              #workingDirectory: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              workingDirectory: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
               commandOptions: '-input=false -auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-input=false'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
