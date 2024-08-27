@@ -258,36 +258,36 @@ stages:
     #   displayName: 'Upload Package'
     #   artifact: drop-perftests
         
-    # - task: ArchiveFiles@1
-    #   displayName: "Archiving from local env to cloud env."
-    #   inputs:
-    #     rootFolder: '$(System.DefaultWorkingDirectory)/terraform/'
-    #     includeRootFolder: true
-    #     archiveType: 'tar'
-    #     archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
+    - task: ArchiveFiles@1
+      displayName: "Archiving from local env to cloud env."
+      inputs:
+        rootFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+        includeRootFolder: true
+        archiveType: 'tar'
+        archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
         
-    # - task: CopyFiles@2
-    #   displayName: "Deploying IaaC from local env to cloud env."
-    #   inputs:
-    #     #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-    #     SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
-    #     Contents: |
-    #       **/*.tf
-    #       **/*.tfvars
-    #       **/*tfplan*
-    #     #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-    #     TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/'
-    #     #TargetFolder: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+    - task: CopyFiles@2
+      displayName: "Deploying IaaC from local env to cloud env."
+      inputs:
+        #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+        Contents: |
+          **/*.tf
+          **/*.tfvars
+          **/*tfplan*
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/'
+        #TargetFolder: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
 
         
-    # # Publish Artifacts:
-    # - task: PublishBuildArtifacts@1
-    #   displayName: 'PUBLISH ARTIFACTS'
-    #   inputs:
-    #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-    #     #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
-    #     artifactName: '$(Artifact)'
-    #     publishLocation: 'Container'
+    # Publish Artifacts:
+    - task: PublishBuildArtifacts@1
+      displayName: 'PUBLISH ARTIFACTS'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
+        #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        artifactName: '$(Artifact)'
+        publishLocation: 'Container'
         
     ##deploymentStage:
 - stage: Deploy
