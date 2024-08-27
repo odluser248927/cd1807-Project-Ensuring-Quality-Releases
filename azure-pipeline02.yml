@@ -393,7 +393,7 @@ stages:
             displayName: 'Copy terraform.tfvars to local working directory'
             inputs:
               script: |
-                cp '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+                cp '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
                 # '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
     
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
