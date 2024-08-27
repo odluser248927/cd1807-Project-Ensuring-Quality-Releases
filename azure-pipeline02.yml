@@ -313,15 +313,15 @@ stages:
             inputs:
               terraformVersion: 'latest'
 
-          # - task: DownloadBuildArtifacts@0
-          #   displayName: 'Download artifacts for deployment.'
-          #   inputs:
-          #     buildType: 'current'
-          #     downloadType: 'single'
-          #     artifactname: '$(Artifact)'
-          #     addSpnToEnvironment: true
+          - task: DownloadBuildArtifacts@0
+            displayName: 'Download artifacts for deployment.'
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactname: '$(Artifact)'
+              addSpnToEnvironment: true
           #     #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-          #     #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
+              downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
           #     #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
           #     downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/environments/test'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
@@ -331,8 +331,8 @@ stages:
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |
@@ -353,9 +353,9 @@ stages:
               commandOptions: '-reconfigure'
               #backendAzureRmKey : 'terraform.tfstate'
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              workingDirectory: '$(AgentTempDirectory)/terraform/environments/test'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-              workingDirector: '/home/devopsagent/myagent/_work/20/s/'
+              #workingDirector: '/home/devopsagent/myagent/_work/20/s/'
 
           - task: TerraformTaskV3@3
             displayName: 'Terrafom plan'
@@ -363,7 +363,7 @@ stages:
               #provider: 'azurerm'
               command: 'plan'
               #backendServiceArm: 'myServiceConnection'
-              commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-lock=false -var-file="$(AgentTempDirectory)/terraform/environments/test/terraform.tfvars"'
               #backendType: 'azurerm'
               environmentServiceNameAzureRM: 'myServiceConnection'
           #     backendAzureRmContainerName: 'tfstate'
