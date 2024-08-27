@@ -68,11 +68,11 @@ stages:
       inputs:
         secureFile: 'terraform.tfvars'
 
-    - task: CmdLine@2
-      displayName: 'Copy terraform.tfvars to local working directory'
-      inputs:
-        script: |
-          cp '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
+    # - task: CmdLine@2
+    #   displayName: 'Copy terraform.tfvars to local working directory'
+    #   inputs:
+    #     script: |
+    #       cp '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars' '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
         
     - task: TerraformTaskV3@3
       displayName: init
