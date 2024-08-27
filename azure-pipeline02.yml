@@ -401,8 +401,8 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-              #commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
-              commandOptions: '-input=false'
+              commandOptions: '-input=false -auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
+              #commandOptions: '-input=false'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               addSpnToEnvironment: true
