@@ -374,15 +374,15 @@ stages:
               #backendAzureRmKey: 'test.terraform.tfstate'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'              
 
-           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-             displayName: 'Terrafom plan'          
-             inputs:
-               provider: 'azurerm'
-               command: 'plan'
-               commandOptions: '-lock=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+            displayName: 'Terrafom plan'          
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              commandOptions: '-lock=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
           #     environmentServiceNameAzureRM: 'myServiceConnection'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           #     backendServiceArm: 'myServiceConnection'
           #     backendAzureRmResourceGroupName: 'Azuredevops'
           #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
