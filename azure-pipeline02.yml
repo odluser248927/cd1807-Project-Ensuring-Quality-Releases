@@ -383,7 +383,7 @@ stages:
               environmentServiceNameAzureRM: 'myServiceConnection'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-          #     backendServiceArm: 'myServiceConnection'
+              backendServiceArm: 'myServiceConnection'
           #     backendAzureRmResourceGroupName: 'Azuredevops'
           #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               #backendAzureRmContainerName: 'tfstate'
