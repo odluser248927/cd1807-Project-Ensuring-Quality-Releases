@@ -379,10 +379,10 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              commandOptions: '-lock=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-lock=false'
               environmentServiceNameAzureRM: 'myServiceConnection'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
           #     backendServiceArm: 'myServiceConnection'
           #     backendAzureRmResourceGroupName: 'Azuredevops'
           #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
