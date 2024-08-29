@@ -402,7 +402,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
-              commandOptions: "-lock=false"
+              commandOptions: '-lock=false -input=false'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               addSpnToEnvironment: true
