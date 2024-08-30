@@ -282,15 +282,15 @@ stages:
 
         
     # Publish Artifacts:
-    - task: PublishBuildArtifacts@1
-      displayName: 'PUBLISH ARTIFACTS'
-      inputs:
-        #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        #PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-        PathtoPublish: '/home/devopsagent/myagent/_work/_tool/$(Artifact)/terraform/environments/test/'
-        #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/terraform/'
-        artifactName: '$(Artifact)'
-        publishLocation: 'Container'
+    # - task: PublishBuildArtifacts@1
+    #   displayName: 'PUBLISH ARTIFACTS'
+    #   inputs:
+    #     #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+    #     #PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+    #     PathtoPublish: '/home/devopsagent/myagent/_work/_tool/$(Artifact)/terraform/environments/test/'
+    #     #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/terraform/'
+    #     artifactName: '$(Artifact)'
+    #     publishLocation: 'Container'
         
     ##deploymentStage:
 - stage: Deploy
