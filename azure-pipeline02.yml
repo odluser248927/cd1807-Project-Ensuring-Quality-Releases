@@ -335,11 +335,11 @@ stages:
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
-              #workingDirectory: '/home/devopsagent/myagent/_work/terraform/$(Artifact)/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #WorkingDirectory: '$(Agent.TempDirectory)/terraform/'
-              commandOptions: '-reconfigure'
+              #commandOptions: '-reconfigure'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |
