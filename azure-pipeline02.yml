@@ -269,23 +269,23 @@ stages:
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
         #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
         Contents: |
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+        TargetFolder: '$(Agent.TempDirectory)/terraform/'
 
         
     # Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
-        #PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+        #PathtoPublish: '$(Build.ArtifactStagingDirectory)/terraform/'
+        PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
@@ -323,8 +323,8 @@ stages:
               addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-              downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
-              #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
+              #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
@@ -335,7 +335,8 @@ stages:
               azureSubscription: "myServiceConnection"
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              #WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+              WorkingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |
