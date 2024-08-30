@@ -275,16 +275,16 @@ stages:
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
+        #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
 
         
     # Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
@@ -321,19 +321,19 @@ stages:
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
+              downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)/terraform/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-              downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
+              #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
           
           - task: AzureCLI@1
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
-              workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |
@@ -356,7 +356,7 @@ stages:
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
               
 
           # - task: TerraformTaskV3@3
