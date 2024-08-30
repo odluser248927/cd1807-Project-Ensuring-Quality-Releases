@@ -278,13 +278,14 @@ stages:
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+        TargetFolder: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
 
         
     # Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
         artifactName: '$(Artifact)'
