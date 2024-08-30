@@ -339,7 +339,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #WorkingDirectory: '$(Agent.TempDirectory)/terraform/'
-              #commandOptions: '-reconfigure'
+              commandOptions: '-reconfigure'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |
