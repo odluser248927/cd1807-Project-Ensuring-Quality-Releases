@@ -361,7 +361,7 @@ stages:
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
-              WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+              WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               
 
           # - task: TerraformTaskV3@3
