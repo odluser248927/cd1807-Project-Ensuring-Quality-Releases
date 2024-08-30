@@ -269,7 +269,7 @@ stages:
     - task: CopyFiles@2
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
         Contents: |
           **/*.tf
@@ -277,7 +277,7 @@ stages:
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        TargetFolder: '$(Agent.TempDirectory)/terraform/'
+        TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
 
         
     # Publish Artifacts:
