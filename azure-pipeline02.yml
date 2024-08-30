@@ -72,7 +72,7 @@ stages:
       displayName: 'Copy terraform.tfvars to local working directory'
       inputs:
         script: |
-          cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '$(Agent.TempDirectory)/terraform/'
+          cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/$(Artifact)terraform/environments/test/'
         
     - task: TerraformTaskV3@3
       displayName: init
@@ -275,7 +275,7 @@ stages:
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
 
