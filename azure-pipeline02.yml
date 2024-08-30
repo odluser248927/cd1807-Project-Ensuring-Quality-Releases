@@ -288,7 +288,7 @@ stages:
         #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform'
-        PathtoPublish: '/home/devopsagent/myagent/_work/_tool/terraform/'
+        PathtoPublish: '/home/devopsagent/myagent/_work/_temp/terraform/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
         
@@ -335,8 +335,8 @@ stages:
             displayName: Terraform check 
             inputs:
               azureSubscription: "myServiceConnection"
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-              commandOptions: '-reconfigure'
+              workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              #commandOptions: '-reconfigure'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
