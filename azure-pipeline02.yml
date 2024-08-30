@@ -284,7 +284,8 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
@@ -321,7 +322,7 @@ stages:
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
+              downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/$(Artifact)/terraform/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
