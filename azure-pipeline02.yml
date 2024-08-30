@@ -275,7 +275,7 @@ stages:
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
 
@@ -284,7 +284,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/$(Artifact)'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/20/a/$(Artifact)/terraform/$(Artifact)/environments/test/'
         artifactName: '$(Artifact)'
@@ -323,7 +323,7 @@ stages:
               addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-              downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/$(Artifact)'
+              downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
@@ -357,7 +357,8 @@ stages:
               backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
               
 
           # - task: TerraformTaskV3@3
@@ -403,11 +404,12 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform/'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform/'
+              WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #commandOptions: '-auto-approve -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-lock=false -input=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
-              commandOptions: '-lock=false -input=false -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-lock=false -input=false -var-file="$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               addSpnToEnvironment: true
