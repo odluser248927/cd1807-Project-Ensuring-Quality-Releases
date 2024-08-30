@@ -360,6 +360,7 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               #commandOptions: '-reconfigure'
               backendAzureRmKey : 'terraform.tfstate'
+              commandOptions: '-lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
