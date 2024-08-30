@@ -275,9 +275,9 @@ stages:
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)terraform/$(Artifact)/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
+        #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
 
         
     # Publish Artifacts:
