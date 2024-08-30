@@ -72,7 +72,7 @@ stages:
       displayName: 'Copy terraform.tfvars to local working directory'
       inputs:
         script: |
-          cp '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '$(Agent.TempDirectory)/terraform/1.9.5/x64/terraform/environments/test/'
+          cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '$(Agent.TempDirectory)/terraform/1.9.5/x64/terraform/environments/test/'
         
     - task: TerraformTaskV3@3
       displayName: init
