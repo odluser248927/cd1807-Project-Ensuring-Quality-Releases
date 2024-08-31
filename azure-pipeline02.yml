@@ -427,7 +427,7 @@ stages:
               #commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               #backendType: 'azurerm'
               #backendServiceArm: 'myServiceConnection'
-              environmentServiceNameAzureRM: '$(myServiceConnection)'
+              environmentServiceNameAzureRM: 'myServiceConnection'
               #environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
               # addSpnToEnvironment: true
               # OverWrite: true
