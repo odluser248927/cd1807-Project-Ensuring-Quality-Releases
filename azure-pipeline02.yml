@@ -72,7 +72,7 @@ stages:
       displayName: 'Copy terraform.tfvars to local working directory'
       inputs:
         script: |
-          cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '~/myagent/terraform/environments/test/'
+          cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/terraform/environments/test/'
         
     - task: TerraformTaskV3@3
       displayName: init
@@ -417,7 +417,7 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
               #commandOptions: '-auto-approve -input=false -lock=false -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-lock=false -input=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
-              commandOptions: '-lock=false -input=false -var-file="~/myagent/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-lock=false -input=false -var-file="/home/devopsagent/myagent/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #addSpnToEnvironment: true
