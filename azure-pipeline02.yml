@@ -10,7 +10,8 @@ variables:
   vmImageName: 'ubuntu-latest'
   environmentName: 'mydevopsagentvm'
 
-  projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+  #projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+  projectRoot: '$(System.DefaultWorkingDirectory)/'
 
 
 stages:
@@ -68,11 +69,11 @@ stages:
       inputs:
         secureFile: 'terraform.tfvars'
 
-    - task: CmdLine@2
-      displayName: 'Copy terraform.tfvars to local working directory'
-      inputs:
-        script: |
-          cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/terraform/environments/test/'
+    # - task: CmdLine@2
+    #   displayName: 'Copy terraform.tfvars to local working directory'
+    #   inputs:
+    #     script: |
+    #       cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/terraform/environments/test/'
         
     - task: TerraformTaskV3@3
       displayName: init
@@ -277,8 +278,8 @@ stages:
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
-        TargetFolder: '/home/devopsagent/myagent/terraform/environments/test/'
+        TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
+        #TargetFolder: '/home/devopsagent/myagent/terraform/environments/test/'
 
         
     # Publish Artifacts:
@@ -412,7 +413,7 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
-              workingDirectory: '$(System.DefaultWorkDirectory)'
+              workingDirectory: '$(System.DefaultWorkDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
               #commandOptions: '-auto-approve -input=false -lock=false -var-file="$(Agent.TempDirectory)/terraform.tfvars"'
