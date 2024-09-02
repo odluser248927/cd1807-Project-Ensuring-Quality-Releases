@@ -267,7 +267,7 @@ stages:
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
       inputs:
-        rootFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+        rootFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         includeRootFolder: true
         archiveType: 'tar'
         archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
@@ -364,7 +364,7 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              commandOptions: '-reconfigure'
+              #commandOptions: '-reconfigure'
               backendAzureRmKey: 'terraform.tfstate'              
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
