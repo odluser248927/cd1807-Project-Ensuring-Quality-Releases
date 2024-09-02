@@ -323,6 +323,11 @@ stages:
             displayName: 'Terrafom installation'
             inputs:
               terraformVersion: 'latest'
+              
+          - script: |
+             terraform --version
+             terraform init -backend-config="storage_account_name=$(storageAccountName)"
+             #terraform plan --out=mydevopsdeployment03.plan
 
           # - task: DownloadBuildArtifacts@0
           #   displayName: 'Download artifacts for deployment.'
