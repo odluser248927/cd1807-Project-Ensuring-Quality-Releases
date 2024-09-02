@@ -66,7 +66,9 @@ stages:
 
     # -script: |
     #   terraform --version
-    #   terraform init -backend-config="storage_account_name=$(storageAccountName)"
+    #   terraform init -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+    #   terraform init -backend-config="storage_account_name=$(backendAzureRmStorageAccountName)"
+    #   terraform plan --out=mydevopsdeployment03.plan
     #   terraform plan --out=tfplan
 
     - task: DownloadSecureFile@1
