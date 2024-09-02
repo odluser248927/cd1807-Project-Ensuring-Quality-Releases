@@ -64,6 +64,11 @@ stages:
       inputs:
         terraformVersion: 'latest'
 
+    # -script: |
+    #   terraform --version
+    #   terraform init -backend-config="storage_account_name=$(storageAccountName)"
+    #   terraform plan --out=tfplan
+
     - task: DownloadSecureFile@1
       displayName: 'Download secure file $(terraform.tfvars)'
       inputs:
@@ -340,8 +345,8 @@ stages:
               #commandOptions: '-reconfigure'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              #WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-              #WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+              #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+              #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |
