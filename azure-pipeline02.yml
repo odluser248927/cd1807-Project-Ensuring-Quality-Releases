@@ -83,7 +83,7 @@ stages:
     #       cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/terraform/environments/test/'
         
     - task: TerraformTaskV3@3
-      displayName: init
+      displayName: 'init'
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -284,8 +284,9 @@ stages:
           **/*.tfvars
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
+        #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
         #TargetFolder: '/home/devopsagent/myagent/terraform/environments/test/'
 
         
@@ -326,7 +327,7 @@ stages:
               
           - script: |
              terraform --version
-             terraform init -backend-config="storage_account_name=$(storageAccountName)"
+             #terraform init -backend-config="storage_account_name=$(storageAccountName)"
              #terraform plan --out=mydevopsdeployment03.plan
 
           # - task: DownloadBuildArtifacts@0
@@ -345,14 +346,15 @@ stages:
               #downloadPath: '$(Agent.TempDirectory)/terraform/environments/test/'
           
           - task: AzureCLI@1
-            displayName: Terraform check 
+            displayName: 'Terraform check' 
             inputs:
-              azureSubscription: "myServiceConnection"
-              workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              azureSubscription: 'myServiceConnection'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #commandOptions: '-reconfigure'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
@@ -363,7 +365,7 @@ stages:
                 -backend-config=container_name="tfstate" \
 
           - task: TerraformTaskV3@3
-            displayName: init
+            displayName: 'init'
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -371,29 +373,30 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              #commandOptions: '-reconfigure'
+              commandOptions: '-reconfigure'
               backendAzureRmKey: 'terraform.tfstate'              
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
               #WorkingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               
 
-          # - task: TerraformTaskV3@3
-          #   displayName: 'Terrafom plan'
-          #   inputs:
-          #     command: 'plan'
-          #     commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
-          #     backendType: 'azurerm'
-          #     environmentServiceNameAzureRM: 'myServiceConnection'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     backendAzureRmKey: 'terraform.tfstate'
-          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          #     backendServiceArm: 'myServiceConnection'
-          #     backendAzureRmResourceGroupName: 'Azuredevops'
-          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+          - task: TerraformTaskV3@3
+            displayName: 'Terrafom plan'
+            inputs:
+              command: 'plan'
+              commandOptions: '-lock=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
+              backendType: 'azurerm'
+              environmentServiceNameAzureRM: 'myServiceConnection'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              backendServiceArm: 'myServiceConnection'
+              backendAzureRmResourceGroupName: 'Azuredevops'
+              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               #backendAzureRmContainerName: 'tfstate'
               #backendAzureRmKey: 'test.terraform.tfstate'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'              
