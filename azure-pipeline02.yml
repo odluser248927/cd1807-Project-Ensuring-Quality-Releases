@@ -357,7 +357,7 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
@@ -376,7 +376,7 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              #commandOptions: '-reconfigure'
+              commandOptions: '-reconfigure'
               backendAzureRmKey: 'terraform.tfstate'              
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
