@@ -451,7 +451,7 @@ stages:
               addSpnToEnvironment: true
               #commandOptions: '-var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-var-file="/home/devopsagent/myagent/_work/_temp/terraform/environments/test/terraform.tfvars"'
-              commandOptions: '-input=false -lock=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+              commandOptions: '-input=false -lock=false -auto-approve -var-file="/home/devopsagent/myagent/_work/20/$(Artifact)/terraform.tfvars"'
               #commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               #backendType: 'azurerm'
               #backendServiceArm: 'myServiceConnection'
