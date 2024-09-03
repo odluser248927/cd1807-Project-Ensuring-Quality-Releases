@@ -368,11 +368,11 @@ stages:
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
 
-          - task: CmdLine@2
-            displayName: 'Copy terraform.tfvars to local working directory'
-            inputs:
-              script: |
-                cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+          # - task: CmdLine@2
+          #   displayName: 'Copy terraform.tfvars to local working directory'
+          #   inputs:
+          #     script: |
+          #       cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
                 
     
           - task: TerraformTaskV3@3
@@ -392,23 +392,23 @@ stages:
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              #workingDirectory: '$(Agent.TempDirectory)/20/$(Artifact)/terraform/'
+              workingDirectory: '$(Agent.TempDirectory)/20/$(Artifact)/terraform/'
               
 
-          - task: TerraformTaskV3@3
-            displayName: 'Terrafom plan'
-            inputs:
-              command: 'plan'
-              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
-              backendType: 'azurerm'
-              environmentServiceNameAzureRM: 'myServiceConnection'
-              backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'terraform.tfstate'
-              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-              #backendServiceArm: 'myServiceConnection'
-              backendAzureRmResourceGroupName: 'Azuredevops'
-              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+          # - task: TerraformTaskV3@3
+          #   displayName: 'Terrafom plan'
+          #   inputs:
+          #     command: 'plan'
+          #     commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+          #     backendType: 'azurerm'
+          #     environmentServiceNameAzureRM: 'myServiceConnection'
+          #     backendAzureRmContainerName: 'tfstate'
+          #     backendAzureRmKey: 'terraform.tfstate'
+          #     #workingDirectory: '$(Agent.TempDirectory)/terraform/'
+          #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+          #     #backendServiceArm: 'myServiceConnection'
+          #     backendAzureRmResourceGroupName: 'Azuredevops'
+          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               #backendAzureRmContainerName: 'tfstate'
               #backendAzureRmKey: 'test.terraform.tfstate'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'              
