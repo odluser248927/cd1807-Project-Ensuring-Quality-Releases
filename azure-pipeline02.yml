@@ -298,9 +298,9 @@ stages:
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
         #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        PathtoPublish: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
+        #PathtoPublish: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/_tool/$(Artifact)/terraform/environments/test/'
-        #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/terraform/'
+        PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
         
@@ -391,12 +391,12 @@ stages:
             displayName: 'Terrafom plan'
             inputs:
               command: 'plan'
-              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="$(Agent.TempDirectory)/terraform/$(Artifact)/terraform.tfvars"'
+              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
               environmentServiceNameAzureRM: 'myServiceConnection'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
-              workingDirectory: '$(Agent.TempDirectory)/20/s/terraform/'
+              workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               backendServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
@@ -467,7 +467,7 @@ stages:
             displayName: 'Archive FakeRestAPI'
             inputs:
               #rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
-              rootFolderOrFile: '$(Agent.TempDirectory)/terraform/environments/test/'
+              rootFolderOrFile: '$(Agent.TempDirectory)/20/s/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi/'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -495,7 +495,8 @@ stages:
             continueOnError: true
             inputs:
               script: 'sudo npm install -g newman'
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)'
+              workingDirectory: '$(Agent.TempDirectory)/20/s/terraform/automatedtesting/postman'
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           # - task: CmdLine@2
