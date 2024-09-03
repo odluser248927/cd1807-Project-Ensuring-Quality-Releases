@@ -284,10 +284,11 @@ stages:
           **/*.tfvars
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-        #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
+        TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
+        #TargetFolder: '$(Agent.TempDirectory)/terraform/'
         #TargetFolder: '/home/devopsagent/myagent/terraform/environments/test/'
 
         
@@ -382,14 +383,14 @@ stages:
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
-              WorkingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
               
 
           - task: TerraformTaskV3@3
             displayName: 'Terrafom plan'
             inputs:
               command: 'plan'
-              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="$(Agent.TempDirectory)/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="$(Agent.TempDirectory)/terraform/$(Artifact)/terraform.tfvars"'
               backendType: 'azurerm'
               environmentServiceNameAzureRM: 'myServiceConnection'
               backendAzureRmContainerName: 'tfstate'
@@ -430,7 +431,7 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/$(Artifact)/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
               #commandOptions: '-auto-approve -input=false -lock=false -var-file="$(Agent.TempDirectory)/terraform.tfvars"'
               #commandOptions: '-lock=false -input=false -var-file="$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/terraform.tfvars"'
