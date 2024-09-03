@@ -384,15 +384,15 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              commandOptions: '-reconfigure'
+              #commandOptions: '-reconfigure'
               backendAzureRmKey: 'terraform.tfstate'              
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              workingDirectory: '$(Agent.TempDirectory)/20/$(Artifact)/terraform/'
+              #workingDirectory: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
               
 
           - task: TerraformTaskV3@3
