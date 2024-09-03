@@ -436,7 +436,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              commandOptions: '-auto-approve -input=false -lock=false'
+              #commandOptions: '-auto-approve -input=false -lock=false'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
@@ -448,10 +448,10 @@ stages:
               #commandOptions: '-lock=false -input=false -var-file="/home/devopsagent/myagent/terraform/environments/test/terraform.tfvars"'
               workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              #addSpnToEnvironment: true
+              addSpnToEnvironment: true
               #commandOptions: '-var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-var-file="/home/devopsagent/myagent/_work/_temp/terraform/environments/test/terraform.tfvars"'
-              #commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/terraform.tfvars"'
+              commandOptions: '-input=false -lock=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/terraform.tfvars"'
               #commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               #backendType: 'azurerm'
               #backendServiceArm: 'myServiceConnection'
