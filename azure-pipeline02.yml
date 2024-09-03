@@ -5,7 +5,7 @@ trigger:
 
 variables:
   azureServiceConnectionId: 'myServiceConnection'
-  #System.Debug: true 
+  System.Debug: true 
 
   vmImageName: 'ubuntu-latest'
   environmentName: 'mydevopsagentvm'
@@ -441,12 +441,12 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/'
+              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
               #commandOptions: '-auto-approve -input=false -lock=false -var-file="$(Agent.TempDirectory)/terraform.tfvars"'
               #commandOptions: '-lock=false -input=false -var-file="$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/terraform.tfvars"'
               #commandOptions: '-lock=false -input=false -var-file="/home/devopsagent/myagent/terraform/environments/test/terraform.tfvars"'
-              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/'
               #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #addSpnToEnvironment: true
               #commandOptions: '-var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
