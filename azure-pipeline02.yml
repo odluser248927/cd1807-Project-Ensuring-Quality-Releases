@@ -290,7 +290,7 @@ stages:
         #TargetFolder: '/home/devopsagent/myagent/terraform/environments/test/'
 
         
-    Publish Artifacts:
+    #Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
