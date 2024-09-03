@@ -367,6 +367,13 @@ stages:
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
 
+          - task: CmdLine@2
+            displayName: 'Copy terraform.tfvars to local working directory'
+            inputs:
+              script: |
+                cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+                
+    
           - task: TerraformTaskV3@3
             displayName: 'init'
             inputs:
@@ -382,8 +389,8 @@ stages:
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-              #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
               
 
