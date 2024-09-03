@@ -284,9 +284,9 @@ stages:
           **/*.tfvars
           **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+        #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
         #TargetFolder: '/home/devopsagent/myagent/terraform/environments/test/'
 
@@ -295,8 +295,8 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
-        #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+        #PathtoPublish: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/_tool/$(Artifact)/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/terraform/'
         artifactName: '$(Artifact)'
@@ -331,15 +331,15 @@ stages:
              #terraform init -backend-config="storage_account_name=$(storageAccountName)"
              #terraform plan --out=mydevopsdeployment03.plan
 
-          # - task: DownloadBuildArtifacts@0
-          #   displayName: 'Download artifacts for deployment.'
-          #   inputs:
-          #     buildType: 'current'
-          #     downloadType: 'single'
-          #     artifactname: '$(Artifact)'
-          #     addSpnToEnvironment: true
+          - task: DownloadBuildArtifacts@0
+            displayName: 'Download artifacts for deployment.'
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactname: '$(Artifact)'
+              addSpnToEnvironment: true
               #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+              downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
               #downloadPath: '$(Agent.TempDirectory)/terraform/$(Artifact)/environments/test/'
               #downloadPath: '$(Build.ArtifactStagingDirectory)/terraform/'
               #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
