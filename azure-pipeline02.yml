@@ -298,9 +298,9 @@ stages:
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
         #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        #PathtoPublish: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
+        PathtoPublish: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
         #PathtoPublish: '/home/devopsagent/myagent/_work/_tool/$(Artifact)/terraform/environments/test/'
-        PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/environments/test/'
+        #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
         
