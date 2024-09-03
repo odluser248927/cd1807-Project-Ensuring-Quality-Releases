@@ -372,7 +372,7 @@ stages:
             displayName: 'Copy terraform.tfvars to local working directory'
             inputs:
               script: |
-                cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/terraform/environments/test/'
+                cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
                 
     
           - task: TerraformTaskV3@3
@@ -391,7 +391,7 @@ stages:
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '$(Agent.TempDirectory)/20/s/terraform/environments/test/'
               
 
@@ -404,7 +404,7 @@ stages:
               environmentServiceNameAzureRM: 'myServiceConnection'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/'
               backendServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
@@ -504,7 +504,7 @@ stages:
             inputs:
               script: 'sudo npm install -g newman'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
-              workingDirectory: '$(Agent.TempDirectory)/20/s/terraform/automatedtesting/postman'
+              workingDirectory: '$(Agent.TempDirectory)/terraform/automatedtesting/postman'
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           # - task: CmdLine@2
