@@ -429,7 +429,7 @@ stages:
             inputs:
               script: |
                 #cp -r '$(Agent.TempDirectory)/' '$(Build.SourcesDirectory)/'
-                cp -r '$(Agent.TempDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
+                cp -r '$(Agent.TempDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 cp -r '$(Build.SourcesDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 
                 
@@ -443,8 +443,8 @@ stages:
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               commandOptions: '-auto-approve -lock=false -input=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
-              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
+              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(Build.SourcesDirectory)/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
