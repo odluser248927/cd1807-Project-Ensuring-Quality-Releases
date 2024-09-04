@@ -428,7 +428,7 @@ stages:
             displayName: 'Copy terraform.tfvars to local working directory'
             inputs:
               script: |
-                cp -r '$(Agent.TempDirectory)/' '$(Build.StagingDirectory)/'
+                cp -r '$(Agent.TempDirectory)/' '$(Build.SourcesDirectory)/'
                 
                 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
@@ -440,10 +440,10 @@ stages:
               command: 'apply'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               commandOptions: '-auto-approve -lock=false -input=false'
-              workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
+              #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              workingDirectory: '$(Build.SourcesDirectory)/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
               #commandOptions: '-auto-approve -input=false -lock=false -var-file="$(Agent.TempDirectory)/terraform.tfvars"'
