@@ -12,7 +12,7 @@ variables:
 
   #projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
   projectRoot: '$(System.DefaultWorkingDirectory)/'
-  environmentName: 'test'
+  #environmentName: 'test'
 
 
 stages:
