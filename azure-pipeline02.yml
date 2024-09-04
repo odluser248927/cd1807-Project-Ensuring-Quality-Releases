@@ -429,8 +429,8 @@ stages:
             inputs:
               script: |
                 #cp -r '$(Agent.TempDirectory)/' '$(Build.SourcesDirectory)/'
-                #cp -r '$(Agent.TempDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
-                cp -r '$(Build.SourcesDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
+                cp -r '$(Agent.TempDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
+                #cp -r '$(Build.SourcesDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 
                 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
