@@ -439,7 +439,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              commandOptions: '-auto-approve -lock=false -input=false'
+              commandOptions: '-auto-approve -lock=false -input=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
