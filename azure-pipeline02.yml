@@ -354,7 +354,8 @@ stages:
             inputs:
               azureSubscription: 'myServiceConnection'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              commandOptions: '-reconfigure'
+              #commandOptions: '-reconfigure'
+              commandOptions: '-migrate-state'
               #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
@@ -385,7 +386,7 @@ stages:
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               commandOptions: '-reconfigure'
-              backendAzureRmKey: 'terraform.tfstate'              
+              backendAzureRmKey: 'test.terraform.tfstate'              
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
