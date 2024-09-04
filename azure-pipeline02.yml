@@ -12,6 +12,7 @@ variables:
 
   #projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
   projectRoot: '$(System.DefaultWorkingDirectory)/'
+  environmentName: 'test'
 
 
 stages:
@@ -93,8 +94,8 @@ stages:
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
-        #backendAzureRmKey: 'test.terraform.tfstate'
-        backendAzureRmKey: 'terraform.tfstate'
+        backendAzureRmKey: 'test.terraform.tfstate'
+        #backendAzureRmKey: 'terraform.tfstate'
         commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
 
     - task: TerraformTaskV3@3
@@ -105,19 +106,18 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         
     
-
-    - task: ArchiveFiles@2
-      displayName: 'Archive PerformanceTestSuite'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+    # - task: ArchiveFiles@2
+    #   displayName: 'Archive PerformanceTestSuite'
+    #   inputs:
+    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/'
+    #     includeRootFolder: false
+    #     archiveType: 'zip'
+    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
         
     # JMeter Test Suite - Publish    
-    - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-      displayName: 'Upload Package'
-      artifact: drop-perftests
+    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+    #   displayName: 'Upload Package'
+    #   artifact: drop-perftests
     
     # - task: CmdLine@2
     #   displayName: "newman install"
@@ -266,43 +266,43 @@ stages:
     #   displayName: 'Upload Package'
     #   artifact: drop-perftests
         
-    - task: ArchiveFiles@1
-      displayName: "Archiving from local env to cloud env."
-      inputs:
-        rootFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        includeRootFolder: true
-        archiveType: 'tar'
-        archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
+    # - task: ArchiveFiles@1
+    #   displayName: "Archiving from local env to cloud env."
+    #   inputs:
+    #     rootFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+    #     includeRootFolder: true
+    #     archiveType: 'tar'
+    #     archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
         
-    - task: CopyFiles@2
-      displayName: "Deploying IaaC from local env to cloud env."
-      inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
-        Contents: |
-          **
-          **/*.tf
-          **/*.tfvars
-          **/*tfplan*
+    # - task: CopyFiles@2
+    #   displayName: "Deploying IaaC from local env to cloud env."
+    #   inputs:
+    #     SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+    #     #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+    #     Contents: |
+    #       **
+    #       **/*.tf
+    #       **/*.tfvars
+    #       **/*tfplan*
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/terraform/'
-        TargetFolder: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+        #TargetFolder: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
 
         
     #Publish Artifacts:
-    - task: PublishBuildArtifacts@1
-      displayName: 'PUBLISH ARTIFACTS'
-      inputs:
-        #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        #PathtoPublish: '$(Agent.TempDirectory)/terraform/environments/test/'
-        PathtoPublish: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-        #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/environments/test/'
-        artifactName: '$(Artifact)'
-        publishLocation: 'Container'
+    # - task: PublishBuildArtifacts@1
+    #   displayName: 'PUBLISH ARTIFACTS'
+    #   inputs:
+    #     #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+    #     #PathtoPublish: '$(Agent.TempDirectory)/terraform/environments/test/'
+    #     PathtoPublish: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+    #     #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/environments/test/'
+    #     artifactName: '$(Artifact)'
+    #     publishLocation: 'Container'
         
     ##deploymentStage:
 - stage: Deploy
@@ -333,21 +333,21 @@ stages:
              #terraform init -backend-config="storage_account_name=$(storageAccountName)"
              #terraform plan --out=mydevopsdeployment03.plan
 
-          - task: DownloadBuildArtifacts@0
-            displayName: 'Download artifacts for deployment.'
-            inputs:
-              buildType: 'current'
-              downloadType: 'single'
-              artifactname: '$(Artifact)'
-              addSpnToEnvironment: true
-              #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-              #downloadPath: '$(Agent.TempDirectory)/terraform/$(Artifact)/environments/test/'
-              #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact/terraform/'
-              #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-              #downloadPath: '$(Agent.TempDirectory)/20/s/terraform/'
-              downloadPath: '$(Agent.TempDirectory)/terraform/'
+          # - task: DownloadBuildArtifacts@0
+          #   displayName: 'Download artifacts for deployment.'
+          #   inputs:
+          #     buildType: 'current'
+          #     downloadType: 'single'
+          #     artifactname: '$(Artifact)'
+          #     addSpnToEnvironment: true
+          #     #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
+          #     #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+          #     #downloadPath: '$(Agent.TempDirectory)/terraform/$(Artifact)/environments/test/'
+          #     #downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact/terraform/'
+          #     #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+          #     #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
+          #     #downloadPath: '$(Agent.TempDirectory)/20/s/terraform/'
+          #     downloadPath: '$(Agent.TempDirectory)/terraform/'
           
           - task: AzureCLI@1
             displayName: 'Terraform check' 
@@ -368,11 +368,11 @@ stages:
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
 
-          - task: CmdLine@2
-            displayName: 'Copy terraform.tfvars to local working directory'
-            inputs:
-              script: |
-                cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+          # - task: CmdLine@2
+          #   displayName: 'Copy terraform.tfvars to local working directory'
+          #   inputs:
+          #     script: |
+          #       cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
                 
     
           - task: TerraformTaskV3@3
@@ -440,8 +440,8 @@ stages:
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
               #workingDirectory: '$(System.DefaultWorkingDirectory)'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
               #commandOptions: '-auto-approve -input=false -lock=false -var-file="$(Agent.TempDirectory)/terraform.tfvars"'
               #commandOptions: '-lock=false -input=false -var-file="$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/terraform.tfvars"'
