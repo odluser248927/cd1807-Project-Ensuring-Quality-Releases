@@ -463,7 +463,7 @@ stages:
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               #backendAzureRmContainerName: 'tfstate'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              #backendAzureRmKey: 'terraform.tfstate'        
+              backendAzureRmKey: 'test.terraform.tfstate'        
               
            # - task: TerraformTaskV3@3
            #   displayName: Terraform destroy
