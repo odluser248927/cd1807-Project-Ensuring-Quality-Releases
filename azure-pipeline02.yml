@@ -369,12 +369,6 @@ stages:
           #       -backend-config=storage_account_name="myazuredevopsdemoblob" \
           #       -backend-config=container_name="tfstate" \
 
-          - task: CmdLine@2
-            displayName: 'Copy terraform.tfvars to local working directory'
-            inputs:
-              script: |
-                cp -r '$(Agent.TempDirectory)/ $(Build.ArtifactStagingDirectory)/'
-                # terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
                 
     
           - task: TerraformTaskV3@3
@@ -429,7 +423,14 @@ stages:
           #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               #backendAzureRmContainerName: 'tfstate'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-          
+
+          - task: CmdLine@2
+            displayName: 'Copy terraform.tfvars to local working directory'
+            inputs:
+              script: |
+                cp -r '$(Agent.TempDirectory)/ $(Build.ArtifactStagingDirectory)/'
+                # terraform/environments/test/' '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+                
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
             displayName: 'Terrafom apply'
