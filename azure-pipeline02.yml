@@ -455,7 +455,8 @@ stages:
             displayName: 'Terrafom plan'
             inputs:
               command: 'plan'
-              environmentServiceArm: 'myServiceConnection'
+              environmentServiceNameAzureRM: 'myServiceConnection'
+              #environmentServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
