@@ -439,15 +439,18 @@ stages:
             # continueOnError: true
             displayName: 'Terrafom apply'
             # displayName: TERRAFORM APPLY
+            provider: 'azurerm'              
             inputs:
-              provider: 'azurerm'
-              command: 'apply'
+              script: |
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+                terraform --version
+                terraform apply  -var-file='$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #commandOptions: '-auto-approve -lock=false -input=false -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Build.SourcesDirectory)/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
