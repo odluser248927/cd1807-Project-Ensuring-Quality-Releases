@@ -366,7 +366,7 @@ stages:
               inlineScript: |
                 az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
                 # terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops
-                terraform init -reconfigure\
+                terraform init \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
 
