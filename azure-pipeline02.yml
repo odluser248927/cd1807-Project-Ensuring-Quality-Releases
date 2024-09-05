@@ -354,7 +354,7 @@ stages:
             inputs:
               azureSubscription: 'myServiceConnection'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              commandOptions: '-reconfigure'
+              #commandOptions: '-reconfigure'
               #commandOptions: '-migrate-state'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
