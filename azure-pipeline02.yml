@@ -473,13 +473,19 @@ stages:
             inputs:
               script: 
               provider: 'azurerm'
-              command: 'apply'
+              command: 'apply "mydevopsdeployment03.plan"'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
+              environmentServiceNameAzureRM: 'myServiceConnection'
+              #environmentServiceArm: 'myServiceConnection'
+              backendAzureRmResourceGroupName: 'Azuredevops'
+              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'test.terraform.tfstate'
               commandOptions: '-auto-approve -lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
               #workingDirectory: '$(Build.SourcesDirectory)/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
@@ -495,14 +501,14 @@ stages:
               #commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               #backendType: 'azurerm'
               #backendServiceArm: 'myServiceConnection'
-              environmentServiceNameAzureRM: 'myServiceConnection'
+              #environmentServiceNameAzureRM: 'myServiceConnection'
               #environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
               # addSpnToEnvironment: true
               # OverWrite: true
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               #backendAzureRmContainerName: 'tfstate'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              backendAzureRmKey: 'test.terraform.tfstate'        
+              #backendAzureRmKey: 'test.terraform.tfstate'        
               
            # - task: TerraformTaskV3@3
            #   displayName: Terraform destroy
