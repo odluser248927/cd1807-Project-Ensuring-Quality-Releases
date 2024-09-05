@@ -433,7 +433,7 @@ stages:
                 cp -r '$(Agent.TempDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 #cp -r '$(Build.SourcesDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 #cp -r '$(System.DefaultWorkingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+                #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
                 #cp -r '$(workingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 
                 
