@@ -448,8 +448,8 @@ stages:
               backendAzureRmKey: 'test.terraform.tfstate'              
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
                 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
