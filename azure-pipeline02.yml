@@ -473,7 +473,7 @@ stages:
             inputs:
               script: 
               provider: 'azurerm'
-              command: 'apply "mydevopsdeployment03.plan"'
+              command: 'apply'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               environmentServiceNameAzureRM: 'myServiceConnection'
               #environmentServiceArm: 'myServiceConnection'
