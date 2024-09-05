@@ -430,6 +430,7 @@ stages:
                 #cp -r '$(Agent.TempDirectory)/' '$(Build.ArtifactSourcesDirectory)/'
                 cp -r '$(Agent.TempDirectory)/' '$(Build.ArtifactStagingDirectory)/'
                 cp -r '$(Agent.TempDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
+                terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops
                 #cp -r '$(Build.SourcesDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 #cp -r '$(System.DefaultWorkingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
