@@ -450,6 +450,14 @@ stages:
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
+
+          - task: TerraformTaskV3@3
+            displayName: 'Terrafom plan'
+            inputs:
+              command: 'plan'
+              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+              backendType: 'azurerm'
+              environmentServiceNameAzureRM: 'myServiceConnection'
                 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
