@@ -440,7 +440,7 @@ stages:
                 terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
                 terraform import module.network.azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet
                 terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg
-                terraform init -migrate-state\
+                terraform init -migrate-state \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
                  
