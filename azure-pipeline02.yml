@@ -426,8 +426,8 @@ stages:
               backendAzureRmKey: 'test.terraform.tfstate'
               backendAzureRmContainerName: 'tfstate'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              commandOptions: '-reconfigure -lock=false'
-              #commandOptions: 'init -migrate-state -lock=false'
+              #commandOptions: '-reconfigure'
+              commandOptions: 'init -migrate-state -lock=false'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
@@ -438,7 +438,7 @@ stages:
               inlineScript: |
                 #az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
                  terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
-                 terraform init \
+                 terraform init -migrate-state\
                  -backend-config=storage_account_name="myazuredevopsdemoblob" \
                  -backend-config=container_name="tfstate" \
                  
