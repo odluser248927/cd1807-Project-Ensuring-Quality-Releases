@@ -427,7 +427,7 @@ stages:
               backendAzureRmContainerName: 'tfstate'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #commandOptions: '-reconfigure'
-              commandOptions: '-lock=false'
+              commandOptions: '-auto-approve -lock=false'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
@@ -436,7 +436,7 @@ stages:
           #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
               scriptLocation: inlineScript
               inlineScript: |                
-                #az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
+                az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
                 terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
                 terraform import module.network.azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet
                 terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg
