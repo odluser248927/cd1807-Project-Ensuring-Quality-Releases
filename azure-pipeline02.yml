@@ -330,7 +330,7 @@ stages:
               
           - script: |
              terraform --version
-             terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
+             #terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
              #terraform init -backend-config="storage_account_name=$(storageAccountName)"
              #terraform plan --out=mydevopsdeployment03.plan
 
@@ -350,28 +350,28 @@ stages:
           #     #downloadPath: '$(Agent.TempDirectory)/20/s/terraform/'
           #     downloadPath: '$(Agent.TempDirectory)/terraform/'
           
-          # - task: AzureCLI@1
-          #   displayName: 'Terraform check' 
-          #   inputs:
-          #     azureSubscription: 'myServiceConnection'
-          #     backendAzureRmKey: 'test.terraform.tfstate'
-          #     backendAzureRmContainerName: 'tfstate'
-          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          #     commandOptions: '-reconfigure'
-          #     #commandOptions: '-migrate-state'
-          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          # #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          # #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
-          # #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-          # #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
-          #     scriptLocation: inlineScript
-          #     inlineScript: |
-          #       az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
-          #       # terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/44ada2e4-89f9-41cc-8efc-3cf76cd05c0c/resourceGroups/Azuredevops
-          #         terraform init \
-          #        -backend-config=storage_account_name="myazuredevopsdemoblob" \
-          #        -backend-config=container_name="tfstate" \
+          - task: AzureCLI@1
+            displayName: 'Terraform check' 
+            inputs:
+              azureSubscription: 'myServiceConnection'
+              backendAzureRmKey: 'test.terraform.tfstate'
+              backendAzureRmContainerName: 'tfstate'
+          #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              # commandOptions: '-reconfigure'
+              #commandOptions: '-migrate-state'
+          #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+          #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+          #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+          #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+          #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
+              scriptLocation: inlineScript
+              inlineScript: |
+                #az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
+                 terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
+                 terraform init \
+                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
+                 -backend-config=container_name="tfstate" \
 
                 
           # - task: TerraformTaskV3@3
