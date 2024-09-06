@@ -357,7 +357,7 @@ stages:
               backendAzureRmContainerName: 'tfstate'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #commandOptions: '-reconfigure'
-              #commandOptions: '-migrate-state'
+              commandOptions: '-migrate-state'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
