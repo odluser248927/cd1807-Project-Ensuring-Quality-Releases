@@ -427,14 +427,14 @@ stages:
               backendAzureRmContainerName: 'tfstate'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
               #commandOptions: '-reconfigure -auto-approve -lock=false'
-              commandOptions: '-lock=false'
+              commandOptions: "-lock=false"
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
           #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
           #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
-              targetType: 'inline'
+              #targetType: 'inline'
               scriptLocation: inlineScript
               inlineScript: |                
                 # az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
