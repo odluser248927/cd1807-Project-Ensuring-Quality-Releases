@@ -426,7 +426,7 @@ stages:
               backendAzureRmKey: 'test.terraform.tfstate'
               backendAzureRmContainerName: 'tfstate'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              #commandOptions: '-reconfigure'
+              commandOptions: '-reconfigure'
               commandOptions: '-auto-approve -lock=false'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
