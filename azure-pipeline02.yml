@@ -443,6 +443,7 @@ stages:
                 terraform init -migrate-state \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=container_name="tfstate" \
+                az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
 
           # - task: CmdLine@2
           #   displayName: "Terra Tester Import"
