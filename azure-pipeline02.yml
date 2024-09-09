@@ -490,7 +490,7 @@ stages:
             displayName: 'Terrafom apply'
             # displayName: TERRAFORM APPLY
             inputs:
-              script: 
+              #script: 
               provider: 'azurerm'
               command: 'apply'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
