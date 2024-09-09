@@ -427,11 +427,11 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               #addSpnToEnvironment: true
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              commandOptions: '-reconfigure -auto-approve -lock=false'
+              commandOptions: '-lock=false -reconfigure -auto-approve'
               #commandOptions: "-lock=false"
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
           #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
           #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
           #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
