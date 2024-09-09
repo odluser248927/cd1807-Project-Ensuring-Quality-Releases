@@ -459,6 +459,11 @@ stages:
             displayName: "Terra Tester Import"
             continueOnError: true
             inputs:
+              azureSubscription: 'myServiceConnection'
+              backendAzureRmKey: 'test.terraform.tfstate'
+              #commandOptions: '-reconfigure -auto-approve -lock=false'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              backendAzureRmContainerName: 'tfstate'
               script: |
                 'terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' \
                 'terraform import module.network.azurerm_virtual_network.Azuredevops  /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet' \
