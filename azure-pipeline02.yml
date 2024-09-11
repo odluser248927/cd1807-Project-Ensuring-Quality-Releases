@@ -266,26 +266,26 @@ stages:
     #   displayName: 'Upload Package'
     #   artifact: drop-perftests
         
-    - task: ArchiveFiles@1
-      displayName: "Archiving from local env to cloud env."
-      inputs:
-        rootFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        includeRootFolder: true
-        archiveType: 'tar'
-        archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
+    # - task: ArchiveFiles@1
+    #   displayName: "Archiving from local env to cloud env."
+    #   inputs:
+    #     rootFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+    #     includeRootFolder: true
+    #     archiveType: 'tar'
+    #     archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
         
-    - task: CopyFiles@2
-      displayName: "Deploying IaaC from local env to cloud env."
-      inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
-        Contents: |
-          **
-          **/*.tf
-          **/*.tfvars
-          **/*tfplan*
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+    # - task: CopyFiles@2
+    #   displayName: "Deploying IaaC from local env to cloud env."
+    #   inputs:
+    #     SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+    #     #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+    #     Contents: |
+    #       **
+    #       **/*.tf
+    #       **/*.tfvars
+    #       **/*tfplan*
+    #     #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+    #     TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
