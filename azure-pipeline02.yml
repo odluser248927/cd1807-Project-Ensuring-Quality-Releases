@@ -440,7 +440,8 @@ stages:
               inlineScript: |
                 terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 terraform init -migrate-state \                
-                -backendAzureRmResourceGroupName="Azuredevops" \
+                #-backendAzureRmResourceGroupName="Azuredevops" \
+                -backend-config=resource_group_name="Azuredevops" \
                 -backend-config=storage_account_name="myazuredevopsdemoblob" \
                 -backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
                 -backend-config=container_name="tfstate" \
