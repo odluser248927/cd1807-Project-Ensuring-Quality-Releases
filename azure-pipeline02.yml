@@ -266,26 +266,26 @@ stages:
     #   displayName: 'Upload Package'
     #   artifact: drop-perftests
         
-    # - task: ArchiveFiles@1
-    #   displayName: "Archiving from local env to cloud env."
-    #   inputs:
-    #     rootFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-    #     includeRootFolder: true
-    #     archiveType: 'tar'
-    #     archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
+    - task: ArchiveFiles@1
+      displayName: "Archiving from local env to cloud env."
+      inputs:
+        rootFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+        includeRootFolder: true
+        archiveType: 'tar'
+        archiveFile: '$(BuildArtifactStagingDirectory)/build.tar.gz'
         
-    # - task: CopyFiles@2
-    #   displayName: "Deploying IaaC from local env to cloud env."
-    #   inputs:
-    #     SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-    #     #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
-    #     Contents: |
-    #       **
-    #       **/*.tf
-    #       **/*.tfvars
-    #       **/*tfplan*
-    #     #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
-    #     TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+    - task: CopyFiles@2
+      displayName: "Deploying IaaC from local env to cloud env."
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+        #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
+        Contents: |
+          **
+          **/*.tf
+          **/*.tfvars
+          **/*tfplan*
+        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
         #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
@@ -293,16 +293,16 @@ stages:
         #TargetFolder: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
 
         
-    # Publish Artifacts:
-    # - task: PublishBuildArtifacts@1
-    #   displayName: 'PUBLISH ARTIFACTS'
-    #   inputs:
-    #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-    # #     #PathtoPublish: '$(Agent.TempDirectory)/terraform/environments/test/'
-    # #     PathtoPublish: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-    # #     #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/environments/test/'
-    #     artifactName: '$(Artifact)'
-    #     publishLocation: 'Container'
+    Publish Artifacts:
+    - task: PublishBuildArtifacts@1
+      displayName: 'PUBLISH ARTIFACTS'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+    #     #PathtoPublish: '$(Agent.TempDirectory)/terraform/environments/test/'
+    #     PathtoPublish: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+    #     #PathtoPublish: '/home/devopsagent/myagent/_work/_temp/$(Artifact)/terraform/environments/test/'
+        artifactName: '$(Artifact)'
+        publishLocation: 'Container'
         
     ##deploymentStage:
 - stage: Deploy
@@ -419,33 +419,33 @@ stages:
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
                 #cp -r '$(workingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 
-          - task: AzureCLI@1
-            displayName: 'Terraform check'
-            #continueOnError: true
-            inputs:
-              azureSubscription: 'myServiceConnection'
-              backendAzureRmKey: 'test.terraform.tfstate'
-              backendAzureRmContainerName: 'tfstate'
-              addSpnToEnvironment: true
-          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              commandOptions: '-lock=false -auto-approve'
-          #     #commandOptions: "-lock=false"
-          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          # #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          # #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
-          # #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-          # #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
-              targetType: 'inline'
-              # scriptLocation: inlineScript
-              inlineScript: |
-                terraform init -migrate-state \                
-                -backendAzureRmResourceGroupName="Azuredevops" \
-                -backend-config=resource_group_name="Azuredevops" \
-                -backend-config=storage_account_name="myazuredevopsdemoblob" \
-                -backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
-                -backend-config=container_name="tfstate" \
-                az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a" \
+          # - task: AzureCLI@1
+          #   displayName: 'Terraform check'
+          #   #continueOnError: true
+          #   inputs:
+          #     azureSubscription: 'myServiceConnection'
+          #     backendAzureRmKey: 'test.terraform.tfstate'
+          #     backendAzureRmContainerName: 'tfstate'
+          #     addSpnToEnvironment: true
+          # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+          #     commandOptions: '-lock=false -auto-approve'
+          # #     #commandOptions: "-lock=false"
+          # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+          # # #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+          #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+          # # #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
+          # # #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
+          # # #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
+          #     targetType: 'inline'
+          #     scriptLocation: inlineScript
+          #     inlineScript: |
+          #       terraform init -migrate-state \                
+          #       -backendAzureRmResourceGroupName="Azuredevops" \
+          #       -backend-config=resource_group_name="Azuredevops" \
+          #       -backend-config=storage_account_name="myazuredevopsdemoblob" \
+          #       -backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
+          #       -backend-config=container_name="tfstate" \
+          #       az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a" \
                 #terraform import -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars" azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
               
               # -var.address_prefix "address_prefix=10.0.0.0/24" -var.resource_group "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var.subnet_id "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" -lock=false \
@@ -460,9 +460,6 @@ stages:
                 
           #       # az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
                  
-          #       
-                
-
           # - task: CmdLine@2
           #   displayName: "Terra Tester Import"
           #   continueOnError: true
