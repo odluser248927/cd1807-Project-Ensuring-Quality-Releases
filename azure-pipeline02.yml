@@ -419,19 +419,19 @@ stages:
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
                 #cp -r '$(workingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 
-          - task: AzureCLI@1
-            displayName: 'Terraform check' 
-            inputs:
-              azureSubscription: 'myServiceConnection'
-              backendAzureRmKey: 'test.terraform.tfstate'
-              backendAzureRmContainerName: 'tfstate'
-              addSpnToEnvironment: true
-          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-              commandOptions: '-lock=false -reconfigure -auto-approve'
-          #     #commandOptions: "-lock=false"
-          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          # #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+          # - task: AzureCLI@1
+          #   displayName: 'Terraform check' 
+          #   inputs:
+          #     azureSubscription: 'myServiceConnection'
+          #     backendAzureRmKey: 'terraform.tfstate'
+          #     backendAzureRmContainerName: 'tfstate'
+          #     addSpnToEnvironment: true
+          # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+          #     commandOptions: '-lock=false -reconfigure -auto-approve'
+          # #     #commandOptions: "-lock=false"
+          # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+          # # #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           # #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
           # #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
           # #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
@@ -441,7 +441,7 @@ stages:
                 terraform import "module.resource_group.azurerm_resource_group.Azuredevops" "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -lock=false \
                 #terraform import "azurerm_resource_group.Azuredevops" "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var "address_prefix=10.0.0.0/24" -var "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \                
                 #
-                terraform import azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \
+                #terraform import azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \
                 #terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg -var "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 # terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 # terraform import module.network.azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet \
