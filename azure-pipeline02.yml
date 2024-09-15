@@ -438,7 +438,7 @@ stages:
           #     targetType: 'inline'
               scriptLocation: inlineScript
               inlineScript: |
-                terraform import "module.resource_group.azurerm_resource_group.Azuredevops" "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
+                terraform import "module.resource_group.azurerm_resource_group.Azuredevops" "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -lock=false \
                 #terraform import "azurerm_resource_group.Azuredevops" "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var "address_prefix=10.0.0.0/24" -var "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \                
                 #
                 terraform import "module.network.azurerm_virtual_network.Azuredevops" "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \
