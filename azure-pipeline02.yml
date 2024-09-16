@@ -499,6 +499,8 @@ stages:
                 terraform --version \
                 terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \ azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 terraform import module.network.azurerm_virtual_network.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet \
+                terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg \
+                chmod +x ./importstatements.sh; ./importstatements.sh \
                 #terraform import azurerm_resource_group.Azuredevops \ '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' -lock=false \
                 #terraform import azurerm_resource_group.Azuredevops '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/' -lock=false
                 #terraform import 'module.resource_group.azurerm_resource_group.Azuredevops' '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' -lock=false
