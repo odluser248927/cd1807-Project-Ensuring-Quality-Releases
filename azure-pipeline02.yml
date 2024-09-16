@@ -492,6 +492,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               commandOptions: '-lock=false -auto-approve var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'test.terraform.tfstate'
               targetType: 'inline'
               script: |
                 #! /bin/bash
