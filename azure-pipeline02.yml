@@ -498,7 +498,7 @@ stages:
                 #! /bin/bash
                 terraform --version
                 terraform state list
-                terraform import azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
+                terraform import azurerm_resource_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 #terraform import azurerm_resource_group.Azuredevops \ "https://portal.azure.com/Joker2k999hotmail.onmicrosoft.com/resource/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -lock=false \
                 #terraform import azurerm_resource_group.Azuredevops \ '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' -lock=false \
                 #terraform import azurerm_resource_group.Azuredevops '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/' -lock=false
