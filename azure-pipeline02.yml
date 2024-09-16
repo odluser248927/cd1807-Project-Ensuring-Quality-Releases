@@ -482,6 +482,16 @@ stages:
           #       'terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' \
           #       'terraform import module.network.azurerm_virtual_network.Azuredevops  /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet' \
           #       'terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg' \
+          - task: Bash@3
+            displayName: "import test:"
+            inputs:
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              backendAzureRmContainerName: 'tfstate'
+              targetType: 'inline'
+              inlineScript: |
+                #! /bin/bash
+                terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
+                
 
           - task: TerraformTaskV3@3
             displayName: 'init'
