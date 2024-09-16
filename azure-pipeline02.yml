@@ -334,13 +334,13 @@ stages:
              #terraform init -backend-config="storage_account_name=$(storageAccountName)"
              #terraform plan --out=mydevopsdeployment03.plan
 
-          - task: DownloadBuildArtifacts@0
-            displayName: 'Download artifacts for deployment.'
-            inputs:
-              buildType: 'current'
-              downloadType: 'single'
-              artifactname: '$(Artifact)'
-              addSpnToEnvironment: true
+          # - task: DownloadBuildArtifacts@0
+          #   displayName: 'Download artifacts for deployment.'
+          #   inputs:
+          #     buildType: 'current'
+          #     downloadType: 'single'
+          #     artifactname: '$(Artifact)'
+          #     addSpnToEnvironment: true
           #     #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
           #     #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
           #     #downloadPath: '$(Agent.TempDirectory)/terraform/$(Artifact)/environments/test/'
