@@ -486,7 +486,7 @@ stages:
             displayName: 'init'
             inputs:
               provider: 'azurerm'
-              command: 'import'
+              command: '-lock=false -auto-approve'
               backendServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
