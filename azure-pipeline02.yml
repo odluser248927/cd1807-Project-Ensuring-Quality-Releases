@@ -486,6 +486,7 @@ stages:
             displayName: "import test:"
             inputs:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+              commandOptions: '-lock=false -auto-approve -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               backendAzureRmContainerName: 'tfstate'
               targetType: 'inline'
               script: |
