@@ -554,8 +554,10 @@ stages:
           #     terraform init -backend-config='storage_account_name=myazuredevopsdemoblob' -backend-config="container_name=tfstate" -backend-config='subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
           #     terraform apply -auto-approve mydevopsdeployment03.plan
           #     displayName: 'Terraform Init and Apply'
+          
           - task: Bash@3
             displayName: 'Import Existing Resources'
+            commandOptions: '-config="$(System.DefaultWorkingDirectory)/terraform/environments/test"' 
             inputs:
               targetType: 'inline'
               script: |
