@@ -551,7 +551,7 @@ stages:
 
           - script: |
               terraform --version
-              terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
+              terraform init -backend-config='storage_account_name=myazuredevopsdemoblob' -backend-config="container_name=tfstate" -backend-config='subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               terraform apply -auto-approve mydevopsdeployment03.plan
       displayName: 'Terraform Init and Apply'
                 
