@@ -562,7 +562,7 @@ stages:
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               backendAzureRmContainerName: 'tfstate'              
-              commandOptions: '-lock=false -input=false -config="$(System.DefaultWorkingDirectory)/terraform/environments/test" -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-lock=false -input=false -config="$(System.DefaultWorkingDirectory)/terraform/environments/test" -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"  -out="mydevopsdeployment03.plan"'
               targetType: 'inline'
               script: |
                 terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \ azurerm_resource_group.Azuredevops "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
