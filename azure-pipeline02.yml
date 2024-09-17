@@ -510,7 +510,7 @@ stages:
                 -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \
                 #terraform import azurerm_resource_group.Azuredevops '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/' -lock=false
                 #terraform import 'module.resource_group.azurerm_resource_group.Azuredevops' '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' -lock=false
-                
+
 
           - task: TerraformTaskV3@3
             displayName: 'init'
@@ -598,7 +598,17 @@ stages:
               #commandOptions: '-lock=false -var-file="terraform.tfvars"'
               #backendAzureRmContainerName: 'tfstate'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              #backendAzureRmKey: 'test.terraform.tfstate'        
+              #backendAzureRmKey: 'test.terraform.tfstate'
+
+          - task: Bash@3
+            displayName: 'Import Existing Resources'
+            inputs:
+              targetType: 'inline'
+              script: |
+                terraform import azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops                    
+                terraform import azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/vnet-Azuredevops
+                terraform import azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/nsg-Azuredevops
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'                 
               
            # - task: TerraformTaskV3@3
            #   displayName: Terraform destroy
