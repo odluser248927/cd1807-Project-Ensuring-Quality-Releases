@@ -557,14 +557,13 @@ stages:
           
           - task: Bash@3
             displayName: 'Import Existing Resources'
-            commandOptions: '-config="$(System.DefaultWorkingDirectory)/terraform/environments/test"' 
             inputs:
               targetType: 'inline'
               script: |
                 terraform import azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops                    
                 terraform import azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/vnet-Azuredevops
                 terraform import azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/nsg-Azuredevops
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
                 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
