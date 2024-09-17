@@ -557,6 +557,9 @@ stages:
           
           - task: Bash@3
             displayName: 'Import Existing Resources'
+            backendAzureRmResourceGroupName: 'Azuredevops'
+            backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+            backendAzureRmContainerName: 'tfstate'
             inputs:
               targetType: 'inline'
               script: |
