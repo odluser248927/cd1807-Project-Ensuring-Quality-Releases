@@ -544,6 +544,16 @@ stages:
               #backendAzureRmResourceGroupName: 'Azuredevops'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+
+          - task: TerraformInstaller@0
+            inputs:
+              terraformVersion: 'latest'
+
+          - script: |
+              terraform --version
+              terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
+              terraform apply -auto-approve mydevopsdeployment03.plan
+      displayName: 'Terraform Init and Apply'
                 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
             # continueOnError: true
