@@ -556,11 +556,12 @@ stages:
           #     displayName: 'Terraform Init and Apply'
           
           - task: Bash@3
-            displayName: 'Import Existing Resources'
-            backendAzureRmResourceGroupName: 'Azuredevops'
-            backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-            backendAzureRmContainerName: 'tfstate'
+            displayName: 'Import Existing Resources'            
             inputs:
+              backendAzureRmResourceGroupName: 'Azuredevops'
+              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+              backendAzureRmContainerName: 'tfstate'
+              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               targetType: 'inline'
               script: |
                 terraform import azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops                    
