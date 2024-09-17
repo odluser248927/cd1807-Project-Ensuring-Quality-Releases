@@ -518,7 +518,7 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              commandOptions: '-lock=false -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+              commandOptions: '-reconfigure -lock=false -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               backendAzureRmKey: 'terraform.tfstate'          
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
