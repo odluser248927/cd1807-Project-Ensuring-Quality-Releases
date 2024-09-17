@@ -539,7 +539,7 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              commandOptions: '-lock=false -reconfigure -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
               backendAzureRmKey: 'terraform.tfstate'              
               #backendAzureRmResourceGroupName: 'Azuredevops'
