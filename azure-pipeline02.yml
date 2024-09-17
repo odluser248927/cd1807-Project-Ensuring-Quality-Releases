@@ -493,7 +493,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               commandOptions: '-lock=false -auto-approve var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'terraform.tfstate'
+              backendAzureRmKey: 'test.terraform.tfstate'
               targetType: 'inline'
               script: |
                 #! /bin/bash
@@ -519,7 +519,7 @@ stages:
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               commandOptions: '-reconfigure -lock=false -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-              backendAzureRmKey: 'terraform.tfstate'          
+              backendAzureRmKey: 'test.terraform.tfstate'          
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
