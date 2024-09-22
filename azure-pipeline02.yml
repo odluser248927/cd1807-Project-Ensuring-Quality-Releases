@@ -499,8 +499,8 @@ stages:
                 #! /bin/bash
                 terraform import azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 terraform --version \
-                terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \
-                azurerm_resource_group.Azuredevops \
+                #terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \
+                #terraform import azurerm_resource_group.Azuredevops \
                 /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 #terraform import azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 #terraform import azurerm_virtual_network.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/Azuredevops-NET" \
