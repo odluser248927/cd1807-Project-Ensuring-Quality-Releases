@@ -424,7 +424,7 @@ stages:
             #continueOnError: true
             inputs:
               azureSubscription: 'myServiceConnection'
-              backendAzureRmKey: 'test.terraform.tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
               backendAzureRmContainerName: 'tfstate'
               addSpnToEnvironment: true
           # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
