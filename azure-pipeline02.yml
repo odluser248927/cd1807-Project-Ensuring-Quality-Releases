@@ -301,8 +301,8 @@ stages:
     # # #     #PathtoPublish: '$(Agent.TempDirectory)/terraform/environments/test/'
     # # #     PathtoPublish: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
     #      PathtoPublish: '/home/devopsagent/myagent/_work/$(Artifact)/terraform/environments/test/'
-    #      artifactName: '$(Artifact)'
-    #      publishLocation: 'Container'
+         artifactName: '$(Artifact)'
+         publishLocation: 'Container'
         
     ##deploymentStage:
 - stage: Deploy
