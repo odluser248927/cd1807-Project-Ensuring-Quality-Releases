@@ -553,6 +553,7 @@ stages:
             displayName: Download backend config file
             inputs:
               #secureFile: "test.azurerm.tfbackend"
+              #secureFile: "test.azurerm.backend.tf"
               secureFile: "test.azurerm.backend.tf"
           - script: |
               terraform init -backend-config=$(test.secureFilePath)
