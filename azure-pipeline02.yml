@@ -574,27 +574,28 @@ stages:
                 # terraform import azurerm_network_security_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/Azuredevops-NSG \
               
                 
-          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-            # continueOnError: true
-            displayName: 'Terrafom apply'
-            # displayName: TERRAFORM APPLY
-            inputs:
-              #script: 
-              provider: 'azurerm'
-              command: 'apply'
-              addSpnToEnvironment: true
-              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              environmentServiceNameAzureRM: 'myServiceConnection'
-              environmentServiceArm: 'myServiceConnection'
-              backendAzureRmResourceGroupName: 'Azuredevops'
-              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-              backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'test.terraform.tfstate'
-              commandOptions: '-auto-approve -lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
-              #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
-              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+          # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+          #   # continueOnError: true
+          #   displayName: 'Terrafom apply'
+          #   # displayName: TERRAFORM APPLY
+          #   inputs:
+          #     #script: 
+          #     provider: 'azurerm'
+          #     command: 'apply'
+          #     addSpnToEnvironment: true
+          #     #workingDirectory: '$(Agent.TempDirectory)/terraform/'
+          #     environmentServiceNameAzureRM: 'myServiceConnection'
+          #     environmentServiceArm: 'myServiceConnection'
+          #     backendAzureRmResourceGroupName: 'Azuredevops'
+          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+          #     backendAzureRmContainerName: 'tfstate'
+          #     backendAzureRmKey: 'test.terraform.tfstate'
+          #     commandOptions: '-auto-approve -lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+          #     #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
+          #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
+          #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
+          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+          
               #workingDirectory: '$(Build.SourcesDirectory)/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
