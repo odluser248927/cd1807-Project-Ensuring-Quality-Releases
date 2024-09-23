@@ -419,19 +419,19 @@ stages:
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
                 #cp -r '$(workingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
                 
-          # - task: AzureCLI@1
-          #   displayName: 'Terraform check'
-          #   #continueOnError: true
-          #   inputs:
-          #     azureSubscription: 'myServiceConnection'
-          #     backendAzureRmKey: 'test.terraform.tfstate'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     addSpnToEnvironment: true
-          # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          #     commandOptions: '-lock=false -auto-approve'
+          - task: AzureCLI@1
+            displayName: 'Terraform check'
+            #continueOnError: true
+            inputs:
+              azureSubscription: 'myServiceConnection'
+              backendAzureRmKey: 'test.terraform.tfstate'
+              backendAzureRmContainerName: 'tfstate'
+              addSpnToEnvironment: true
+          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
+              commandOptions: '-lock=false -auto-approve'
           # #     #commandOptions: "-lock=false"
           # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          # # #     #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
+              workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
           #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           # # #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
           # # #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
