@@ -548,29 +548,29 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
 
-          - task: DownloadSecureFile@1
-            name: test
-            displayName: Download backend config file
-            inputs:
-              #secureFile: "test.azurerm.tfbackend"
-              #secureFile: "test.azurerm.backend.tf"
-              secureFile: "test.azurerm.backend.tf"
-          - script: |
-              terraform init -backend-config=$(test.secureFilePath)
-              terraform plan -out=$(Build.SourcesDirectory)/test.tfplan -var 'name=mydevopsdeployment03' -var 'location=eastus'
-              content=$(terraform show -no-color test.tfplan)
-              echo "##vso[task.setvariable variable=planoutput;isOutput=true]"$content""
-            displayName: Run terraform plan
-            name: terraformplan
+          # - task: DownloadSecureFile@1
+          #   name: test
+          #   displayName: Download backend config file
+          #   inputs:
+          #     #secureFile: "test.azurerm.tfbackend"
+          #     #secureFile: "test.azurerm.backend.tf"
+          #     secureFile: "test.azurerm.backend.tf"
+          # - script: |
+          #     terraform init -backend-config=$(test.secureFilePath)
+          #     terraform plan -out=$(Build.SourcesDirectory)/test.tfplan -var 'name=mydevopsdeployment03' -var 'location=eastus'
+          #     content=$(terraform show -no-color test.tfplan)
+          #     echo "##vso[task.setvariable variable=planoutput;isOutput=true]"$content""
+          #   displayName: Run terraform plan
+          #   name: terraformplan
 
-          - script: echo $(mydevopsdeployment03.planoutput)
+          # - script: echo $(mydevopsdeployment03.planoutput)
 
-          - task: PublishPipelineArtifact@1
-            inputs:
-              targetPath: "$(Build.SourcesDirectory)"
-              artifact: "test"
-              publishLocation: "pipeline"
-            condition: succeeded()
+          # - task: PublishPipelineArtifact@1
+          #   inputs:
+          #     targetPath: "$(Build.SourcesDirectory)"
+          #     artifact: "test"
+          #     publishLocation: "pipeline"
+          #   condition: succeeded()
 
           # - task: TerraformInstaller@0
           #   inputs:
