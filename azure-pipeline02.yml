@@ -484,7 +484,7 @@ stages:
           #       'terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg' \
           - task: Bash@3
             displayName: "import test:"
-            #continueOnError: true
+            continueOnError: true
             inputs:
               provider: 'azurerm'
               backendServiceArm: 'myServiceConnection'
