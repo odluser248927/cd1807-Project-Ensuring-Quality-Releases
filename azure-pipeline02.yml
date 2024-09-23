@@ -548,6 +548,14 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
 
+          - task: TerraformTaskV2@2
+            displayName: 'apply'
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              environmentServiceNameAzureRM: 'myServiceConnection'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'    
+
           # - task: DownloadSecureFile@1
           #   name: test
           #   displayName: Download backend config file
