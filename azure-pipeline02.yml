@@ -642,7 +642,8 @@ stages:
             displayName: 'Archive FakeRestAPI'
             inputs:
               #rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
-              rootFolderOrFile: '$(Agent.TempDirectory)/terraform/automatedtesting/jmeter/fakerestapi/'
+              #rootFolderOrFile: '$(Agent.TempDirectory)/terraform/automatedtesting/jmeter/fakerestapi/'
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/automatedtesting/jmeter/fakerestapi/'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -654,24 +655,24 @@ stages:
           # - download: current
           #   artifact: drops
             
-          - task: CopyFiles@2
-            displayName: "login test"
-            inputs:
-              SourceFolder: '$(Pipeline.Workspace)/drops'
-              contents: '**'
-              #contents: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium/**'
-              #TargetFolder: '$(System.DefaultWorkingDirectory)/'
-              TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
-              #TargetFolder: '$(Agent.TempDirectory)'
-              OverWrite: true
+          # - task: CopyFiles@2
+          #   displayName: "login test"
+          #   inputs:
+          #     SourceFolder: '$(Pipeline.Workspace)/drops'
+          #     contents: '**'
+          #     #contents: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium/**'
+          #     #TargetFolder: '$(System.DefaultWorkingDirectory)/'
+          #     TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
+          #     #TargetFolder: '$(Agent.TempDirectory)'
+          #     OverWrite: true
 
-          - task: CmdLine@2
-            displayName: "newman install"
-            continueOnError: true
-            inputs:
-              script: 'sudo npm install -g newman'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)'
-              workingDirectory: '$(Agent.TempDirectory)/terraform/automatedtesting/postman'
+          # - task: CmdLine@2
+          #   displayName: "newman install"
+          #   continueOnError: true
+          #   inputs:
+          #     script: 'sudo npm install -g newman'
+          #     #workingDirectory: '$(System.DefaultWorkingDirectory)'
+          #     workingDirectory: '$(Agent.TempDirectory)/terraform/automatedtesting/postman'
               #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
 
           # - task: CmdLine@2
