@@ -404,6 +404,7 @@ stages:
           #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               #backendAzureRmContainerName: 'tfstate'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+              #-var-file="../terraform/environments/$(Environment)/$(Environment).tfvars"
 
           - task: CmdLine@2
             displayName: 'Copy terraform.tfvars to local working directory'
@@ -493,7 +494,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               commandOptions: '-lock=false -auto-approve -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
               backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'test.terraform.tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
               targetType: 'inline'
               script: |
                 #! /bin/bash
@@ -525,7 +526,7 @@ stages:
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               commandOptions: '-reconfigure -lock=false -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-              backendAzureRmKey: 'test.terraform.tfstate'          
+              backendAzureRmKey: 'terraform.tfstate'          
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
@@ -543,7 +544,7 @@ stages:
               backendAzureRmContainerName: 'tfstate'
               commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
-              backendAzureRmKey: 'test.terraform.tfstate'              
+              backendAzureRmKey: 'terraform.tfstate'              
               #backendAzureRmResourceGroupName: 'Azuredevops'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
@@ -554,7 +555,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'myServiceConnection'
-              commandOptions: '-var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'    
 
           # - task: DownloadSecureFile@1
