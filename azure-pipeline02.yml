@@ -168,7 +168,24 @@ stages:
               commandOptions: '-auto-approve -lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
           
-          
+          - task: CmdLine@2
+            displayName: "newman install"
+            continueOnError: true
+            inputs:        
+            script: |
+              #'sudo apt-get install npm'
+              'sudo npm install -g newman'
+              WorkingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
+              #WorkingDirectory: '$(System.DefaultWorkingDirectory)'
+
+          - task: CmdLine@2
+            condition: succeededOrFailed()
+            displayName: "regression check"
+            WorkingDirectory: '$(System.DefaultWorkingDirectory)/'
+            continueOnError: true
+            inputs:
+              script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
+              
 
 
 
