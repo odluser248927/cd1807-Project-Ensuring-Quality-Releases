@@ -505,7 +505,7 @@ stages:
                 #terraform import azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 #terraform import azurerm_virtual_network.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/Azuredevops-NET" \
                 #terraform import azurerm_network_security_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/Azuredevops-NSG" \
-                terraform import azurerm_virtual_network.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet" -lock-false \
+                terraform import azurerm_virtual_network.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" -lock-false \
                 #terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/Azuredevops-NSG" \
                 # terraform import module.resource_group.azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 #  -var "address_prefix=10.0.0.0/24" \
