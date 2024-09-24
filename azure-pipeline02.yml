@@ -176,15 +176,58 @@ stages:
                 sudo npm install -g newman
                 workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
 
+          # Postman Data Validation Test Suite       
           - task: CmdLine@2
-            condition: succeededOrFailed()
-            displayName: "regression check"            
+            displayName: "run regression check"            
             continueOnError: true
             inputs:
               script: |                
-                workingDirectory: '$(System.DefaultWorkingDirectory)/'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
                 script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
-              
 
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '**/TEST-*.xml'
+              searchFolder:       # ToDo
+              mergeTestResults: true
+              testRunTitle:       
 
+          - task: ArchiveFiles@2
+            displayName: 'Archive UI Tests'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+          # Selenium Test Suite - Publish the package  
+          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
+            displayName: 'Upload Package'
+            artifact: drop-uitests
 
+          # FakeRestAPI - Archive
+          # ToDo: Complete the ArchiveFiles@2 task and publish step 
+          - task: ArchiveFiles@2
+            displayName: 'Archive FakeRestAPI'
+            inputs:
+              rootFolderOrFile: 
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+            displayName: 'Upload Package'
+            artifact: drop-fakerestapi
+
+          # JMeter (Performance) Test Suite - Archive
+          # ToDo: Complete the ArchiveFiles@2 task and publish step 
+          - task: ArchiveFiles@2
+            displayName: 'Archive PerformanceTestSuite'
+            inputs:
+              rootFolderOrFile: 
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+          # JMeter Test Suite - Publish    
+          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip
+            displayName: 'Upload Package'
+            artifact: drop-perftests
