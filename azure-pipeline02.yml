@@ -172,9 +172,9 @@ stages:
             displayName: "newman install"
             continueOnError: true            
             inputs:        
-            script: |
-              sudo npm install -g newman
-              workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
+              script: |
+                sudo npm install -g newman
+                workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
 
           - task: CmdLine@2
             condition: succeededOrFailed()
