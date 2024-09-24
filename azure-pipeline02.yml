@@ -10,10 +10,9 @@ variables:
   vmImageName: 'ubuntu-latest'
   environmentName: 'mydevopsagentvm'
 
-  #projectRoot: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+  
   projectRoot: '$(System.DefaultWorkingDirectory)/'
-  #environmentName: 'test'
-
+  
 
 stages:
 - stage: 'Build'
@@ -22,66 +21,11 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-
-    # - task: InstallSSHKey@0
-    #   inputs:
-    # #     #knownHostsEntry: '$(KNOWN_HOST_STRING)'
-    # #     sshPublicKey: '$(PUBLIC_KEY)'
-    #     sshPublicKey: 'id_rsa.pub'
-    #     sshKeySecureFile: 'id_rsa'
-        
-    # install if not installed in env:      
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   continueOnError: true
-    #   inputs:        
-    #     script: |
-    #       #'sudo apt-get install npm'
-    #       'sudo npm install -g newman'
-          #WorkingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
-          #WorkingDirectory: '$(System.DefaultWorkingDirectory)'
-          #'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/usr/local"'
-                  
-    # - task: CmdLine@2
-    #   condition: succeededOrFailed()
-    #   displayName: "regression check"
-    #   continueOnError: true
-    #   inputs:
-    #     script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
-    #     WorkingDirectory: '$(System.DefaultWorkingDirectory)'
-
-    # - task: PublishTestResults@2
-    #   condition: succeededOrFailed()
-    #   inputs:
-    #     testResultsFormat: 'Junit'
-    #     testResultsFiles: '**/TEST-*.xml'
-    #     searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
-    #     mergeTestResults: true
-    #     failTaskOnFailedTests: false
-    #     testRunTitle: 'Jmeter Results'    
         
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       displayName: 'Terrafom installation'
       inputs:
         terraformVersion: 'latest'
-
-    # -script: |
-    #   terraform --version
-    #   terraform init -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-    #   terraform init -backend-config="storage_account_name=$(backendAzureRmStorageAccountName)"
-    #   terraform plan --out=mydevopsdeployment03.plan
-    #   terraform plan --out=tfplan
-
-    # - task: DownloadSecureFile@1
-    #   displayName: 'Download secure file $(terraform.tfvars)'
-    #   inputs:
-    #     secureFile: 'terraform.tfvars'
-
-    # - task: CmdLine@2
-    #   displayName: 'Copy terraform.tfvars to local working directory'
-    #   inputs:
-    #     script: |
-    #       cp -r '$(System.DefaultWorkingDirectory)/terraform/environments/test/' '/home/devopsagent/myagent/terraform/environments/test/'
         
     - task: TerraformTaskV3@3
       displayName: 'init'
@@ -94,8 +38,8 @@ stages:
         backendAzureRmResourceGroupName: 'Azuredevops'
         backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'test.terraform.tfstate'
-        #backendAzureRmKey: 'terraform.tfstate'
+        #backendAzureRmKey: 'test.terraform.tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
         commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
 
     - task: TerraformTaskV3@3
@@ -104,167 +48,6 @@ stages:
         provider: 'azurerm'
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        
-    
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive PerformanceTestSuite'
-    #   inputs:
-    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-        
-    # JMeter Test Suite - Publish    
-    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-    #   displayName: 'Upload Package'
-    #   artifact: drop-perftests
-    
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   continueOnError: true
-    #   inputs:
-    #     script: 'sudo npm install -g newman'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/'
-
-    # - task: CmdLine@2
-    #   displayName: "regression check"
-    #   continueOnError: true
-    #   inputs:
-    #     script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-    # - task: Bash@3
-    #   displayName: 'Functional tests'
-    #   inputs:
-    #     targetType: 'inline'
-    #     script: |           
-    #       #! /bin/bash
-          
-    #       sudo apt-get upgrade -y
-    #       sudo apt-get install python3-pip -y
-    #       sudo apt-get install unzip -y
-    #       #sudo apt install default-jdk
-    #       #sudo apt install default-jre
-    #       sudo apt-get install -y chromium-browser
-    #       pip3 install selenium
-    #       wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
-    #       unzip ~/chromedriver_linux64.zip -d ~/                
-    #       sudo mv -f ~/chromedriver $HOME/.local/bin/chromedriver
-    #       sudo chown root:root $HOME/.local/bin/chromedriver
-    #       sudo chmod 0774 $HOME/.local/bin/chromedriver
-    #       wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
-    #       tar -xf apache-jmeter-5.6.3.tgz
-    #       unzip -o $(Build.BuildId)-perftests.zip
-    #       ./apache-jmeter-5.6.3/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
-    #       cat jmeter.log
-    #       cd ~/
-    #       DIR=/home/devopsagent/myagent/_work/_tool/app
-    #       if [ ! -d "$DIR" ]; then
-    #           mkdir app
-    #       fi
-    #       mv /home/devopsagent/myagent/_work/_tool/1/drop-uitests/$(Build.BuildId)-uitests.zip app
-    #       cd app
-    #       unzip -o $(Build.BuildId)-uitests.zip
-    #       FILE=/home/devopsagent/app/chromedriver_linux64.zip
-    #       if [ ! -f "$FILE" ]; then
-    #           LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-    #           wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-    #           unzip -o chromedriver_linux64.zip
-    #           sudo ln -s $PWD/chromedriver $HOME/.local/bin/chromedriver
-    #       fi
-    #       export PATH=$PATH:/home/devopsagent/myagent/_work/_tool/app
-    #       echo "Starting Selenium Tests"
-          # python3 add_remove_from_cart.py >> selenium.log
-
-    # - task: CmdLine@2
-    #   displayName: 'units tests'
-    #   inputs:
-    #     script: |
-    #       python3 $(System.DefaultWorkingDirectory)/automatedlogin.py
-          
-    # - task: JMeterInstaller@0
-    #   displayName: 'junitInstall'
-
-    # - task: Bash@3
-    #   displayName: 'unitTests1'
-    #   inputs:
-    #     targetType: 'inline'
-    #     script: |
-    #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=10 -JEnduranceTestUsers=0'
-
-    # - task: Bash@3
-    #   displayName: 'unitTests2'
-    #   inputs:
-    #     targetType: 'inline'
-    #     script: |
-    #       'jmeter -n -t /home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JstressTestUsers=0 -JEnduranceTestUsers=10'
-
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   # continueOnError: true
-    #   inputs:
-    #      script: 'sudo npm install -g newman'
-    #      workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-    # - task: CmdLine@2
-    #   continueOnError: true
-    #   displayName: "Run automated testing commands"
-    #   inputs:
-    #     script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
-    #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-    # - task: CmdLine@2
-    #   displayName: "Run Tests"
-    #   # continueOnError: true
-    #   inputs:
-    #     script: 'newman run TestSuite.Regression.json -e test.environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
-    #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-    # - task: PublishTestResults@2
-    #   inputs:
-    #     testResultsFormat: 'JUnit'
-    #     testResultsFiles: '**/TEST-*.xml'
-    #     searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
-    #     mergeTestResults: true
-    #     testRunTitle: 'JUnit Results'    
-      
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive UI Tests'
-    #   inputs:
-    #     contents: 'automatedtesting/selenium/**'
-    #     targetFolder: '$(Build.StagingDirectory)'
-    #     rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/selenium'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-
-    #  # Selenium Test Suite - Publish the package  
-    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-    #   displayName: 'Upload Package'
-    #   artifact: drop-uitests
-
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive FakeRestAPI'
-    #   inputs:
-    #     rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-    #   displayName: 'Upload Package'
-    #   artifact: drop-fakerestapi
-
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive PerformanceTestSuite'
-    #   inputs:
-    #     rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-    # # JMeter Test Suite - Publish    
-    # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-    #   displayName: 'Upload Package'
-    #   artifact: drop-perftests
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
@@ -278,33 +61,23 @@ stages:
       displayName: "Deploying IaaC from local env to cloud env."
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        #SourceFolder: '$(System.DefaultWorkingDirectory)/terraform/'
         Contents: |
           **
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/$(Artifact)/environments/test/'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-        #TargetFolder: '$(Build.ArtifactStagingDirectory)/terraform/environments/test/'
-        #TargetFolder: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-        #TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
-        #TargetFolder: '$(Agent.TempDirectory)/terraform/'
-        #TargetFolder: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
 
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         
-     #Publish Artifacts:
+     # Publish Artifacts:
     - task: PublishBuildArtifacts@1
       displayName: 'PUBLISH ARTIFACTS'
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-    # # #     #PathtoPublish: '$(Agent.TempDirectory)/terraform/environments/test/'
-    # # #     PathtoPublish: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-    #      PathtoPublish: '/home/devopsagent/myagent/_work/$(Artifact)/terraform/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
         
-    ##deploymentStage:
+    # deploymentStage:
 - stage: Deploy
   dependsOn: Build
   condition: succeeded()
@@ -315,12 +88,7 @@ stages:
     environment: 'mydevopsagentvm'
     strategy:
       
-      runOnce:
-        # preDeploy:
-        #   steps:
-        #     - script: |
-        #          echo Begin deployment
-        #          cd /home/devopsagent/myagent/_work/_tool/terraform/1.7.4/x64/terraform
+      runOnce:        
         deploy:
           steps:
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
@@ -329,10 +97,7 @@ stages:
               terraformVersion: 'latest'
               
           - script: |
-             terraform --version
-             #terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
-             #terraform init -backend-config="storage_account_name=$(storageAccountName)"
-             #terraform plan --out=mydevopsdeployment03.plan
+             terraform --version             
 
           - task: DownloadBuildArtifacts@0
             displayName: 'Download artifacts for deployment.'
@@ -341,151 +106,17 @@ stages:
               downloadType: 'single'
               artifactname: '$(Artifact)'
               addSpnToEnvironment: true
-          #     #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-          #     #downloadPath: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-          #     #downloadPath: '$(Agent.TempDirectory)/terraform/$(Artifact)/environments/test/'
               downloadPath: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-          #     #downloadPath: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          #     #downloadPath: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-          #     #downloadPath: '$(Agent.TempDirectory)/20/s/terraform/'
-          #     downloadPath: '$(Agent.TempDirectory)/terraform/'
-          
-
-                
-          # - task: TerraformTaskV3@3
-          #   displayName: 'init'
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'init'
-          #     backendServiceArm: 'myServiceConnection'
-          #     backendAzureRmResourceGroupName: 'Azuredevops'
-          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     commandOptions: '-reconfigure'
-          #     backendAzureRmKey: 'test.terraform.tfstate'              
-          #     #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
-          #     #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              #workingDirectory: '$(Agent.TempDirectory)/20/$(Artifact)/terraform/'
-              
-
-          # - task: TerraformTaskV3@3
-          #   displayName: 'Terrafom plan'
-          #   inputs:
-          #     command: 'plan'
-          #     commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
-          #     backendType: 'azurerm'
-          #     environmentServiceNameAzureRM: 'myServiceConnection'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     backendAzureRmKey: 'terraform.tfstate'
-          #     #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-          #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-          #     #backendServiceArm: 'myServiceConnection'
-          #     backendAzureRmResourceGroupName: 'Azuredevops'
-          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-              #backendAzureRmContainerName: 'tfstate'
-              #backendAzureRmKey: 'test.terraform.tfstate'
-              #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'              
-
-          # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-          #   displayName: 'Terrafom plan'          
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'plan'
-          #     commandOptions: '-lock=false'
-          #     environmentServiceNameAzureRM: 'myServiceConnection'
-          # #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/$(Artifact)/environments/test/'
-          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-          #     backendServiceArm: 'myServiceConnection'
-          #     backendAzureRmResourceGroupName: 'Azuredevops'
-          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-              #backendAzureRmContainerName: 'tfstate'
-              #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-              #-var-file="../terraform/environments/$(Environment)/$(Environment).tfvars"
 
           - task: CmdLine@2
             displayName: 'Copy terraform.tfvars to local working directory'
             inputs:
               script: |                
-                #cp -r '$(Agent.TempDirectory)/' '$(Build.ArtifactSourcesDirectory)/'
-                #terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
                 cp -r '$(Agent.TempDirectory)/' '$(Build.ArtifactStagingDirectory)/'
                 cp -r '$(Agent.TempDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
-                #terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
-                #cp -r '$(Build.SourcesDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
-                #cp -r '$(System.DefaultWorkingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
-                #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-                #cp -r '$(workingDirectory)/' '/home/devopsagent/myagent/_work/_tool/terraform/'
-                
-          # - task: AzureCLI@1
-          #   displayName: 'Terraform check'
-          #   #continueOnError: true
-          #   inputs:
-          #     azureSubscription: 'myServiceConnection'
-          #     backendAzureRmKey: 'terraform.tfstate'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     addSpnToEnvironment: true
-          # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          #     commandOptions: '-lock=false -auto-approve'
-          # # #     #commandOptions: "-lock=false"
-          # # # #     #workingDirectory: '/home/devopsagent/myagent/_work/_temp/terraform/environments/test/'
-          #     workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
-          #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          # # #     #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/'
-          # # #     #workingDirectory: '$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/'
-          # # #     #workingDirectory: '$(System.DefaultWorkingDirectory)/'
-          #     targetType: 'inline'
-          #     scriptLocation: inlineScript
-          #     inlineScript: |
-          #       terraform init -migrate-state \                
-          #       -backendAzureRmResourceGroupName="Azuredevops" \
-          #       -backend-config=resource_group_name="Azuredevops" \
-          #       -backend-config=storage_account_name="myazuredevopsdemoblob" \
-          #       -backend-config=subscription_id="64b5de4c-738a-488c-9d2c-0a702a6d086a" \
-          #       -backend-config=container_name="tfstate" \
-          #       az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a" \
-                #terraform import -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars" azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops
-              
-              # -var.address_prefix "address_prefix=10.0.0.0/24" -var.resource_group "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var.subnet_id "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" -lock=false \
-                #terraform import "azurerm_resource_group.Azuredevops" "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var "address_prefix=10.0.0.0/24" -var "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \                
-                #
-                #terraform import azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \
-                #terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg -var "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
-                # terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
-                # terraform import module.network.azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet \
-                # terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg \ 
 
-                
-          #       # az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a"
-                 
-          # - task: CmdLine@2
-          #   displayName: "Terra Tester Import"
-          #   continueOnError: true
-          #   inputs:
-          #     script: |
-          #       'terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' \
-          #       'terraform import module.network.azurerm_virtual_network.Azuredevops  /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet' \
-          #       'terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg' \
-
-          # - task: Bash@3
-          #   displayName: "Terra Tester Import"
-          #   continueOnError: true
-          #   inputs:
-          #     azureSubscription: 'myServiceConnection'
-          #     backendAzureRmKey: 'test.terraform.tfstate'
-          #     #commandOptions: '-reconfigure -auto-approve -lock=false'
-          #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          #     backendAzureRmContainerName: 'tfstate'
-          #     script: |
-          #       'terraform import module.resource_group.azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' \
-          #       'terraform import module.network.azurerm_virtual_network.Azuredevops  /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet' \
-          #       'terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/mydevopsagent-nsg' \
           - task: Bash@3
             displayName: "import test:"
-            #continueOnError: true
             inputs:
               provider: 'azurerm'
               backendServiceArm: 'myServiceConnection'
@@ -497,25 +128,9 @@ stages:
               backendAzureRmKey: 'terraform.tfstate'
               targetType: 'inline'
               script: |
-                #! /bin/bash
-                #az ad sp create-for-rbac --name="SPForTerraform" --role="Contributor" --scopes="/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a" \
                 terraform import azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 terraform --version \
                 terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \
-                #terraform state push errored.tfstate \                
-                #terraform import azurerm_resource_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
-                #terraform import azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
-                #terraform import azurerm_virtual_network.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/Azuredevops-NET" \
-                #terraform import azurerm_network_security_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/Azuredevops-NSG" \
-                #terraform import azurerm_virtual_network.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet" -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" -lock-false \
-                #terraform import module.networksecuritygroup.azurerm_network_security_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/Azuredevops-NSG" \
-                # terraform import module.resource_group.azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
-                #  -var "address_prefix=10.0.0.0/24" \
-                #  -var "resource_group=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
-                #  -var "subnet_id=/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagentvm-vnet/subnets/default" \
-                #terraform import azurerm_resource_group.Azuredevops '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/' -lock=false
-                #terraform import 'module.resource_group.azurerm_resource_group.Azuredevops' '/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops' -lock=false
-
 
           - task: TerraformTaskV3@3
             displayName: 'init'
@@ -527,316 +142,32 @@ stages:
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               commandOptions: '-reconfigure -lock=false -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-              backendAzureRmKey: 'terraform.tfstate'          
-              #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
-              #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
-              #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+              backendAzureRmKey: 'terraform.tfstate'                        
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'              
 
           - task: TerraformTaskV3@3
             displayName: 'Terrafom plan'
             inputs:
               command: 'plan'
               environmentServiceNameAzureRM: 'myServiceConnection'
-              #environmentServiceArm: 'myServiceConnection'
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
               commandOptions: '-lock=false -input=false -out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               backendType: 'azurerm'
               backendAzureRmKey: 'terraform.tfstate'              
-              #backendAzureRmResourceGroupName: 'Azuredevops'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-              #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-
-          # - task: TerraformTaskV2@2
-          #   displayName: 'apply'
-          #   inputs:
-          #     provider: 'azurerm'
-          #     command: 'apply'
-          #     environmentServiceNameAzureRM: 'myServiceConnection'
-          #     commandOptions: '-lock=false -input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
-          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'    
-
-          # - task: DownloadSecureFile@1
-          #   name: test
-          #   displayName: Download backend config file
-          #   inputs:
-          #     #secureFile: "test.azurerm.tfbackend"
-          #     #secureFile: "test.azurerm.backend.tf"
-          #     secureFile: "test.azurerm.backend.tf"
-          # - script: |
-          #     terraform init -backend-config=$(test.secureFilePath)
-          #     terraform plan -out=$(Build.SourcesDirectory)/test.tfplan -var 'name=mydevopsdeployment03' -var 'location=eastus'
-          #     content=$(terraform show -no-color test.tfplan)
-          #     echo "##vso[task.setvariable variable=planoutput;isOutput=true]"$content""
-          #   displayName: Run terraform plan
-          #   name: terraformplan
-
-          # - script: echo $(mydevopsdeployment03.planoutput)
-
-          # - task: PublishPipelineArtifact@1
-          #   inputs:
-          #     targetPath: "$(Build.SourcesDirectory)"
-          #     artifact: "test"
-          #     publishLocation: "pipeline"
-          #   condition: succeeded()
-
-          # - task: TerraformInstaller@0
-          #   inputs:
-          #     terraformVersion: 'latest'
-
-          # - script: |
-          #     terraform --version
-          #     terraform init -backend-config='storage_account_name=myazuredevopsdemoblob' -backend-config="container_name=tfstate" -backend-config='subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
-          #     terraform apply -auto-approve mydevopsdeployment03.plan
-          #     displayName: 'Terraform Init and Apply'
-          
-          # - task: Bash@3
-          #   displayName: 'Import Existing Resources'            
-          #   inputs:
-          #     backendAzureRmResourceGroupName: 'Azuredevops'
-          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-          # #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          # #     backendAzureRmContainerName: 'tfstate'              
-          # #     commandOptions: '-lock=false -input=false -config="$(System.DefaultWorkingDirectory)/terraform/environments/test" -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"  -out="mydevopsdeployment03.plan"'
-          #     targetType: 'inline'
-          #     script: |
-          #       terraform state push errored.tfstate
-          
-          #       terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \ azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
-                # terraform import azurerm_resource_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
-                # terraform import azurerm_virtual_network.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet \
-                # terraform import azurerm_network_security_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/Azuredevops-NSG \
-              
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'              
                 
           - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
-            #continueOnError: true
             displayName: 'Terrafom apply'
-            # displayName: TERRAFORM APPLY
             inputs:
-              #script: 
               provider: 'azurerm'
               command: 'apply'
               addSpnToEnvironment: true
-              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               environmentServiceNameAzureRM: 'myServiceConnection'
-          #     environmentServiceArm: 'myServiceConnection'
-              #backendAzureRmResourceGroupName: 'Azuredevops'
-              #backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
-          #     backendAzureRmContainerName: 'tfstate'
-              #backendAzureRmKey: 'terraform.tfstate'
               commandOptions: '-auto-approve -lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
-          #     #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
-          #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
-          #     #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
           
-              #workingDirectory: '$(Build.SourcesDirectory)/'
-              #workingDirectory: '$(Agent.TempDirectory)/terraform/'
-              #workingDirectory: '/home/devopsagent/myagent/terraform/environments/test/'
-              #commandOptions: '-auto-approve -input=false -lock=false -var-file="home/devopsagent/myagent/_work_tool/terraform/environments/test/terraform.tfvars"'
-              #commandOptions: '-lock=false -input=false -var-file="$(Agent.TempDirectory)/$(Artifact)/terraform/environments/test/terraform.tfvars"'
-              #commandOptions: '-lock=false -input=false -var-file="/home/devopsagent/myagent/terraform/environments/test/terraform.tfvars"'
-              #workingDirectory: '/home/devopsagent/myagent/_work/20/$(Artifact)/'
-              #workingDirectory : '/home/devopsagent/myagent/_work/_tool/terraform/1.9.5/x64/terraform'
-              #addSpnToEnvironment: true
-              #commandOptions: '-var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"'
-              #commandOptions: '-var-file="/home/devopsagent/myagent/_work/_temp/terraform/environments/test/terraform.tfvars"'
-              #commandOptions: '-input=false -lock=false -auto-approve -var-file="/home/devopsagent/myagent/_work/20/$(Artifact)/terraform.tfvars"'
-              #commandOptions: '-auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
-              #backendType: 'azurerm'
-              #backendServiceArm: 'myServiceConnection'
-              #environmentServiceNameAzureRM: 'myServiceConnection'
-              #environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-              # addSpnToEnvironment: true
-              # OverWrite: true
-              #commandOptions: '-lock=false -var-file="terraform.tfvars"'
-              #backendAzureRmContainerName: 'tfstate'
-              #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
-              #backendAzureRmKey: 'test.terraform.tfstate'
-
-          # - task: Bash@3
-          #   displayName: 'Import Existing Resources'
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: |
-                #terraform import azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops                    
-                #terraform import azurerm_virtual_network.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/vnet-Azuredevops
-                #terraform import azurerm_network_security_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/networkSecurityGroups/nsg-Azuredevops
-                #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'                 
-              
-           # - task: TerraformTaskV3@3
-           #   displayName: Terraform destroy
-           #   inputs:
-           #     provider: 'azurerm'
-           #     command: 'destroy'
-           #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-           #     environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
-
-          # - task: ArchiveFiles@2
-          #   displayName: 'Archive FakeRestAPI'
-          #   inputs:
-          #     #rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter/fakerestapi'
-          #     #rootFolderOrFile: '$(Agent.TempDirectory)/terraform/automatedtesting/jmeter/fakerestapi/'
-          #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/automatedtesting/jmeter/fakerestapi/'
-          #     includeRootFolder: false
-          #     archiveType: 'zip'
-          #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-          # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-          #   displayName: 'Upload Package'
-          #   artifact: drop-fakerestapi 
-
-          # steps:
-          # - download: current
-          #   artifact: drops
-            
-          # - task: CopyFiles@2
-          #   displayName: "login test"
-          #   inputs:
-          #     SourceFolder: '$(Pipeline.Workspace)/drops'
-          #     contents: '**'
-          #     #contents: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium/**'
-          #     #TargetFolder: '$(System.DefaultWorkingDirectory)/'
-          #     TargetFolder: '$(Agent.TempDirectory)/terraform/environments/test/'
-          #     #TargetFolder: '$(Agent.TempDirectory)'
-          #     OverWrite: true
-
-          # - task: CmdLine@2
-          #   displayName: "newman install"
-          #   continueOnError: true
-          #   inputs:
-          #     script: 'sudo npm install -g newman'
-          #     #workingDirectory: '$(System.DefaultWorkingDirectory)'
-          #     workingDirectory: '$(Agent.TempDirectory)/terraform/automatedtesting/postman'
-              #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-          # - task: CmdLine@2
-          # #continueOnError: true
-          # conditon: succededOrFailed()
-          # displayName: "Run automated testing commands"
-          # inputs:
-          #   script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
-          #   workingDirectory: '$(System.DefaultWorkingDirectory)'
-          #   #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-          # - task: CmdLine@2
-          #   #condition: succededOrFailed()
-          #   displayName: "Run automated Testing"
-          #   continueOnError: true
-          #   inputs:
-          #     script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/Test.environment1.json --reporters cli,junit --reporter-junit-export Results/Test-DataValidation.xml'
-          #     workingDirectory: '$(System.DefaultWorkingDirectory)'
-              #workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
-
-          # - task: PublishTestResults@2
-          #   #condition: succededOrFailed()
-          #   continueOnError: true
-          #   inputs:
-          #     testResultsFormat: 'JUnit'
-          #     testResultsFiles: '**/Results/Test-DataValidation.xml'
-          #     #searchFolder: '$(System.DefaultWorkingDirectory)/terraform/automatedtesting/jmeter'
-          #     #searchFolder: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
-          #     #mergeTestResults: true
-          #     failTaskOnFailedTests: false
-          #     testRunTitle: 'JUnit Results'    
-
-        # - task: ArchiveFiles@2
-        #   displayName: 'Archive UI Tests'
-        #   inputs:
-        #     contents: 'automatedtesting/selenium/**'
-        #     targetFolder: '$(Build.StagingDirectory)'
-        #     rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/selenium'
-        #     includeRootFolder: false
-        #     archiveType: 'zip'
-        #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-
-        #  # Selenium Test Suite - Publish the package  
-        # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-        #   displayName: 'Upload Package'
-        #   artifact: drop-uitests
-
-        
-
-        # - task: ArchiveFiles@2
-        #   displayName: 'Archive PerformanceTestSuite'
-        #   inputs:
-        #     rootFolderOrFile: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/jmeter'
-        #     includeRootFolder: false
-        #     archiveType: 'zip'
-        #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-        # # JMeter Test Suite - Publish    
-        # - publish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-        #   displayName: 'Upload Package'
-        #   artifact: drop-perftests
-
-              
-  #         - task: Bash@3
-  #           displayName: "file script install"
-  #           inputs:
-  #             targetType: 'inline'
-  #             script: |
-  #               #! /bin/bash
-                
-  #               CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
-  #               sudo apt-get upgrade -y
-  #               sudo apt-get install python3-pip -y
-  #               sudo apt-get install unzip -y
-  #               sudo apt-get install -y chromium-browser
-  #               sudo apt-get install unzip
-  #               pip3 install webdriver-manager
-  #               pip3 install selenium
-  #               echo CHROME_DRIVER_VERSION
-  #               wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
-  #               unzip ~/chromedriver_linux64.zip -d ~/
-  #               rm ~/chromedriver_linux64.zip
-  #               sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
-  #               sudo chown root:root /usr/local/bin/chromedriver
-  #               sudo chmod 0755 /usr/local/bin/chromedriver
-                
-  #         - task: CmdLine@2
-  #           condition: succeededOrFailed()
-  #           displayName: Run Selenium Tests
-  #           inputs:
-  #             script: |
-  #               python3 $(Agent.TempDirectory)/login.py
-  # # - deployment: DeploymentJob
-  # #   pool:
-  # #     vmImage: 'ubuntu-latest'
-  # #     environmentName: 'mydevopsagentvm'    
-  # #   strategy:
-  # #     runOnce:
-  # #       deploy:
-  # #         steps:
-  #         - task: AzureWebApp@1
-  #           displayName: 'Azure Web App deployment'
-  #           inputs:
-  #             environmentServiceNameAzureRM: 'myServiceConnection'
-  #             appName: 'mydevopsapp'
-  #             appType: webApp
-  #             package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
-
-  # # - job: Jmeter
-  # #   pool:
-  # #       vmImage: 'ubuntu-latest'
-  # #   steps:
-  #         - task: JMeterInstaller@0
-  #           displayName: 'Install JMeter 5.6.3'
-  #           inputs:
-  #             jmeterVersion: '5.6.3'
-  #         - task: Bash@3
-  #           displayName: 'Run Jmeter Stress test'
-  #           inputs:
-  #             targetType: 'inline'
-  #             script: |
-  #               jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0
-  #         - task: Bash@3
-  #           displayName: 'Run Jmeter Endurance test'
-  #           inputs:
-  #             targetType: 'inline'
-  #             script: |
-  #               jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=0 -JEnduranceTestUsers=10              
           
 
 
