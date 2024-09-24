@@ -618,7 +618,7 @@ stages:
             inputs:
               #script: 
               provider: 'azurerm'
-              command: 'apply'
+              command: 'terraform state push errored.tfstate'
               #addSpnToEnvironment: true
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               environmentServiceNameAzureRM: 'myServiceConnection'
