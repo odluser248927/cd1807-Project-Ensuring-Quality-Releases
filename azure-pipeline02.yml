@@ -526,7 +526,7 @@ stages:
               backendAzureRmResourceGroupName: 'Azuredevops'
               backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
               backendAzureRmContainerName: 'tfstate'
-              commandOptions: '-migrate-state -lock=false -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
+              commandOptions: '-reconfigure -lock=false -backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
               backendAzureRmKey: 'terraform.tfstate'          
               #backendAzureRmKey: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars'
               #backendAzureRmKey: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars'
@@ -593,16 +593,18 @@ stages:
           #     terraform apply -auto-approve mydevopsdeployment03.plan
           #     displayName: 'Terraform Init and Apply'
           
-          # - task: Bash@3
-          #   displayName: 'Import Existing Resources'            
-          #   inputs:
-          #     backendAzureRmResourceGroupName: 'Azuredevops'
-          #     backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+          - task: Bash@3
+            displayName: 'Import Existing Resources'            
+            inputs:
+              backendAzureRmResourceGroupName: 'Azuredevops'
+              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
           #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
           #     backendAzureRmContainerName: 'tfstate'              
           #     commandOptions: '-lock=false -input=false -config="$(System.DefaultWorkingDirectory)/terraform/environments/test" -var-file="$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars"  -out="mydevopsdeployment03.plan"'
-          #     targetType: 'inline'
-          #     script: |
+              targetType: 'inline'
+              script: |
+                terraform state push errored.tfstate
+          
           #       terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \ azurerm_resource_group.Azuredevops /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 # terraform import azurerm_resource_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 # terraform import azurerm_virtual_network.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/mydevopsagent-vnet \
