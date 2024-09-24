@@ -554,7 +554,7 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'myServiceConnection'
-              commandOptions: '-out="mydevopsdeployment03.plan" -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+              commandOptions: '-var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'    
 
           # - task: DownloadSecureFile@1
