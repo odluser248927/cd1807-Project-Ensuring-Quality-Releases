@@ -619,14 +619,14 @@ stages:
               #script: 
               provider: 'azurerm'
               command: 'apply'
-              addSpnToEnvironment: true
+              #addSpnToEnvironment: true
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               environmentServiceNameAzureRM: 'myServiceConnection'
           #     environmentServiceArm: 'myServiceConnection'
-              backendAzureRmResourceGroupName: 'Azuredevops'
-              backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
+              #backendAzureRmResourceGroupName: 'Azuredevops'
+              #backendAzureRmStorageAccountName: 'myazuredevopsdemoblob'
           #     backendAzureRmContainerName: 'tfstate'
-              backendAzureRmKey: 'terraform.tfstate'
+              #backendAzureRmKey: 'terraform.tfstate'
               commandOptions: '-auto-approve -lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/20/s/'
           #     #workingDirectory: '/home/devopsagent/myagent/_work/_tool/terraform/environments/test/'
