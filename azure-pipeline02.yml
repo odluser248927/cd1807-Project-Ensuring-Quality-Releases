@@ -619,7 +619,7 @@ stages:
               #script: 
               provider: 'azurerm'
               command: 'apply'
-              #addSpnToEnvironment: true
+              addSpnToEnvironment: true
               #workingDirectory: '$(Agent.TempDirectory)/terraform/'
               environmentServiceNameAzureRM: 'myServiceConnection'
           #     environmentServiceArm: 'myServiceConnection'
