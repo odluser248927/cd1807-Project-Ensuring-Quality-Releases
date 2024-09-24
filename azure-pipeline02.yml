@@ -178,11 +178,12 @@ stages:
 
           - task: CmdLine@2
             condition: succeededOrFailed()
-            displayName: "regression check"
-            WorkingDirectory: '$(System.DefaultWorkingDirectory)/'
+            displayName: "regression check"            
             continueOnError: true
             inputs:
-              script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
+              script: |                
+                workingDirectory: '$(System.DefaultWorkingDirectory)/'
+                script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'        
               
 
 
