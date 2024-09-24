@@ -502,8 +502,7 @@ stages:
                 terraform import azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 terraform --version \
                 terraform import -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars" \
-                #terraform state push errored.tfstate \
-                terraform reconfigure
+                #terraform state push errored.tfstate \                
                 #terraform import azurerm_resource_group.Azuredevops \ /subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops \
                 #terraform import azurerm_resource_group.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops" \
                 #terraform import azurerm_virtual_network.Azuredevops \ "/subscriptions/64b5de4c-738a-488c-9d2c-0a702a6d086a/resourceGroups/Azuredevops/providers/Microsoft.Network/virtualNetworks/Azuredevops-NET" \
@@ -551,14 +550,14 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
               #commandOptions: '-backend-config=subscription_id=64b5de4c-738a-488c-9d2c-0a702a6d086a'
 
-          - task: TerraformTaskV2@2
-            displayName: 'apply'
-            inputs:
-              provider: 'azurerm'
-              command: 'apply'
-              environmentServiceNameAzureRM: 'myServiceConnection'
-              commandOptions: '-lock=false -input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'    
+          # - task: TerraformTaskV2@2
+          #   displayName: 'apply'
+          #   inputs:
+          #     provider: 'azurerm'
+          #     command: 'apply'
+          #     environmentServiceNameAzureRM: 'myServiceConnection'
+          #     commandOptions: '-lock=false -input=false -auto-approve -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
+          #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'    
 
           # - task: DownloadSecureFile@1
           #   name: test
