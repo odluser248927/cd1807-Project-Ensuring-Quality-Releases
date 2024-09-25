@@ -227,6 +227,7 @@ stages:
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+              
           # JMeter Test Suite - Publish    
           - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip
             displayName: 'Upload Package'
