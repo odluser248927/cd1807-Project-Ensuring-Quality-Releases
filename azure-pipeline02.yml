@@ -80,9 +80,8 @@ stages:
       displayName: 'Selenium files cp to pipeline'
       inputs:
         contents: '$(System.DefaultWorkingDirectory)/terraform/environments/tests/automatedtesting/selenium/**'
-        targetFolder: '$(Build.StagingDirectory)'
-        
-    - publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/selenium'
+        targetFolder: '$(Build.StagingDirectory)'        
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/selenium'
       displayName: 'Selenium python scripts.'
       artifact: dropScripts
     
