@@ -76,6 +76,17 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         artifactName: '$(Artifact)'
         publishLocation: 'Container'
+
+    - task: CopyFiles@2
+      displayName: 'Selenium files cp to pipeline'
+      inputs:
+        contents: 'automatedtesting/selenium/**'
+        targetFolder: '$(Build.StagingDirectory)'
+        
+    - publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/selenium'
+      displayName: 'Selenium python scripts.'
+      artifact: dropScripts
+    
         
     # deploymentStage:
 - stage: Deploy
