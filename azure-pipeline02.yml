@@ -189,7 +189,7 @@ stages:
             inputs:
               testResultsFormat: 'JUnit'
               testResultsFiles: '**/TEST-*.xml'
-              searchFolder:       # ToDo
+              searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
               mergeTestResults: true
               testRunTitle:       
 
@@ -233,11 +233,11 @@ stages:
             displayName: 'Upload Package'
             artifact: drop-perftests
 
-- stage: Deploy
-  jobs:
-  #--------------------------------------------#  
-  # Deploy FakeRestAPI Web App
-  # ToDo: Provide <environment name> you created in your DevOps project
+  #- stage: Deploy
+    #jobs:
+    #--------------------------------------------#  
+    # Deploy FakeRestAPI Web App
+    # ToDo: Provide <environment name> you created in your DevOps project
   - deployment: FakeRestAPI
     pool:
       vmImage: 'ubuntu-latest'      
