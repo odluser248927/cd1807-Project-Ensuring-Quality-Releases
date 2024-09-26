@@ -252,7 +252,8 @@ stages:
               azureSubscription: '64b5de4c-738a-488c-9d2c-0a702a6d086a' 
               appName: 'myWebApp'
               appType: webApp
-              package: $(Pipeline.Workspace)/$(Artifact)/<archiveFile>       # ToDo: Use the published zip artifact. 
+              package: $(Pipeline.Workspace)/$(Artifact)/<archiveFile>
+              # ToDo: Use the published zip artifact. 
           #--------------------------------------------#    
           # Run JMeter test suite against the App Service
           - task: CmdLine@2
