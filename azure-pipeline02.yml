@@ -66,7 +66,6 @@ stages:
           **/*.tf
           **/*.tfvars
           **/*tfplan*
-
         TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/'
         
      # Publish Artifacts:
@@ -80,7 +79,7 @@ stages:
     - task: CopyFiles@2
       displayName: 'Selenium files cp to pipeline'
       inputs:
-        contents: 'automatedtesting/selenium/**'
+        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/tests/automatedtesting/selenium/**'
         targetFolder: '$(Build.StagingDirectory)'
         
     - publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/selenium'
