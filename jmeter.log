@@ -1,0 +1,20 @@
+2024-09-26 04:15:17,080 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2024-09-26 04:15:17,234 INFO o.a.j.JMeter: Loading user properties from: /home/linuxbrew/.linuxbrew/Cellar/jmeter/5.6.3/libexec/bin/user.properties
+2024-09-26 04:15:17,237 INFO o.a.j.JMeter: Loading system properties from: /home/linuxbrew/.linuxbrew/Cellar/jmeter/5.6.3/libexec/bin/system.properties
+2024-09-26 04:15:17,289 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2024-09-26 04:15:17,289 INFO o.a.j.JMeter: Version 5.6.3
+2024-09-26 04:15:17,289 INFO o.a.j.JMeter: java.version=21.0.2
+2024-09-26 04:15:17,289 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2024-09-26 04:15:17,289 INFO o.a.j.JMeter: os.name=Linux
+2024-09-26 04:15:17,289 INFO o.a.j.JMeter: os.arch=amd64
+2024-09-26 04:15:17,290 INFO o.a.j.JMeter: os.version=5.15.0-91-generic
+2024-09-26 04:15:17,290 INFO o.a.j.JMeter: file.encoding=UTF-8
+2024-09-26 04:15:17,290 INFO o.a.j.JMeter: java.awt.headless=null
+2024-09-26 04:15:17,290 INFO o.a.j.JMeter: Max memory     =1073741824
+2024-09-26 04:15:17,290 INFO o.a.j.JMeter: Available Processors =8
+2024-09-26 04:15:17,342 INFO o.a.j.JMeter: Default Locale=English (EN)
+2024-09-26 04:15:17,343 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2024-09-26 04:15:17,344 INFO o.a.j.JMeter: JMeterHome=/home/linuxbrew/.linuxbrew/Cellar/jmeter/5.6.3/libexec
+2024-09-26 04:15:17,344 INFO o.a.j.JMeter: user.dir  =/home/dahsage3/eegrOrg/eegrOsPrac/azNotes/project3Files/p5sub/Project-Ensuring-Quality-Releases-
+2024-09-26 04:15:17,344 INFO o.a.j.JMeter: PWD       =/home/dahsage3/eegrOrg/eegrOsPrac/azNotes/project3Files/p5sub/Project-Ensuring-Quality-Releases-
+2024-09-26 04:15:17,345 INFO o.a.j.JMeter: IP: 127.0.1.1 Name: DaMachine3 FullName: DaMachine3
