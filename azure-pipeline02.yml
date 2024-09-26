@@ -201,7 +201,7 @@ stages:
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
           # Selenium Test Suite - Publish the package  
-          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
+          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   
             displayName: 'Upload Package'
             artifact: drop-uitests
 
@@ -218,8 +218,7 @@ stages:
             displayName: 'Upload Package'
             artifact: drop-fakerestapi
 
-          # JMeter (Performance) Test Suite - Archive
-          # ToDo: Complete the ArchiveFiles@2 task and publish step 
+          # JMeter (Performance) Test Suite - Archive          
           - task: ArchiveFiles@2
             displayName: 'Archive PerformanceTestSuite'
             inputs:
@@ -252,8 +251,8 @@ stages:
               azureSubscription: '64b5de4c-738a-488c-9d2c-0a702a6d086a' 
               appName: 'myWebApp'
               appType: webApp
-              package: $(Pipeline.Workspace)/$(Artifact)/<archiveFile>
-              # ToDo: Use the published zip artifact. 
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
           #--------------------------------------------#    
           # Run JMeter test suite against the App Service
           - task: CmdLine@2
@@ -264,9 +263,9 @@ stages:
                 unzip -o $(Build.BuildId)-perftests.zip
                 ./apache-jmeter-5.2.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
                 cat jmeter.log
-                # ToDo: Write your commands
+
               workingDirectory: $(Pipeline.Workspace)/$(Artifact)
-              # ToDo: Use the artifact name from the task above
+
               
   #--------------------------------------------#  
   # Selenium | Functional UI Tests
@@ -274,7 +273,7 @@ stages:
   - deployment: VMDeploy
     displayName: Selenium Tests
     environment:
-      name: "Automation deployment"        
+      name: "mydevopsagentvm"        
       resourceType: VirtualMachine
       tags: selenium
     strategy:
