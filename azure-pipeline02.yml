@@ -205,10 +205,11 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Archive UI Tests'
             inputs:
-              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/selenium'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+              
           # Selenium Test Suite - Publish the package  
           - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   
             displayName: 'Upload Package'
