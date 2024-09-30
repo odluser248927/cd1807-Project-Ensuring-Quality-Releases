@@ -297,23 +297,23 @@ stages:
           #     script: |
           #       python3 $(Agent.TempDirectory)/login.py
                 
-  - deployment: FakeRestAPI
-    pool:
-      vmImage: 'ubuntu-latest'
-    environment: 'mydevopsagentvm'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'myServiceConnection'
-              appName: 'myWebApp'
-              appType: webApp
-              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
-              #package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
-              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+  # - deployment: FakeRestAPI
+  #   pool:
+  #     vmImage: 'ubuntu-latest'
+  #   environment: 'mydevopsagentvm'
+  #   strategy:
+  #     runOnce:
+  #       deploy:
+  #         steps:
+  #         - task: AzureWebApp@1
+  #           displayName: 'Deploy Azure Web App'
+  #           inputs:
+  #             azureSubscription: 'myServiceConnection'
+  #             appName: 'myWebApp'
+  #             appType: webApp
+  #             #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
+  #             #package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
+  #             package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
 
   # - job: Jmeter
   #   dependsOn: FakeRestAPI
