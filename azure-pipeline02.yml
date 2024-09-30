@@ -299,7 +299,7 @@ stages:
                 
   - deployment: FakeRestAPI
     pool:
-      vmImage: 'Ubuntu-latest'
+      vmImage: 'ubuntu-latest'
     environment: 'mydevopsagentvm'
     strategy:
       runOnce:
@@ -312,29 +312,30 @@ stages:
               appName: 'myWebApp'
               appType: webApp
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
-              package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
+              #package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
+              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
 
-  - job: Jmeter
-    dependsOn: FakeRestAPI
-    pool:
-        vmImage: 'ubuntu-latest'
-    steps:
-    - task: JMeterInstaller@0
-      displayName: 'Install JMeter 5.6.3'
-      inputs:
-        jmeterVersion: '5.6.3'
+  # - job: Jmeter
+  #   dependsOn: FakeRestAPI
+  #   pool:
+  #       vmImage: 'ubuntu-latest'
+  #   steps:
+  #   - task: JMeterInstaller@0
+  #     displayName: 'Install JMeter 5.6.3'
+  #     inputs:
+  #       jmeterVersion: '5.6.3'
         
-    - task: Bash@3
-      displayName: 'Run Jmeter Stress test'
-      inputs:
-        targetType: 'inline'
-        script: |
-          'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
+  #   - task: Bash@3
+  #     displayName: 'Run Jmeter Stress test'
+  #     inputs:
+  #       targetType: 'inline'
+  #       script: |
+  #         'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
           
-    - task: Bash@3
-      displayName: 'Run Jmeter Endurance test'
-      inputs:
-        targetType: 'inline'
-        script: |
-          'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=10'  
+  #   - task: Bash@3
+  #     displayName: 'Run Jmeter Endurance test'
+  #     inputs:
+  #       targetType: 'inline'
+  #       script: |
+  #         'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=10'  
 
