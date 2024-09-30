@@ -48,6 +48,16 @@ stages:
         provider: 'azurerm'
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+
+    - task: CmdLine@2
+      displayName: "newman install"
+      continueOnError: true            
+      inputs:
+        script: |
+          newman --version
+          #sudo npm install -g newman
+          workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
