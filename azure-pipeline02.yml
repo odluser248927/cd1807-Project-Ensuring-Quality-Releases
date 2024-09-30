@@ -241,35 +241,61 @@ stages:
             displayName: 'Upload Package'
             artifact: drop-perftests
 
-          - task: Bash@3
-            displayName: Install Python, chromium and Run Selenium Tests
-            inputs:
-              targetType: 'inline'
-              script: |
-                #! /bin/bash
+          # - task: Bash@3
+          #   displayName: Install Python, chromium and Run Selenium Tests
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |
+          #       #! /bin/bash
+
+          #       # sudo apt-get upgrade -y
+          #       # sudo apt-get install python3-pip -y
+          #       # sudo apt-get install unzip -y
+          #       # sudo apt-get install -y chromium-browser
+          #       # pip3 install selenium
+          #       # cd ~/
+          #       # DIR=/home/testuser/app
+          #       # if [ ! -d "$DIR" ]; then
+          #       #     mkdir app
+          #       # fi
+          #       # mv $(Build.ArtifactStagingDirectory)/drop-uitests/$(Build.BuildId)-uitests.zip app
+          #       # #mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+          #       # cd app
+          #       # unzip -o $(Build.BuildId)-uitests.zip
+          #       # FILE=/home/testuser/app/chromedriver_linux64.zip
+          #       # if [ ! -f "$FILE" ]; then
+          #       #     LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          #       #     wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+          #       #     unzip -o chromedriver_linux64.zip
+          #       #     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
+          #       # fi
+          #       # export PATH=$PATH:/home/testuser/app
+          #       # echo "Starting Selenium Tests"
+          #       # python3 add_remove_from_cart.py >> selenium.log
+          #       # echo "Completed Selenium Tests. Check selenium.log for results."
                 
-                CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
-                sudo apt-get upgrade -y
-                sudo apt-get install python3-pip -y
-                sudo apt-get install unzip -y
-                sudo apt-get install -y chromium-browser
-                sudo apt-get install unzip
-                pip3 install webdriver-manager
-                pip3 install selenium
-                echo CHROME_DRIVER_VERSION
-                wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
-                unzip ~/chromedriver_linux64.zip -d ~/
-                rm ~/chromedriver_linux64.zip
-                sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
-                sudo chown root:root /usr/local/bin/chromedriver
-                sudo chmod 0755 /usr/local/bin/chromedriver
+          #       CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
+          #       sudo apt-get upgrade -y
+          #       sudo apt-get install python3-pip -y
+          #       sudo apt-get install unzip -y
+          #       sudo apt-get install -y chromium-browser
+          #       sudo apt-get install unzip
+          #       pip3 install webdriver-manager
+          #       pip3 install selenium
+          #       echo CHROME_DRIVER_VERSION
+          #       wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip 
+          #       unzip ~/chromedriver_linux64.zip -d ~/
+          #       rm ~/chromedriver_linux64.zip
+          #       sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
+          #       sudo chown root:root /usr/local/bin/chromedriver
+          #       sudo chmod 0755 /usr/local/bin/chromedriver
                 
-          - task: CmdLine@2
-            condition: succeededOrFailed()
-            displayName: Run Selenium Tests
-            inputs:
-              script: |
-                python3 $(Agent.TempDirectory)/login.py
+          # - task: CmdLine@2
+          #   condition: succeededOrFailed()
+          #   displayName: Run Selenium Tests
+          #   inputs:
+          #     script: |
+          #       python3 $(Agent.TempDirectory)/login.py
                 
   - deployment: FakeRestAPI
     pool:
@@ -285,7 +311,8 @@ stages:
               azureSubscription: 'myServiceConnection'
               appName: 'myWebApp'
               appType: webApp
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
+              package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
 
   - job: Jmeter
     dependsOn: FakeRestAPI
@@ -302,12 +329,12 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
+          'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
           
     - task: Bash@3
       displayName: 'Run Jmeter Endurance test'
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30  
+          'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=10'  
 
