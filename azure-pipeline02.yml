@@ -65,8 +65,10 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
-          script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+          newman --version
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          #script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
