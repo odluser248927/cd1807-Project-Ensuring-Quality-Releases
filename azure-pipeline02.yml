@@ -60,15 +60,15 @@ stages:
           #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
     # Postman Data Validation Test Suite       
-    # - task: CmdLine@2
-    #   displayName: "run test report"
-    #   continueOnError: true
-    #   inputs:
-    #     script: |
-    #       #workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
-    #       newman --version
-    #       workingDirectory: '$(System.DefaultWorkingDirectory)'
-          #script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
+    - task: CmdLine@2
+      displayName: "run test report"
+      continueOnError: true
+      inputs:
+        script: |
+          #workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+          newman --version
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
         
     - task: ArchiveFiles@1
       displayName: "Archiving from local env to cloud env."
@@ -207,13 +207,13 @@ stages:
           #       workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
 
           # # Postman Data Validation Test Suite       
-          - task: CmdLine@2
-            displayName: "run test report"
-            continueOnError: true
-            inputs:
-              script: |                
-                workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
-                script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
+          # - task: CmdLine@2
+          #   displayName: "run test report"
+          #   continueOnError: true
+          #   inputs:
+          #     script: |                
+          #       workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+          #       script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
 
           # # Postman Data Validation Test Suite       
           # - task: CmdLine@2
