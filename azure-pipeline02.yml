@@ -60,14 +60,14 @@ stages:
           #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
     # Postman Data Validation Test Suite       
-    - task: CmdLine@2
-      displayName: "run test report"
-      continueOnError: true
-      inputs:
-        script: |
-          #workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
-          newman --version
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+    # - task: CmdLine@2
+    #   displayName: "run test report"
+    #   continueOnError: true
+    #   inputs:
+    #     script: |
+    #       #workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+    #       newman --version
+    #       workingDirectory: '$(System.DefaultWorkingDirectory)'
           #script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
         
     - task: ArchiveFiles@1
