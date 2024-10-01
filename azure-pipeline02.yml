@@ -64,7 +64,8 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml' 
+          'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
+          workingDirectory: '/home/devopsagent/myagent/_work/20/s/$(Artifact)/terraform/automatedtesting/postman'
 
     # Postman Data Validation Test Suite       
     # - task: CmdLine@2
