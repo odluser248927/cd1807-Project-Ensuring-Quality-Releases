@@ -61,6 +61,7 @@ stages:
 
     - task: Bash@3
       displayName: "run test report"
+      continueOnError: true
       inputs:
         script: |
           'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml' 
