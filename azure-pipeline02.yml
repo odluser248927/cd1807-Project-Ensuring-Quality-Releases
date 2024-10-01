@@ -64,9 +64,10 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
+          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Results\Test-DataValidation.xml'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
-          workingDirectory: '$(build.sourcesdirectory)'
+          #workingDirectory: '$(build.sourcesdirectory)'
 
     # Postman Data Validation Test Suite       
     # - task: CmdLine@2
