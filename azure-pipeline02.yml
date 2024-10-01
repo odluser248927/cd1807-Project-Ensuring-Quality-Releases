@@ -65,7 +65,8 @@ stages:
       inputs:
         script: |
           'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
-          workingDirectory: '/home/devopsagent/myagent/_work/20/s/$(Artifact)/terraform/automatedtesting/postman'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+          #workingDirectory: '/home/devopsagent/myagent/_work/20/s/$(Artifact)/terraform/automatedtesting/postman'
 
     # Postman Data Validation Test Suite       
     # - task: CmdLine@2
@@ -77,7 +78,7 @@ stages:
     #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
           # newman --version
-          # workingDirectory: '$(System.DefaultWorkingDirectory)'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
           # script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml'
         
     - task: ArchiveFiles@1
