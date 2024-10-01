@@ -59,13 +59,19 @@ stages:
           #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    # Postman Data Validation Test Suite       
-    - task: CmdLine@2
+    - task: Bash@3
       displayName: "run test report"
-      continueOnError: true
       inputs:
         script: |
-          'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
+          'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml' 
+
+    # Postman Data Validation Test Suite       
+    # - task: CmdLine@2
+    #   displayName: "run test report"
+    #   continueOnError: true
+    #   inputs:
+    #     script: |
+    #       'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml' 
     #     workingDirectory: '/home/devopsagent/myagent/_work/15/a/$(Artifact)/terraform/automatedtesting/postman'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
           # newman --version
