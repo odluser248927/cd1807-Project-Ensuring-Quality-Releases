@@ -64,7 +64,7 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/StarterAPIs.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
+          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Results\junitReport.xml'
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
           #workingDirectory: '/home/devopsagent/myagent/_work/20/s/$(Artifact)/terraform/automatedtesting/postman'
 
