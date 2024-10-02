@@ -49,28 +49,28 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   continueOnError: true            
-    #   inputs:
-    #     script: |
+    - task: CmdLine@2
+      displayName: "newman install"
+      continueOnError: true            
+      inputs:
+        script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
     #       newman --version
           #sudo npm install -g newman
           #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    - task: Bash@3
-      displayName: "run test report"
-      continueOnError: true
-      inputs:
-        script: |
-          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
+    # - task: Bash@3
+    #   displayName: "run test report"
+    #   continueOnError: true
+    #   inputs:
+    #     script: |
+    #       'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman'
           #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
           #workingDirectory: '$(build.sourcesdirectory)'
           #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
-          workingDirectory: '/home/devopsagent/myagent/_work/20/s/terraform/environments/test/automatedtesting/postman'
+          #workingDirectory: '/home/devopsagent/myagent/_work/20/s/terraform/environments/test/automatedtesting/postman'
 
     # Postman Data Validation Test Suite       
     # - task: CmdLine@2
