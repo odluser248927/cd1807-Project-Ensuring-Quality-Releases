@@ -69,7 +69,8 @@ stages:
           #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
           #workingDirectory: '$(build.sourcesdirectory)'
-          workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
+          #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
+          workingDirectory: '/home/devopsagent/myagent/_work/20/s/terraform/environments/test/automatedtesting/postman'
 
     # Postman Data Validation Test Suite       
     # - task: CmdLine@2
