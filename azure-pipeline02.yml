@@ -52,7 +52,7 @@ stages:
     - task: CmdLine@2
       displayName: "newman install"
       continueOnError: true
-      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+      #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
       inputs:
         script: |
           'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
