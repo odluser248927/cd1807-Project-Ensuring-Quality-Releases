@@ -51,11 +51,12 @@ stages:
 
     - task: CmdLine@2
       displayName: "newman install"
-      continueOnError: true            
+      continueOnError: true
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
       inputs:
         script: |
           'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+          
     #       newman --version
           #sudo npm install -g newman
           #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
