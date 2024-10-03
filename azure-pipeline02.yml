@@ -56,7 +56,7 @@ stages:
       inputs:
         script: |
           'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml' \
-          workingDirectory: '$(build.sourcesdirectory)'
+          workingDirectory: '$(Build.SourcesDirectory)'
     #       newman --version
           #sudo npm install -g newman
           #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
