@@ -243,9 +243,10 @@ stages:
             displayName: "run test report"
             continueOnError: true
             inputs:
-              script: |                
-                workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman' \
+              script: |
                 script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
+                workingDirectory: '$(System.DefaultWorkingDirectory)/**/**/**/automatedtesting/postman' \
+                #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
 
           # # Postman Data Validation Test Suite       
           # - task: CmdLine@2
