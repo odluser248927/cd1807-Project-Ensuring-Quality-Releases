@@ -245,7 +245,7 @@ stages:
             inputs:
               script: |                
                 workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman' \
-                script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export junitReport.xml' \
+                script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
 
           # # Postman Data Validation Test Suite       
           # - task: CmdLine@2
