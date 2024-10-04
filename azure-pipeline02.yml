@@ -245,7 +245,7 @@ stages:
             inputs:
               script: |
                 script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
-                workingDirectory: '$(System.DefaultWorkingDirectory)/**/**/**/automatedtesting/postman' \
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
                 #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
 
           # # Postman Data Validation Test Suite       
