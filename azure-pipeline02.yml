@@ -244,9 +244,10 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
-                #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
+                newman --version
+                #script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
+                #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
+                workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
 
           # # Postman Data Validation Test Suite       
           # - task: CmdLine@2
