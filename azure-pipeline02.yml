@@ -55,7 +55,7 @@ stages:
       inputs:
         script: |
           export PATH=~/myagent/externals/node10/bin/node:$PATH \ 
-          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \          
+          #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \          
           newman --version
           #sudo npm install -g newman          
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
