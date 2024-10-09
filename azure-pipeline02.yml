@@ -52,17 +52,14 @@ stages:
     - task: CmdLine@2
       displayName: "newman install"
       continueOnError: true
-      #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
       inputs:
         script: |
-          export PATH=~/myagent/externals/node10/bin/node:$PATH
-          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \
-          #workingDirectory: $(Build.SourcesDirectory)
-          #newman --version
-          #sudo npm install -g newman
-          #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
+          export PATH=~/myagent/externals/node10/bin/node:$PATH \ 
+          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \          
+          newman --version
+          #sudo npm install -g newman          
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
-          #workingDirectory: '$(System.DefaultWorkingDirectory)'
+          
 
     # - task: Bash@3
     #   displayName: "run test report"
