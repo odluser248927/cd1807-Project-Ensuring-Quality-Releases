@@ -54,7 +54,7 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          newman --version          
+          which newman          
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
           
 
