@@ -59,6 +59,14 @@ stages:
     #       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
           
 
+    - task: CopyFiles@2
+      displayName: 'newmam files cp to pipeline'
+      inputs:
+        contents: '/home/devopsagent/myagent/externals/node10/bin/node/'
+        targetFolder: '$(Build.StagingDirectory)'        
+    - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
+      displayName: 'copy npm path.'
+      
     - task: Bash@3
       displayName: "run test report"
       continueOnError: true
