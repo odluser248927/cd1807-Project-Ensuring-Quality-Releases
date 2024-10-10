@@ -63,18 +63,19 @@ stages:
       displayName: "run test report"
       continueOnError: true
       inputs:
-        script: |
+        script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
+        workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
           #'sudo npm install -g newman' \
           #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/npm:$PATH' \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/newman:$PATH' \
           #'sudo npm install -g newman' \
-          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \
+          #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \
           #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman' \
-          #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'          
-          workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman' \
+          #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml' \           
+          #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman' \
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
-          #workingDirectory: '$(Build.SourcesDirectory)'
+          #workingDirectory: '$(Build.SourcesDirectory)' \
           #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
           #workingDirectory: '/home/devopsagent/myagent/_work/20/s/terraform/environments/test/automatedtesting/postman'
 
