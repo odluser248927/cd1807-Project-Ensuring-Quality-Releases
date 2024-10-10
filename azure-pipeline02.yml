@@ -54,18 +54,19 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          which newman \          
+          which newman \
+          newman --version \
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
           
 
-    # - task: Bash@3
-    #   displayName: "run test report"
-    #   continueOnError: true
-    #   inputs:
-    #     script: |
-    #       sudo npm install -g newman          
-    #       export PATH=~/myagent/externals/node10/bin/node:$PATH \
-    #       'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \          
+    - task: Bash@3
+      displayName: "run test report"
+      continueOnError: true
+      inputs:
+        script: |
+          sudo npm install -g newman          
+          export PATH=~/myagent/externals/node10/bin/node:$PATH \
+          'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \       
     #       'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman'
           #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
