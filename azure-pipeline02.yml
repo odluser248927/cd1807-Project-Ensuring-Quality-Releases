@@ -64,9 +64,11 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          #sudo npm install -g newman \
+          #'sudo npm install -g newman' \
           #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
-          'which newman' \
+          'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/npm:$PATH' \
+          'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/newman:$PATH' \
+          'sudo npm install -g newman' \
           'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \
           workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman' \
     #       'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
