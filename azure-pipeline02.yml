@@ -64,7 +64,7 @@ stages:
       continueOnError: true
       inputs:
         script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
-        workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
           #'sudo npm install -g newman' \
           #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/npm:$PATH' \
