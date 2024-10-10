@@ -49,14 +49,14 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    - task: CmdLine@2
-      displayName: "newman install"
-      continueOnError: true
-      inputs:
-        script: |
-          which newman \
-          newman --version \
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
+    # - task: CmdLine@2
+    #   displayName: "newman install"
+    #   continueOnError: true
+    #   inputs:
+    #     script: |
+    #       which newman \
+    #       newman --version \
+    #       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
           
 
     - task: Bash@3
@@ -65,7 +65,7 @@ stages:
       inputs:
         script: |
           sudo npm install -g newman          
-          export PATH=~/myagent/externals/node10/bin/node:$PATH \
+          export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
           'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \       
     #       'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-DataValidation.xml'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman'
