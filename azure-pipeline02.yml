@@ -56,7 +56,8 @@ stages:
         script: |
           'export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$(System.DefaultWorkingDirectory)'
           #workingDirectory: '$(Build.StagingDirectory)' \ 
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+          workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
           
 
     # - task: CopyFiles@2
@@ -74,7 +75,8 @@ stages:
         script: |
           'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #workingDirectory: '$(Build.StagingDirectory)' \
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)'
+          workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
           #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/npm:$PATH' \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/newman:$PATH' \
