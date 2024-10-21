@@ -88,7 +88,7 @@ stages:
           'pwd'
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #workingDirectory: '$(Build.StagingDirectory)'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/home/devopsagent/myagent/_work/20/s'
           #workingDirectory: '/home/devopsagent/myagent/_work/20/s'
           #workingDirectory: '/home/devopsagent/myagent/_work/_temp'
