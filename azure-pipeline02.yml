@@ -60,7 +60,18 @@ stages:
     #       #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
     #       workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
           
-
+    - task: NewmanPostman@6
+      displayName: 'Newman - Postman'
+      inputs:
+        collectionFileSource: 'Test.environment.json'
+        environmentSourceType: none
+        ignoreRedirect: false
+        bail: false
+        sslInsecure: false
+        htmlExtraDarkTheme: false
+        htmlExtraLogs: false
+        htmlExtraTestPaging: false
+    
     # - task: CopyFiles@2
     #   displayName: 'newmam files cp to pipeline'
     #   inputs:
