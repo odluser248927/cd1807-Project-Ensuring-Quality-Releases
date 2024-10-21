@@ -74,14 +74,17 @@ stages:
       inputs:
         script: |
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
-          #workingDirectory: '$(Build.StagingDirectory)' \
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          #workingDirectory: '$(Build.StagingDirectory)'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)'
           #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node' \
+          workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'
+          #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman' \
+          #'export NPM_CONFIG_PREFIX="/usr/local"'
+          'sudo npm install -g newman'
           'newman -v' 
           #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/npm:$PATH' \
-          #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/newman:$PATH' \
-          #'sudo npm install -g newman' \
+          #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/newman:$PATH' \          
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-json-export Test-DataValidation.json' \
           #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman' \
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml' \           
