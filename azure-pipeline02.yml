@@ -60,7 +60,7 @@ stages:
     #       #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
     #       workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
           
-    - task: NewmanPostman@6
+    - task: NewmanPostman
       displayName: 'Newman - Postman'
       inputs:
         collectionFileSource: 'Test.environment.json'
