@@ -54,6 +54,7 @@ stages:
     #   continueOnError: true
     #   inputs:
     #     script: |
+    #       'cd /home/devopsagent/myagent/externals/node10/bin/node'
     #       'export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$(System.DefaultWorkingDirectory)'
     #       #workingDirectory: '$(Build.StagingDirectory)' \ 
     #       #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
@@ -80,12 +81,12 @@ stages:
           #workingDirectory: '/home/devopsagent/myagent/_work/20/s'
           #workingDirectory: '/home/devopsagent/myagent/_work/_temp'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'
-          workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node' \
+          #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node' \
           #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman' \
           #'export NPM_CONFIG_PREFIX="/usr/local"'
           #'export NPM_CONFIG_PREFIX="/home/devopsagent/myagent/externals/node10/bin/node"'
-          'sudo npm install -g newman'
+          #'sudo npm install -g newman'
           'newman -v' 
           #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/npm:$PATH' \
