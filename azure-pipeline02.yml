@@ -83,13 +83,8 @@ stages:
     - task: Bash@3
       displayName: "run test report"
       continueOnError: true
-      script: |
-        npm install -g newman
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
-        
-          #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
-      #inputs:
-    #     script: |
+      inputs:
+        script: |
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #workingDirectory: '$(Build.StagingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
@@ -103,7 +98,7 @@ stages:
           #'export NPM_CONFIG_PREFIX="/usr/local"'
           #'export NPM_CONFIG_PREFIX="/home/devopsagent/myagent/externals/node10/bin/node"'
           #'sudo npm install -g newman'
-          #'newman -v' 
+          newman -v
           #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/npm:$PATH' \
           #'export PATH=/home/devopsagent/.nvm/versions/node/v16.20.2/bin/newman:$PATH' \          
