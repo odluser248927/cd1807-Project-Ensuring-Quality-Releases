@@ -78,9 +78,9 @@ stages:
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/home/devopsagent/myagent/_work/20/s'
           #workingDirectory: '/home/devopsagent/myagent/_work/20/s'
-          workingDirectory: '/home/devopsagent/myagent/_work/_temp'
+          #workingDirectory: '/home/devopsagent/myagent/_work/_temp'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'
-          #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node' \
+          workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node' \
           #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/environments/test/automatedtesting/postman' \
           #'export NPM_CONFIG_PREFIX="/usr/local"'
