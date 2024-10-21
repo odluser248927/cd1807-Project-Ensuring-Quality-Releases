@@ -77,7 +77,8 @@ stages:
           #workingDirectory: '$(Build.StagingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/home/devopsagent/myagent/_work/20/s'
-          workingDirectory: '/home/devopsagent/myagent/_work/20/s'
+          #workingDirectory: '/home/devopsagent/myagent/_work/20/s'
+          workingDirectory: '/home/devopsagent/myagent/_work/_temp'
           #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'
           #workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node' \
           #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'
