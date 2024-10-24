@@ -77,7 +77,7 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'pwd'
+          'newman --help'
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #workingDirectory: '$(Build.StagingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
