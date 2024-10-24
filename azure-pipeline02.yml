@@ -49,11 +49,12 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    # - task: CmdLine@2
-    #   displayName: "newman install"
-    #   continueOnError: true
-    #   inputs:
-    #     script: |
+    - task: CmdLine@2
+      displayName: "newman install"
+      continueOnError: true
+      inputs:
+        script: |
+          'newman -v'
     #       'sudo npm install -g newman'
     #       'export NPM_CONFIG_PREFIX="/usr/bin/bash"'
     #       WorkingDirectory: $(System.DefaultWorkingDirectory)
