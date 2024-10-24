@@ -72,12 +72,12 @@ stages:
     # - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
     #   displayName: 'copy npm path.'
       
-    # - task: Bash@3
-    #   displayName: "run test report"
-    #   continueOnError: true
-    #   inputs:
-    #     script: |
-    #       'pwd'
+    - task: Bash@3
+      displayName: "run test report"
+      continueOnError: true
+      inputs:
+        script: |
+          'pwd'
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #workingDirectory: '$(Build.StagingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
