@@ -77,7 +77,8 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'newman --help'
+          #'newman --help'
+          sudo npm install -g newman newman-reporter-htmlextra
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #workingDirectory: '$(Build.StagingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
