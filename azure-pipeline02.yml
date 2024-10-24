@@ -49,13 +49,13 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    - task: CmdLine@2
-      displayName: "newman install"
-      continueOnError: true
-      inputs:
-        script: |
-          'newman -v'
-          workingDirectory: $(System.DefaultWorkingDirectory)
+    # - task: CmdLine@2
+    #   displayName: "newman install"
+    #   continueOnError: true
+    #   inputs:
+    #     script: |
+    #       'newman -v'
+    #       workingDirectory: $(System.DefaultWorkingDirectory)
     #       'sudo npm install -g newman'
     #       'export NPM_CONFIG_PREFIX="/usr/bin/bash"'          
     #       'cd /home/devopsagent/myagent/externals/node10/bin/node'
@@ -63,18 +63,6 @@ stages:
     #       #workingDirectory: '$(Build.StagingDirectory)' \ 
     #       #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
     #       workingDirectory: '/home/devopsagent/myagent/externals/node10/bin/node'
-          
-    # - task: NewmanPostman
-    #   displayName: 'Newman - Postman'
-    #   inputs:
-    #     collectionFileSource: 'Test.environment.json'
-    #     environmentSourceType: none
-    #     ignoreRedirect: false
-    #     bail: false
-    #     sslInsecure: false
-    #     htmlExtraDarkTheme: false
-    #     htmlExtraLogs: false
-    #     htmlExtraTestPaging: false
     
     # - task: CopyFiles@2
     #   displayName: 'newmam files cp to pipeline'
