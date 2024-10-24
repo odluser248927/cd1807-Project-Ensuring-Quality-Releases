@@ -54,10 +54,10 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          'newman -v'
+          newman -v
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
     #       'sudo npm install -g newman'
-    #       'export NPM_CONFIG_PREFIX="/usr/bin/bash"'
-    #       WorkingDirectory: $(System.DefaultWorkingDirectory)
+    #       'export NPM_CONFIG_PREFIX="/usr/bin/bash"'          
     #       'cd /home/devopsagent/myagent/externals/node10/bin/node'
     #       'export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$(System.DefaultWorkingDirectory)'
     #       #workingDirectory: '$(Build.StagingDirectory)' \ 
