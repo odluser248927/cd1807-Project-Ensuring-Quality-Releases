@@ -77,9 +77,10 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          #'newman --help'
-          cd /home/devopsagent/myagent/externals/node10/bin/node
-          sudo npm install -g newman newman-reporter-htmlextra
+          export NPM_CONFIG_PREFIX="/usr/local"`
+          'newman --help'
+          #cd /home/devopsagent/myagent/externals/node10/bin/node
+          #sudo npm install -g newman newman-reporter-htmlextra
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #workingDirectory: '$(Build.StagingDirectory)'
           #workingDirectory: '$(System.DefaultWorkingDirectory)'
