@@ -77,9 +77,11 @@ stages:
       continueOnError: true
       inputs:
         script: |
-          export NPM_CONFIG_PREFIX="/usr/local"`
-          'newman --help'
-          workingDirectory: '$(Build.SourcesDirectory)'
+          #'export NPM_CONFIG_PREFIX="/usr/local"`
+          'newman -v --global-var '"$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman"'
+          #workingDirectory: '$(Build.SourcesDirectory)'
+          #newman run Test.environment.json --global-var '$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'  --reporters cli,junit --reporter-junit-export Results\junitReport.xml
+
           #cd /home/devopsagent/myagent/externals/node10/bin/node
           #sudo npm install -g newman newman-reporter-htmlextra
           #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
