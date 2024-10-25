@@ -78,7 +78,7 @@ stages:
       inputs:
         script: |
           #'export NPM_CONFIG_PREFIX="/usr/local"`
-          'newman -v --global-var '"$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman"'
+          'newman -v --global-var "$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman"'
           #workingDirectory: '$(Build.SourcesDirectory)'
           #newman run Test.environment.json --global-var '$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman'  --reporters cli,junit --reporter-junit-export Results\junitReport.xml
 
