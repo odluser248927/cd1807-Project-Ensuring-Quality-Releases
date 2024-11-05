@@ -72,12 +72,12 @@ stages:
     # - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
     #   displayName: 'copy npm path.'
       
-    - task: Bash@3
-      displayName: "run test report"
-      continueOnError: true
-      inputs:
-        script: |
-          'newman -v'
+    # - task: Bash@3
+    #   displayName: "run test report"
+    #   continueOnError: true
+    #   inputs:
+    #     script: |
+    #       'newman -v'
           #'export NPM_CONFIG_PREFIX="/usr/local"`
           #'newman -v --global-var "$(System.DefaultWorkingDirectory)/$(Artifact)/environments/test/automatedtesting/postman"'
           #workingDirectory: '$(Build.SourcesDirectory)'
