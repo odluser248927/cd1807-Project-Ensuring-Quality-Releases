@@ -49,16 +49,16 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    - task: Bash@3
-      displayName: 'newman install'
-      continueOnError: true
-      inputs:
-        targetType: inline
-        script: |
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test' \
-          echo "Newman tests." \
-          "newman --version" \          
-          'export NPM_CONFIG_PREFIX="/usr/bin/bash"' \
+    # - task: Bash@3
+    #   displayName: 'newman install'
+    #   continueOnError: true
+    #   inputs:
+    #     targetType: inline
+    #     script: |
+    #       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test' \
+    #       echo "Newman tests." \
+    #       "newman --version" \          
+    #       'export NPM_CONFIG_PREFIX="/usr/bin/bash"' \
     #       'sudo npm install -g newman'                 
     #       'cd /home/devopsagent/myagent/externals/node10/bin/node'
     #       'export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$(System.DefaultWorkingDirectory)'
