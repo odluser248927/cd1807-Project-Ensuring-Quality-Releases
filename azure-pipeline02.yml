@@ -267,10 +267,10 @@ stages:
             continueOnError: true            
             inputs:        
               script: |
-                '/usr/bin:$PATH newman -v'
+                #'/usr/bin:$PATH newman -v'
                 #sudo npm install -g newman                  
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-                #workingDirectory: exec('/home/devopsagent/myagent/externals/node10/bin/node')
+                workingDirectory: exec('/home/devopsagent/myagent/externals/node10/bin/node')
 
 
           # # Postman Data Validation Test Suite       
