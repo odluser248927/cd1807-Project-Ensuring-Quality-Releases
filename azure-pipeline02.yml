@@ -268,7 +268,7 @@ stages:
             inputs:        
               script: |
                 export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \                
-                export NPM_CONFIG_PREFIX=/usr/local/bin:$NPM_CONFIG_PREFIX \
+                #export NPM_CONFIG_PREFIX=/usr/local/bin:$NPM_CONFIG_PREFIX \
                 echo $PATH \ 
 
 
