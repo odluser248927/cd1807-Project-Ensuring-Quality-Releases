@@ -269,17 +269,6 @@ stages:
           #       #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
           #       workingDirectory: exec('/home/devopsagent/myagent/externals/node10/bin/node')
 
-          # - task: NewmanPostman@4
-          #   displayName: 'Newman - Postman'
-          #   inputs:
-          #     collectionFileSource: 'Test.environment.json'
-          #     environmentSourceType: none
-          #     ignoreRedirect: false
-          #     bail: false
-          #     sslInsecure: false
-          #     htmlExtraDarkTheme: false
-          #     htmlExtraLogs: false
-          #     htmlExtraTestPaging: false
 
           # # Postman Data Validation Test Suite       
           # - task: CmdLine@2
