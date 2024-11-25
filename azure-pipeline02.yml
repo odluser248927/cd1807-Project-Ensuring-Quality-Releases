@@ -267,11 +267,10 @@ stages:
             continueOnError: true            
             inputs:        
               script: |
-                '/usr/local/bin:$PATH newman -v'
-                #sudo npm install -g newman
-                  
-          #       #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-          #       workingDirectory: exec('/home/devopsagent/myagent/externals/node10/bin/node')
+                '/usr/bin:$PATH newman -v'
+                #sudo npm install -g newman                  
+                #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+                #workingDirectory: exec('/home/devopsagent/myagent/externals/node10/bin/node')
 
 
           # # Postman Data Validation Test Suite       
@@ -306,8 +305,8 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '**/TEST-*.xml'
-              searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+              testResultsFiles: '**/test/automatedtesting/postman/*.xml'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
               mergeTestResults: true
               testRunTitle: 'J Tests'       
 
