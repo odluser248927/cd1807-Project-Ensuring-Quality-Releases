@@ -272,8 +272,10 @@ stages:
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
                 #export PATH=/usr/local/bin:$PATH newman -v \ 
                 #'export PATH=/usr/local/bin:$PATH' \ 
-                'export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH' \
-                newman -v \ 
+                export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
+                "newman --version" \          
+                #export NPM_CONFIG_PREFIX="/usr/bin/bash" \
+                #newman -v \ 
                 echo $PATH \ 
 
 
