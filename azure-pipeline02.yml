@@ -253,23 +253,14 @@ stages:
               environmentServiceNameAzureRM: 'myServiceConnection'
               commandOptions: '-auto-approve -lock=false -input=false -var-file="/home/devopsagent/myagent/_work/_tool/terraform/environments/test/terraform.tfvars"'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-              
-          # - task: CmdLine@2
-          #   displayName: Install Newman
-          #   continueOnError: true
-          #   inputs:
-          #     script: 'sudo npm install -g newman'
-          #     workingDirectory: '/usr/local/bin:$PATH newman -v'
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
-              
+                          
           - task: CmdLine@2
-            displayName: "newman install"
+            displayName: 'newman install'
             continueOnError: true            
             inputs:        
               script: |
                 export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \                
-                #export NPM_CONFIG_PREFIX=/usr/local/bin:$NPM_CONFIG_PREFIX \
-                echo $PATH \ 
+                echo $PATH \
 
 
           # # Postman Data Validation Test Suite       
