@@ -270,9 +270,10 @@ stages:
                 #'/usr/bin:$PATH newman -v'
                 #sudo npm install -g newman                  
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-                export PATH=/usr/local/bin:$PATH newman -v \ 
-                'export PATH=/usr/local/bin:$PATH' \ 
-                export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH newman -v \ 
+                #export PATH=/usr/local/bin:$PATH newman -v \ 
+                #'export PATH=/usr/local/bin:$PATH' \ 
+                export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
+                newman -v \ 
                 echo $PATH \ 
 
 
