@@ -270,8 +270,9 @@ stages:
                 #'/usr/bin:$PATH newman -v'
                 #sudo npm install -g newman                  
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+                'export PATH=/usr/local/bin:$PATH'
+                'export PATH=/home/devopsagent/myagent/externals/node10/bin/node'
                 echo $PATH
-                exec('/home/devopsagent/myagent/externals/node10/bin/node')
 
 
           # # Postman Data Validation Test Suite       
