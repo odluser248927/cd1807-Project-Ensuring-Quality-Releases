@@ -273,9 +273,7 @@ stages:
                 #export PATH=/usr/local/bin:$PATH newman -v \ 
                 #'export PATH=/usr/local/bin:$PATH' \ 
                 export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \                
-                #export NPM_CONFIG_PREFIX="/usr/local/bin" \
-                npm install -g newman \ 
-                newman --version \
+                export NPM_CONFIG_PREFIX=/usr/local/bin:$NPM_CONFIG_PREFIX \
                 echo $PATH \ 
 
 
