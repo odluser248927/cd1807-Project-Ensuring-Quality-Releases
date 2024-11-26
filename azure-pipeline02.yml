@@ -259,7 +259,9 @@ stages:
             continueOnError: true            
             inputs:        
               script: |
-                npm install -g newman \ 
+                npm install -g newman \
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automationtesting/postman'  \ 
+                #workingDirectory: '$(Build.StagingDirectory)' \ 
                 export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \                
                 echo $PATH \
 
