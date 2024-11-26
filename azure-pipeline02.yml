@@ -260,8 +260,8 @@ stages:
             inputs:        
               script: |
                 npm install -g newman \
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automationtesting/postman'  \ 
-                #workingDirectory: '$(Build.StagingDirectory)' \ 
+                workingDirectory: /usr/local/bin:$PATH \
+                newman -v \ 
                 export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \                
                 echo $PATH \
 
