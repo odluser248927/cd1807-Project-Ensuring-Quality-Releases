@@ -259,10 +259,10 @@ stages:
             continueOnError: true            
             inputs:        
               script: |
-                npm install -g newman \
+                'npm install -g newman' \
                 workingDirectory: /usr/local/bin:$PATH \
                 newman -v \ 
-                export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \                
+                #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
                 echo $PATH \
 
 
