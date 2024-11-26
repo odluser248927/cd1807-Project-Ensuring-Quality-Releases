@@ -260,10 +260,6 @@ stages:
             inputs:        
               script: |
                 npm install -g newman \
-                # WorkingDirectory: $(System.DefaultWorkingDirectory) \ 
-                #'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/usr/local"' \ 
-                #'sudo npm install -g newman' \                
-                #workingDirectory: '$(Build.ArtifactStagingDirectory):$PATH' \ 
                 export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
                 echo $PATH \
 
