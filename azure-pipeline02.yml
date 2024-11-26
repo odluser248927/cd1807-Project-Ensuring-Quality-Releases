@@ -260,7 +260,7 @@ stages:
             inputs:        
               script: |
                 npm install -g newman \ 
-                WorkingDirectory: $(System.DefaultWorkingDirectory) \ 
+                # WorkingDirectory: $(System.DefaultWorkingDirectory) \ 
                 #'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/usr/local"' \ 
                 #'sudo npm install -g newman' \                
                 #workingDirectory: '$(Build.ArtifactStagingDirectory):$PATH' \ 
