@@ -259,7 +259,7 @@ stages:
             continueOnError: true            
             inputs:        
               script: |
-                npm install -g newman \
+                'sudo npm install -g newman' \                
                 workingDirectory: '$(Build.ArtifactStagingDirectory):$PATH' \ 
                 export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
                 echo $PATH \
