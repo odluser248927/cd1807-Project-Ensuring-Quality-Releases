@@ -260,7 +260,8 @@ stages:
             inputs:        
               script: |
                 npm install -g newman \
-                workingDirectory: /usr/local/bin:$PATH \
+                #workingDirectory: /usr/local/bin:$PATH \
+                workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/automatedtesting/postman' \
                 newman -v \
                 #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
                 echo $PATH \
@@ -298,7 +299,7 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '**/test/automatedtesting/postman/*.xml'
+              testResultsFiles: '**/environments/test/automatedtesting/postman/*.xml'
               searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
               mergeTestResults: true
               testRunTitle: 'J Tests'       
