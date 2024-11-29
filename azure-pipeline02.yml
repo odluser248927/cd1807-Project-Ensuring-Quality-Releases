@@ -261,7 +261,6 @@ stages:
               script: |
                 npm install -g newman \
                 #workingDirectory: /usr/local/bin:$PATH \
-                workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/environments/test/automatedtesting/postman' \
                 newman -v \
                 #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
                 echo $PATH \
