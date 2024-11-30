@@ -281,7 +281,7 @@ stages:
             continueOnError: true
             inputs:
               script: 'newman run StarterAPIs.json --reporters cli,htmlextra,junit --reporter-htmlextra-export Html_Report/Data-report.html --reporter-htmlextra-logs --reporter-htmlextra-title Report-API --reporter-junit-export Results/Test-DataValidation-report.xml'
-              workingDirectory: '$(System.DefaultWorkingDirectory'
+              workingDirectory: '**/automatedtesting/postman/'
                 
                 #'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml'
           #- publish: $(Build.ArtifactStagingDirectory)/automatedtesting/postman/
@@ -315,12 +315,20 @@ stages:
           #     script: |                
           #       workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
           #       script: 'newman run TestSuite.Regression.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml'
+          
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: 'HTML'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Html_Reports/*.html'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Html_Reports/'
+              mergeTestResults: true
+              testRunTitle: 'HTML Report'
 
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.xml'
-              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/*.xml'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/'
               mergeTestResults: true
               testRunTitle: 'J Tests'       
 
