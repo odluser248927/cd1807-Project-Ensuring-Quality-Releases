@@ -255,23 +255,22 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
 
           - task: NodeTool@0
-            displayName: 'newman install'
+            displayName: 'npm install'
             continueOnError: true            
             inputs:        
-              versionSpec: '16.x'                
+              versionSpec: '16.20.x'                
                           
           - task: CmdLine@2
-            displayName: 'npm install'
+            displayName: 'newman install'
             continueOnError: true            
             inputs:        
               script: |
                 npm install -g newman \
                 #workingDirectory: /usr/local/bin:$PATH \
-                'export NPM_CONFIG_PREFIX="$(System.DefaultWorkingDirectory)/usr/local/bin"' \ 
+                workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environment/automatedtesting/postman' \ 
                 newman -v \
                 #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
-                echo $PATH \
-                #workingDirectory: '$(System.DefaultWorkingDirectory)'
+                echo $PATH \                
 
 
           # # Postman Data Validation Test Suite       
