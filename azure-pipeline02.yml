@@ -281,8 +281,10 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                'newman run StarterAPI.json -e Test.environment.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-htmlextra-title Report-API --reporter-junit-export Results/Test-DataValidation.xml' \
-                workingDirectory: '$(Build.ArtifactStagingDirectory)' \ 
+                'newman run StarterAPI.json -e Test.environment.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-htmlextra-title Report-API --reporter-junit-export Results/Test-DataValidation.xml' \                
+                workingDirectory: '/home/devopsagent/myagent/_work/20/s/terraform/environments/test/automatedtesting/postman/'
+                #workingDirectory: '$(Build.ArtifactStagingDirectory)' \
+                #workingDirectory: '/home/devopsagent/myagent/_work/20/$(Artifact)/automatedtesting/postman/'
                 #workingDirectory: '/usr/local/bin:$PATH' \ 
                 #workingDirectory: '**/automatedtesting/postman/'
                 #/home/devopsagent/myagent/_work/20/$(Artifact)/automatedtesting/postman/StarterAPIs2
@@ -323,8 +325,8 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'HTML'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Html_Reports/*.html'
-              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Html_Reports/'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/*.html'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/'
               mergeTestResults: true
               testRunTitle: 'HTML Report'
 
