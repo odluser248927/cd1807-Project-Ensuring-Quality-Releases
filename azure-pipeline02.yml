@@ -267,20 +267,21 @@ stages:
               script: |
                 npm install -g newman \
                 #workingDirectory: /usr/local/bin:$PATH \
-                workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environment/automatedtesting/postman' \ 
+                workingDirectory: $(System.DefaultWorkingDirectory)/$(Artifact)/environment/automatedtesting/postman \ 
                 newman -v \
                 #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
                 echo $PATH \                
 
 
-          # # Postman Data Validation Test Suite       
-          # - task: CmdLine@2
-          #   displayName: "run test report"
-          #   continueOnError: true
-          #   inputs:
-          #     script: |
-          #       newman --version
-                #script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
+          # Postman Data Validation Test Suite       
+          - task: CmdLine@2
+            displayName: "run test report"
+            continueOnError: true
+            inputs:
+              script: |
+                newman --version
+                script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
+                workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman' \ 
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
                 #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
 
