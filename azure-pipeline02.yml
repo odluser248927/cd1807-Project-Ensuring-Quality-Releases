@@ -268,7 +268,8 @@ stages:
                 npm install -g newman \
               #workingDirectory: $(System.DefaultWorkingDirectory)
                 #workingDirectory: /usr/local/bin:$PATH \
-              workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environment/test/automatedtesting/postman'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environment/test/automatedtesting/postman'
                 #newman -v \
                 #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
                 #echo $PATH \                
@@ -283,6 +284,7 @@ stages:
                 newman --version \ 
                 'newman run automatedtesting/postman/StarterAPI.json -e automatedtesting/postman/Test.environment.json --reporters cli, junit --reporter-junit-export /Results/Test-DataValidation.xml' \
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
                 
           #- publish: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*xml' 
           #- publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman/*xml'
