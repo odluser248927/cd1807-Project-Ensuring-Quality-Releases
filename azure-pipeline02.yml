@@ -283,8 +283,8 @@ stages:
               script: |
                 'newman run StarterAPI.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-htmlextra-title Report-API --reporter-junit-export Test-DataValidation.xml'
               #workingDirectory: '$(build.sourcesdirectory)'
-              workingDirectory: '/terraform/environments/test/automatedtesting/postman/'
-              #workingDirectory: '$(System.DefaultWorkingDirectory'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)'
               #workingDirectory: $(System.DefaultWorkingDirectory)/$(Artifact)/automatedtesting/postman/
               #workingDirectory: '/home/devopsagent/myagent/_work/20/s/terraform/environments/test/automatedtesting/postman/'
               #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/automatedtesting/postman'
@@ -327,11 +327,11 @@ stages:
           
           - task: PublishTestResults@2
             inputs:
-              testResultsFormat: 'HTML'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.html'
+              testResultsFormat: 'JSON'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Test.Regression.json'
               searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               mergeTestResults: true
-              testRunTitle: 'HTML Report'
+              testRunTitle: 'JSON Report'
 
           - task: PublishTestResults@2
             inputs:

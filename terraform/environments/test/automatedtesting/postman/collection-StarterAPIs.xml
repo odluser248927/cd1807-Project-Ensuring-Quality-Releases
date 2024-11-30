@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Starter APIs" tests="2" time="0.831">
+  <testsuite name="Create Post" id="7ac2071f-7b14-4482-b691-fe746d005eec" timestamp="2024-11-25T08:57:27.675Z" tests="1" failures="0" errors="0" time="0.753">
+    <testcase name="Successful response" time="0.753" classname="StarterApIs"/>
+  </testsuite>
+  <testsuite name="Get All Posts" id="bdcbeff4-2af7-4e8f-a30a-a407e5b1ede1" timestamp="2024-11-25T08:57:27.675Z" tests="1" failures="0" errors="0" time="0.078">
+    <testcase name="Successful response" time="0.078" classname="StarterApIs"/>
+  </testsuite>
+</testsuites>
