@@ -286,11 +286,11 @@ stages:
               #workingDirectory: $PATH
               #workingDirectory: $(System.DefaultWorkingDirectory/$(Artifact)/automatedtesting/postman \ 
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
-              workingDirectory: $(Build.ArtifactStagingDirectory)/$(Artifact)/automatedtesting/postman
+              workingDirectory: $(Build.ArtifactStagingDirectory)/automatedtesting/postman
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
                 
           #- publish: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*xml' 
-          #- publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/automatedtesting/postman/*xml'
+          #- publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/postman/*xml'
           #  artifact: WebApp
                 #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
                 
