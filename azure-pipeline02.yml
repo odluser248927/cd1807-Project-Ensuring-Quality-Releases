@@ -281,7 +281,8 @@ stages:
             continueOnError: true
             inputs:
               script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-htmlextra-title Report-API --reporter-junit-export Test-DataValidation.xml'
-              workingDirectory: $(System.DefaultWorkingDirectory)/$(Artifact)/automatedtesting/postman/
+              #workingDirectory: $(System.DefaultWorkingDirectory)/$(Artifact)/automatedtesting/postman/
+              workingDirectory: /home/devopsagent/myagent/_work/20/s/terraform/environments/test/automatedtesting/postman/
               #workingDirectory: '$(Agent.TempDirectory)/terraform/environments/test/automatedtesting/postman'
                 #workingDirectory: '$(Build.ArtifactStagingDirectory)' \
                 #workingDirectory: '/home/devopsagent/myagent/_work/20/$(Artifact)/automatedtesting/postman/'
