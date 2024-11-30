@@ -325,8 +325,8 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'HTML'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/*.html'
-              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.html'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               mergeTestResults: true
               testRunTitle: 'HTML Report'
 
@@ -334,7 +334,7 @@ stages:
             inputs:
               testResultsFormat: 'JUnit'
               testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/*.xml'
-              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results'
               mergeTestResults: true
               testRunTitle: 'J Tests'       
 
