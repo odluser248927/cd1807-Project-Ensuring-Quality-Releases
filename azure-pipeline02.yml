@@ -281,7 +281,7 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                'newman run StarterAPIs.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-htmlextra-title Report-API --reporter-junit-export Results/Test-DataValidation.xml' \
+                'newman run StarterAPIs.json -e Test.environment.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-htmlextra-title Report-API --reporter-junit-export Results/Test-DataValidation.xml' \
                 workingDirectory: '/usr/local/bin:$PATH' \ 
               #workingDirectory: '**/automatedtesting/postman/'
               
