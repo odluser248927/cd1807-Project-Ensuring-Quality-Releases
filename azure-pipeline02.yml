@@ -281,9 +281,15 @@ stages:
               script: |
                 newman --version
                 script: 'newman run StarterAPI.json -e Test.environment.json --reporters cli, junit --reporter-junit-export Test-Regression.xml' \
-                workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman' \ 
+                
+          #- publish: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*xml' 
+          #- publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman/*xml'
+          #  artifact: WebApp
+              
+                #workingDirectory: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman' \ 
                 #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman' \
                 #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
+                
 
           # # Postman Data Validation Test Suite       
           # - task: CmdLine@2
@@ -306,7 +312,7 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '**/environments/test/automatedtesting/postman/*.xml'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.xml'
               searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
               mergeTestResults: true
               testRunTitle: 'J Tests'       
