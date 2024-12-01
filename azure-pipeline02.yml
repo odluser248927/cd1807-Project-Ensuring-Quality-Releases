@@ -291,17 +291,19 @@ stages:
             inputs:
               script: |
                 'newman run StarterAPI.json -e Test.environment.json --reporters cli,junit,htmlextra --reporter-junit-export collection-StarterAPIs.xml'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
+              workingDirectory: '$(build.sourcesdirectory)'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               
           # publish 
-          # - task: PublishPipelineArtifact@1
-          #   displayName: 'Publish script'
-          #   continueOnError: true 
-          #   inputs:
-          #     targetPath: '$(Build.ArtifactStagingDirectory)'
-          #     artifactName: $(artifactName)
-          #     artifactName: NewmanWebApp
-          #     artifactType: 'pipeline'
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish script'
+            continueOnError: true 
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)'
+              artifactName: Newman-WebApp-Server
+              publishLocation: 'pipeline'
+              #artifactName: $(artifactName)
+              #artifactType: 'pipeline'               
               
           # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
           #   artifact: NewmanWebApp
