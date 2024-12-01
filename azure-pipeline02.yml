@@ -281,7 +281,7 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                newman run StarterAPI.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-cli-show-timestamps --reporter-htmlextra-title Report-API
+                'newman run StarterAPI.json --reporters cli,junit'
                 #newman run StarterAPI.json --reporters cli,htmlextra,junit --reporter-htmlextra-export report.html --reporter-htmlextra-logs --reporter-cli-show-timestamps --reporter-htmlextra-title Report-API --reporter-junit-export Test-DataValidation.xml
               #workingDirectory: '$(build.sourcesdirectory)'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
