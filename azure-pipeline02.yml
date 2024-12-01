@@ -281,9 +281,9 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                newman run StarterAPI.json --reporters cli,junit \
-              workingDirectory: '/usr/local/bin'  
-              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
+                'newman run StarterAPI.json --reporters junit'
+              #workingDirectory: '/usr/local/bin'  
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
                 
          #- publish: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*xml' 
             #workingDirectory: 'home/devopsagent/myagent/externals/node10/bin/node'
