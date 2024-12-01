@@ -290,8 +290,7 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                'newman run Collection-Starter.json --reporters cli,junit'
-              #workingDirectory: '/usr/local/bin'  
+                'newman run StarterAPI.json -e Test.environment.json --reporters cli,junit,htmlextra --reporter-junit-export collection-StarterAPIs.xml'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               
           # publish 
@@ -299,8 +298,10 @@ stages:
           #   displayName: 'Publish script'
           #   continueOnError: true 
           #   inputs:
-          #     targetPath: '$(Build.ArtifactStagingDirectory)' 
+          #     targetPath: '$(Build.ArtifactStagingDirectory)'
+          #     artifactName: $(artifactName)
           #     artifactName: NewmanWebApp
+          #     artifactType: 'pipeline'
               
           # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
           #   artifact: NewmanWebApp
@@ -308,7 +309,7 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Collection-StarterAPIs*'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/collection-StarterAPIs*'
               searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               mergeTestResults: true
               testRunTitle: 'JSON Report'
