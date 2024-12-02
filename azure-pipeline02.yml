@@ -304,11 +304,11 @@ stages:
               targetPath: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
               #targetPath: '$(Build.ArtifactStagingDirectory)/Newman-dropScripts/'
               #artifactName: 'Newman-WebApp-Server'
-              publishLocation: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
-              #publishLocation: 'pipeline'
+              #publishLocation: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+              publishLocation: 'pipeline'
               #artifactName: $(artifact)
               artifactType: 'WebApp'
-              artifactType: filepath
+              #artifactType: filepath
               
           # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
           #   artifact: NewmanWebApp
