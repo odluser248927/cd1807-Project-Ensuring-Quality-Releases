@@ -305,14 +305,8 @@ stages:
             continueOnError: true 
             inputs:
               targetPath: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
-              #targetPath: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
-              #targetPath: '$(Build.ArtifactStagingDirectory)/Newman-dropScripts/'
               artifactName: Newman-dropScripts
-              #publishLocation: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
-              publishLocation: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
-              #publishLocation: 'pipeline'
-              #artifactName: $(artifact)
-              #artifactType: 'WebApp'
+              publishLocation: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'              
               #artifactType: filepath
               
           # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
