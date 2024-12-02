@@ -309,8 +309,9 @@ stages:
               publishLocation: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'              
               #artifactType: filepath
               
-          # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
-          #   artifact: NewmanWebApp
+          - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*
+            artifact: $(Artifact)
+            #artifact: NewmanWebApp
           
           - task: PublishTestResults@2
             inputs:
