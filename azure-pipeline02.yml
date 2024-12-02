@@ -156,7 +156,7 @@ stages:
     - task: CopyFiles@2
       displayName: 'Selenium files cp to pipeline'
       inputs:
-        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/tests/automatedtesting/selenium/**'
+        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/selenium/**'
         targetFolder: '$(Build.StagingDirectory)'        
     - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/selenium'
       displayName: 'Selenium python scripts.'
@@ -165,7 +165,7 @@ stages:
     - task: CopyFiles@2
       displayName: 'Newman files cp to pipeline'
       inputs:
-        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/tests/automatedtesting/postman/**'
+        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/**'
         targetFolder: '$(Build.StagingDirectory)'        
     - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
       displayName: 'Newman scripts.'
@@ -284,7 +284,10 @@ stages:
                 #echo $PATH \                
 
 
-          # Postman Data Validation Test Suite       
+          # Postman Data Validation Test Suite
+          - download: current
+            artifact: Newman-dropScripts
+            
           - task: CmdLine@2
             displayName: "run test newman-reports"
             continueOnError: true
@@ -301,13 +304,15 @@ stages:
             displayName: 'Publish script'
             continueOnError: true 
             inputs:
-              targetPath: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
+              targetPath: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
+              #targetPath: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
               #targetPath: '$(Build.ArtifactStagingDirectory)/Newman-dropScripts/'
-              #artifactName: 'Newman-WebApp-Server'
+              artifactName: Newman-dropScripts
               #publishLocation: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
-              publishLocation: 'pipeline'
+              publishLocation: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
+              #publishLocation: 'pipeline'
               #artifactName: $(artifact)
-              artifactType: 'WebApp'
+              #artifactType: 'WebApp'
               #artifactType: filepath
               
           # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
