@@ -312,8 +312,8 @@ stages:
           
           - task: PublishTestResults@2
             inputs:
-              testResultsFormat: 'JUnit'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.json'
+              testResultsFormat: 'html,junit,json,cli'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.xml'
               searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               mergeTestResults: true
               testRunTitle: 'JSON Report'
