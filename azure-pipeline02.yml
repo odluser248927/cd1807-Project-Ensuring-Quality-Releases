@@ -290,8 +290,10 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                'newman run StarterAPI.json -e Test.environment.json --reporters cli,junit,htmlextra --reporter-junit-export collection-StarterAPIs.xml' \ 
-                workingDirectory: '$(build.sourcesdirectory)' \
+                'newman run StarterAPI.json -e Test.environment.json --reporters cli,junit,htmlextra --reporter-junit-export collection-StarterAPIs.xml' \
+              #workingDirectory: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
+              workingDirectory: '$(System.ArtifactsDirectory)/automatedtesting/postman/'
+              #workingDirectory: '$(build.sourcesdirectory)' \
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               
           # publish 
@@ -311,7 +313,7 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/collection-StarterAPIs*'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*'
               searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               mergeTestResults: true
               testRunTitle: 'JSON Report'
