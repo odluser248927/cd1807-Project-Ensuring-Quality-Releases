@@ -290,8 +290,8 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                'newman run StarterAPI.json -e Test.environment.json --reporters cli,junit,htmlextra --reporter-junit-export collection-StarterAPIs.xml'
-                workingDirectory: '$(build.sourcesdirectory)'
+                'newman run StarterAPI.json -e Test.environment.json --reporters cli,junit,htmlextra --reporter-junit-export collection-StarterAPIs.xml' \ 
+                workingDirectory: '$(build.sourcesdirectory)' \
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               
           # publish 
