@@ -301,22 +301,22 @@ stages:
             displayName: 'Publish script'
             continueOnError: true 
             inputs:
-              #targetPath: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
-              targetPath: '$(Build.ArtifactStagingDirectory)/Newman-dropScripts/'
-              artifactName: 'Newman-WebApp-Server'
+              targetPath: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
+              #targetPath: '$(Build.ArtifactStagingDirectory)/Newman-dropScripts/'
+              #artifactName: 'Newman-WebApp-Server'
               publishLocation: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
               #publishLocation: 'pipeline'
               #artifactName: $(artifact)
-              #artifactType: 'WebApp'
-              #artifactType: filepath
+              artifactType: 'WebApp'
+              artifactType: filepath
               
           # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
           #   artifact: NewmanWebApp
           
           - task: PublishTestResults@2
             inputs:
-              testResultsFormat: 'html'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.html'
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*xml'
               searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               mergeTestResults: true
               testRunTitle: 'JSON Report'
