@@ -297,15 +297,18 @@ stages:
               #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
               
           # publish 
-          # - task: PublishPipelineArtifact@1
-          #   displayName: 'Publish script'
-          #   continueOnError: true 
-          #   inputs:
-          #     targetPath: '$(Build.ArtifactStagingDirectory)'
-          #     artifactName: Newman-WebApp-Server
-          #     publishLocation: 'pipeline'
-              #artifactName: $(artifactName)
-              #artifactType: 'pipeline'               
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish script'
+            continueOnError: true 
+            inputs:
+              #targetPath: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
+              targetPath: '$(Build.ArtifactStagingDirectory)/Newman-dropScripts/'
+              artifactName: 'Newman-WebApp-Server'
+              publishLocation: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+              #publishLocation: 'pipeline'
+              #artifactName: $(artifact)
+              #artifactType: 'WebApp'
+              #artifactType: filepath
               
           # - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/
           #   artifact: NewmanWebApp
