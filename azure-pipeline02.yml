@@ -170,6 +170,16 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
       displayName: 'Newman scripts.'
       artifact: Newman-dropScripts
+
+    - task: CopyFiles@2
+      inputs:
+        sourceFolder: '$(Build.SourcesDirectory)'
+        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/**/?(*.json|*.xml|*.html)'
+        targetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
+        artifactName: drop-newman
     
         
     # deploymentStage:
@@ -309,9 +319,10 @@ stages:
               publishLocation: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'              
               #artifactType: filepath
               
-          - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*
-            artifact: $(Artifact)
+          - publish: $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.json
+            #artifact: $(Artifact)
             #artifact: NewmanWebApp
+            artifact: newman-drop
           
           - task: PublishTestResults@2
             inputs:
