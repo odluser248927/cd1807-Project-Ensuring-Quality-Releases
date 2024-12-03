@@ -165,7 +165,7 @@ stages:
     - task: CopyFiles@2
       displayName: 'Newman files cp to pipeline'
       inputs:
-        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/**'
+        contents: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*.json'
         targetFolder: '$(Build.StagingDirectory)'        
     - publish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
       displayName: 'Newman scripts.'
