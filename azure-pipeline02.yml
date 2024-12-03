@@ -303,7 +303,7 @@ stages:
             continueOnError: true
             inputs:
               script: |
-                newman run terraform/environments/test/automatedtesting/postman/StarterAPI.json -e Test.environment.json --reporters cli,junit --reporter-junit-export collection-StarterAPIs.xml \
+                newman run StarterAPI.json -e Test.environment.json --reporters cli,junit --reporter-junit-export collection-StarterAPIs.xml \
               #workingDirectory: '$(System.ArtifactsDirectory)/Newman-dropScripts/'
               #workingDirectory: '$(System.ArtifactsDirectory)/automatedtesting/postman/'
               #workingDirectory: '$(build.sourcesdirectory)' \
