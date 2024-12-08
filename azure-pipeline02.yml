@@ -51,6 +51,14 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
+    - task: AzureWebApp@1
+      displayName: 'Deploy Azure Web App: mywebapp248927'
+      continueOnError: true 
+      inputs:
+        azureSubscription: $(azureServiceConnectionId)
+        appName: $(webAppName)
+        package: $(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip
+        
     # - task: Bash@3
     #   displayName: 'newman install'
     #   continueOnError: true
@@ -406,13 +414,7 @@ stages:
             displayName: 'Upload Package'
             artifact: drop-perftests
 
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App: mywebapp248927'
-            continueOnError: true 
-            inputs:
-              azureSubscription: $(azureServiceConnectionId)
-              appName: $(webAppName)
-              package: $(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip
+
 
           # - task: Bash@3
           #   displayName: Install Python, chromium and Run Selenium Tests
