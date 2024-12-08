@@ -7,6 +7,8 @@ variables:
   azureServiceConnectionId: 'myServiceConnection'
   System.Debug: true 
 
+  #webAppName: 'mywebapp249579'
+  
   vmImageName: 'ubuntu-latest'
   environmentName: 'mydevopsagentvm'
 
@@ -397,11 +399,20 @@ stages:
               rootFolderOrFile: 
               includeRootFolder: false
               archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'              
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
+              
           # JMeter Test Suite - Publish    
           - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip
             displayName: 'Upload Package'
             artifact: drop-perftests
+
+          # - task: AzureWebApp@1
+          #   displayName: 'Deploy Azure Web App: mywebapp249579'
+          #   continueOnError: true 
+          #   inputs:
+          #     azureSubscription: $(azureServiceConnectionId)
+          #     appName: $(webAppName)
+          #     package: $(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip
 
           # - task: Bash@3
           #   displayName: Install Python, chromium and Run Selenium Tests
