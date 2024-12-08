@@ -446,6 +446,32 @@ stages:
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
+
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'myServiceConnection'
+              appName: $(webAppName)
+              appType: webApp
+              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
+              #package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
+              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'current'
+              artifact: 'drop-apitests'
+              path: '$(Pipeline.Workspace)'    
+
+          - task: CmdLine@2
+            condition: succeededOrFailed()
+            displayName: Run Selenium Tests
+            inputs:
+              script: |
+                az webapp up -n mywebapp248927
+                python3 $(Agent.TempDirectory)/login.py
+                python3 $(Agent.TempDirectory)/add_remove_frome_cart.py    
+      
                 
           #       CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
           #       sudo apt-get upgrade -y
@@ -484,7 +510,7 @@ stages:
   #           displayName: 'Deploy Azure Web App'
   #           inputs:
   #             azureSubscription: 'myServiceConnection'
-  #             appName: 'myWebApp'
+  #             appName: $(webAppname)
   #             appType: webApp
   #             #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
   #             #package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
