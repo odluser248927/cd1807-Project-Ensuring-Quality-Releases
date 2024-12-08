@@ -454,7 +454,7 @@ stages:
               appName: $(webAppName)
               appType: webApp
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
-              #package: $(Pipeline.Workspace)/$(Build.BuildId)-fakerestapi.zip
+              #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
 
           - task: DownloadPipelineArtifact@2
@@ -470,7 +470,7 @@ stages:
               script: |
                 az webapp up -n mywebapp248927
                 python3 $(Agent.TempDirectory)/login.py
-                python3 $(Agent.TempDirectory)/add_remove_frome_cart.py    
+                python3 $(Agent.TempDirectory)/add_remove_from_cart.py    
       
                 
           #       CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
