@@ -358,13 +358,13 @@ stages:
             continueOnError: true 
             artifact: drop-apitests
           
-          - task: PublishTestResults@2
-            inputs:
-              testResultsFormat: 'JUnit'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*xml'
-              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
-              mergeTestResults: true
-              testRunTitle: 'JSON Report'
+          # - task: PublishTestResults@2
+          #   inputs:
+          #     testResultsFormat: 'JUnit'
+          #     testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/*xml'
+          #     searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/'
+          #     mergeTestResults: true
+          #     testRunTitle: 'JSON Report'
 
           - task: PublishTestResults@2
             inputs:
