@@ -7,7 +7,7 @@ variables:
   azureServiceConnectionId: 'myServiceConnection'
   System.Debug: true 
 
-  #webAppName: 'mywebapp249579'
+  webAppName: 'mywebapp248927'
   
   vmImageName: 'ubuntu-latest'
   environmentName: 'mydevopsagentvm'
@@ -406,13 +406,13 @@ stages:
             displayName: 'Upload Package'
             artifact: drop-perftests
 
-          # - task: AzureWebApp@1
-          #   displayName: 'Deploy Azure Web App: mywebapp249579'
-          #   continueOnError: true 
-          #   inputs:
-          #     azureSubscription: $(azureServiceConnectionId)
-          #     appName: $(webAppName)
-          #     package: $(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App: mywebapp248927'
+            continueOnError: true 
+            inputs:
+              azureSubscription: $(azureServiceConnectionId)
+              appName: $(webAppName)
+              package: $(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip
 
           # - task: Bash@3
           #   displayName: Install Python, chromium and Run Selenium Tests
@@ -462,6 +462,7 @@ stages:
           #       sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
           #       sudo chown root:root /usr/local/bin/chromedriver
           #       sudo chmod 0755 /usr/local/bin/chromedriver
+          #       az webapp up -n mywebapp248927
                 
           # - task: CmdLine@2
           #   condition: succeededOrFailed()
@@ -469,6 +470,7 @@ stages:
           #   inputs:
           #     script: |
           #       python3 $(Agent.TempDirectory)/login.py
+          #       python3 $(Agent.TempDirectory)/add_remove_frome_cart.py
                 
   # - deployment: FakeRestAPI
   #   pool:
