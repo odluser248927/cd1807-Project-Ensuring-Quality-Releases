@@ -23,21 +23,21 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-    - task: Bash@3
-      displayName: 'Install Py files'
-      continueOnError: true 
-      workingDirectory: '$(projectRoot)'
-      inputs:
-        targetType: 'inline'
-        script: |      
-          sudo apt install python3.9
-          sudo apt-get install pyton3.9-venv
-          sudo apt-get install python3-pip
-          python3.9 --version
-          pip --version
-          python3.9 -m pip install --upgrade pip
-          python3.9 -m pip install setup
-          python3.9 -m pip install -r requirements.txt
+    # - task: Bash@3
+    #   displayName: 'Install Py files'
+    #   continueOnError: true 
+    #   workingDirectory: '$(projectRoot)'
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |      
+    #       sudo apt install python3.9
+    #       sudo apt-get install pyton3.9-venv
+    #       sudo apt-get install python3-pip
+    #       python3.9 --version
+    #       pip --version
+    #       python3.9 -m pip install --upgrade pip
+    #       python3.9 -m pip install setup
+    #       python3.9 -m pip install -r requirements.txt
       
     #   displayName: 'Install py env.'
     
