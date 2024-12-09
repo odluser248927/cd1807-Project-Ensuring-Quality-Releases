@@ -396,6 +396,7 @@ stages:
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+              
           - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
             displayName: 'Upload Package'
             artifact: drop-fakerestapi
@@ -404,7 +405,7 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Archive PerformanceTestSuite'
             inputs:
-              rootFolderOrFile: 
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/fakerestapi'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
@@ -456,20 +457,21 @@ stages:
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
 
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              source: 'current'
-              artifact: 'drop-apitests'
-              path: '$(Pipeline.Workspace)'    
+          # - task: DownloadPipelineArtifact@2
+          #   inputs:
+          #     source: 'current'
+          #     artifact: 'drop-apitests'
+          #     path: '$(Pipeline.Workspace)'    
 
-          - task: CmdLine@2
-            condition: succeededOrFailed()
-            displayName: Run Selenium Tests
-            inputs:
-              script: |
-                az webapp up -n mywebapp248927
-                python3 $(Agent.TempDirectory)/login.py
-                python3 $(Agent.TempDirectory)/add_remove_from_cart.py    
+          # - task: CmdLine@2
+          #   condition: succeededOrFailed()
+          #   displayName: Run Selenium Tests
+          #   inputs:
+          #     script: |
+          #       az webapp up -n mywebapp248927
+          #       python3 $(Agent.TempDirectory)/login.py
+          #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py
+                
       
                 
           #       CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
