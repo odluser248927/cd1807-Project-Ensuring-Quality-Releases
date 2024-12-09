@@ -23,10 +23,24 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
-      
-    # - script: |
-    #     python -m venv mypy3env
-    #     source mypy3env/bin/activate
+    - task: Bash@3
+      displayName: 'Install Py files'
+      inputs:
+        targetType: 'inline'
+        script: |      
+          sudo apt install python3.9
+          sudo apt-get install pyton3.9-venv
+          sudo apt-get install python3-pip
+          python3.9 --version
+          pip --version
+          python3.9 -m pip install --upgrade pip
+          python3.9 -m pip install setup
+          python3.9 -m pip install -r requirements.txt
+      workingDirectory: $(projectRoot)
+    #   displayName: 'Install py env.'
+    
+    #     python -m venv .mypy3env
+    #     source .mypy3env/bin/activate
     #     python -m pip install --upgrade pip
     #     pip install setup
     #     pip install -r requirements.txt
