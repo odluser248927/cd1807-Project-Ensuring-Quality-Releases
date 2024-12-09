@@ -200,11 +200,11 @@ stages:
         pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
         artifactName: drop-newman
 
-    - task: runwebapp@3
-      displayName: 'runWebApp'
-      inputs:
-        rootFolderOrFile: '$(projectRoot)'
-        command: 'az webapp up --name $(webAppName) --resource-group Azuredevops --sku B1 --logs --runtime "PYTHON:3.9"'
+    # - task: runwebapp@3
+    #   displayName: 'runWebApp'
+    #   inputs:
+    #     rootFolderOrFile: '$(projectRoot)'
+    #     command: 'az webapp up --name $(webAppName) --resource-group Azuredevops --sku B1 --logs --runtime "PYTHON:3.9"'
         
     # deploymentStage:
 - stage: Deploy
