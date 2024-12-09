@@ -461,15 +461,15 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
 
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'myServiceConnection'
-              appName: $(webAppName)
-              appType: webApp
-              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
-              #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+          # - task: AzureWebApp@1
+          #   displayName: 'Deploy Azure Web App'
+          #   inputs:
+          #     azureSubscription: 'myServiceConnection'
+          #     appName: $(webAppName)
+          #     appType: webApp
+          #     #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
+          #     #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+          #     package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
 
           # - task: DownloadPipelineArtifact@2
           #   inputs:
