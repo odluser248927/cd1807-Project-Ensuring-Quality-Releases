@@ -25,6 +25,8 @@ stages:
     steps:
     - task: Bash@3
       displayName: 'Install Py files'
+      continueOnError: true 
+      workingDirectory: '$(projectRoot)'
       inputs:
         targetType: 'inline'
         script: |      
@@ -36,7 +38,7 @@ stages:
           python3.9 -m pip install --upgrade pip
           python3.9 -m pip install setup
           python3.9 -m pip install -r requirements.txt
-      workingDirectory: $(projectRoot)
+      
     #   displayName: 'Install py env.'
     
     #     python -m venv .mypy3env
@@ -478,9 +480,12 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: $(azureServiceConnectionId)
-              appName: $(webAppName)
-              #appType: webApp
+              azureSubscription: '$(azureServiceConnectionId)'
+              appName: '$(webAppName)'
+              appType: webApp
+              deployToSlotOrASE: true
+              resourceGroupName: 'Azuredevops'
+              slotName: 'test'
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
