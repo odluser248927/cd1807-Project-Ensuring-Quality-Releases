@@ -23,6 +23,15 @@ stages:
   - job: 'Build'
     pool: myAgentPool
     steps:
+      
+    - script: |
+        python -m venv mypy3env
+        source mypy3env/bin/activate
+        python -m pip install --upgrade pip
+        pip install setup
+        pip install -r requirements.txt
+      workingDirectory: $(projectRoot)
+      displayName: "Install requirements"
         
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       displayName: 'Terrafom installation'
@@ -190,7 +199,12 @@ stages:
       inputs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
         artifactName: drop-newman
-    
+
+    - task: runwebapp@3
+      displayName: 'runWebApp'
+      inputs:
+        rootFolderOrFile: '$(projectRoot)'
+        command: 'az webapp up --name $(webAppName) --resource-group Azuredevops --sku B1 --logs --runtime "PYTHON:3.9"'
         
     # deploymentStage:
 - stage: Deploy
