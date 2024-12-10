@@ -80,13 +80,13 @@ stages:
       displayName: 'Deploy Azure Web App: mywebapp248927'
       continueOnError: true 
       inputs:
-        azureSubscription: $(azureServiceConnectionId)
+        azureSubscription: '$(azureServiceConnectionId)'
         appType: webApp
         deployToSlotOrASE: true
-        resourceGroupName: Azuredevops
+        resourceGroupName: 'Azuredevops'
         slotName: 'staging'
-        appName: $(webAppName)
-        package: $(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip
+        appName: '$(webAppName)'
+        package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
     
     
         
@@ -399,7 +399,7 @@ stages:
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-apitests.zip'
               
           # PM Test Suite - Publish the package  
-          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-apitests.zip   
+          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-apitests.zip
           # Same as the archiveFile artifact above. 
             displayName: 'Upload Selenium-API-integration test Package'
             continueOnError: true 
