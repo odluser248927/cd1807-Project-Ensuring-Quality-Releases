@@ -7,7 +7,7 @@ variables:
   azureServiceConnectionId: 'myServiceConnection'
   System.Debug: true 
 
-  webAppName: 'mywebapp248927'
+  webAppName: 'Azuredevops-AppService'
   
   vmImageName: 'ubuntu-latest'
   environmentName: 'mydevopsagentvm'
@@ -222,16 +222,16 @@ stages:
         pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
         artifactName: drop-newman
 
-    # - task: AzureWebApp@1
-    #   displayName: 'build Azure Web App'
-    #   inputs:
-    #     azureSubscription: '$(azureServiceConnectionId)'
-    #     appName: '$(webAppName)'
-    #     appType: webApp
-    #     deployToSlotOrASE: true
-    #     resourceGroupName: 'Azuredevops'
-    #     slotName: 'staging'
-    #     package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'    
+    - task: AzureWebApp@1
+      displayName: 'build Azure Web App'
+      inputs:
+        azureSubscription: '$(azureServiceConnectionId)'
+        appName: '$(webAppName)'
+        appType: webApp
+        deployToSlotOrASE: true
+        resourceGroupName: 'Azuredevops'
+        slotName: 'staging'
+        package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'    
 
     # - task: runwebapp@3
     #   displayName: 'runWebApp'
@@ -506,24 +506,24 @@ stages:
           #   displayName: Run Selenium Tests
           #   inputs:
           #     script: |
-          #       az webapp up -n mywebapp248927
+          #       az webapp up -n Azuredevops-AppService
                 #python3 $(Agent.TempDirectory)/login.py
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py
 
-          # - task: AzureWebApp@1
-          #   displayName: 'Deploy Azure Web App'
-          #   continueOnError: true
-          #   inputs:
-          #     azureSubscription: '$(azureServiceConnectionId)'
-          #     appName: '$(webAppName)'
-          #     appType: webApp
-          #     #deployToSlotOrASE: true
-          #     resourceGroupName: 'Azuredevops'
-          #     #slotName: 'staging'
-          #     #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
-          #     #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-          #     #package: '$(Pipeline.Workspace)/dropScripts/'
-          #     package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            continueOnError: true
+            inputs:
+              azureSubscription: '$(azureServiceConnectionId)'
+              appName: '$(webAppName)'
+              appType: webApp
+              deployToSlotOrASE: true
+              resourceGroupName: 'Azuredevops'
+              #slotName: 'staging'
+              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
+              #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+              #package: '$(Pipeline.Workspace)/dropScripts/'
+              package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
                 
       
                 
