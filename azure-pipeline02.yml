@@ -84,16 +84,7 @@ stages:
     #     appName: $(webAppName)
     #     package: $(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip
     
-    - task: AzureWebApp@1
-      displayName: 'build Azure Web App'
-      inputs:
-        azureSubscription: '$(azureServiceConnectionId)'
-        appName: '$(webAppName)'
-        appType: webApp
-        deployToSlotOrASE: true
-        resourceGroupName: 'Azuredevops'
-        slotName: 'staging'
-        package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+    
         
     # - task: Bash@3
     #   displayName: 'newman install'
@@ -226,6 +217,17 @@ stages:
       inputs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
         artifactName: drop-newman
+
+    # - task: AzureWebApp@1
+    #   displayName: 'build Azure Web App'
+    #   inputs:
+    #     azureSubscription: '$(azureServiceConnectionId)'
+    #     appName: '$(webAppName)'
+    #     appType: webApp
+    #     deployToSlotOrASE: true
+    #     resourceGroupName: 'Azuredevops'
+    #     slotName: 'staging'
+    #     package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'    
 
     # - task: runwebapp@3
     #   displayName: 'runWebApp'
