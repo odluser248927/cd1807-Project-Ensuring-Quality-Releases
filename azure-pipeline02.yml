@@ -76,17 +76,18 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    # - task: AzureWebApp@1
-    #   displayName: 'Deploy Azure Web App: mywebapp248927'
-    #   continueOnError: true 
-    #   inputs:
-    #     azureSubscription: '$(azureServiceConnectionId)'
-    #     appType: webApp
-    #     #deployToSlotOrASE: true
-    #     resourceGroupName: 'Azuredevops'
-    #     #slotName: 'staging'
-    #     appName: '$(webAppName)'
-    #     package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
+    - task: AzureWebApp@1
+      displayName: 'Deploy Azure Web App:'
+      continueOnError: true 
+      inputs:
+        azureSubscription: '$(azureServiceConnectionId)'
+        appType: webApp
+        #deployToSlotOrASE: true
+        resourceGroupName: 'Azuredevops'
+        #slotName: 'staging'
+        appName: '$(webAppName)'
+        package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+        #package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
     
     
         
@@ -222,16 +223,17 @@ stages:
         pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
         artifactName: drop-newman
 
-    - task: AzureWebApp@1
-      displayName: 'build Azure Web App'
-      inputs:
-        azureSubscription: '$(azureServiceConnectionId)'
-        appName: '$(webAppName)'
-        appType: webApp
-        deployToSlotOrASE: true
-        resourceGroupName: 'Azuredevops'
-        slotName: 'staging'
-        package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'    
+    # - task: AzureWebApp@1
+    #   displayName: 'build Azure Web App'
+    #   continueOnError: true
+    #   inputs:
+    #     azureSubscription: '$(azureServiceConnectionId)'
+    #     appName: '$(webAppName)'
+    #     appType: webApp
+    #     deployToSlotOrASE: true
+    #     resourceGroupName: 'Azuredevops'
+    #     slotName: 'staging'
+    #     package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'    
 
     # - task: runwebapp@3
     #   displayName: 'runWebApp'
@@ -517,13 +519,14 @@ stages:
               azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
               appType: webApp
-              deployToSlotOrASE: true
+              #deployToSlotOrASE: true
               resourceGroupName: 'Azuredevops'
               #slotName: 'staging'
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
+              #package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-uitests.zip'
+              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
                 
       
                 
