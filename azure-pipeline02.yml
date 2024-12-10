@@ -82,11 +82,11 @@ stages:
       inputs:
         azureSubscription: '$(azureServiceConnectionId)'
         appType: webApp
-        deployToSlotOrASE: true
+        #deployToSlotOrASE: true
         resourceGroupName: 'Azuredevops'
-        slotName: 'staging'
+        #slotName: 'staging'
         appName: '$(webAppName)'
-        package: '$(Pipeline.Workspace)/*-uitests.zip'
+        package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
     
     
         
@@ -490,6 +490,7 @@ stages:
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
+                az webapp up -n mywebapp248927
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
@@ -516,9 +517,9 @@ stages:
               azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
               appType: webApp
-              deployToSlotOrASE: true
+              #deployToSlotOrASE: true
               resourceGroupName: 'Azuredevops'
-              slotName: 'staging'
+              #slotName: 'staging'
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
