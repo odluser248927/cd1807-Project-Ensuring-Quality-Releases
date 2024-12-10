@@ -501,7 +501,7 @@ stages:
               #slotName: 'test'
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+              package: '$(Pipeline.Workspace)/dropScripts/'
 
           # - task: DownloadPipelineArtifact@2
           #   inputs:
