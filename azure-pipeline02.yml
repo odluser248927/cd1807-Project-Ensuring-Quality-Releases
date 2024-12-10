@@ -76,17 +76,17 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    - task: AzureWebApp@1
-      displayName: 'Deploy Azure Web App: mywebapp248927'
-      continueOnError: true 
-      inputs:
-        azureSubscription: '$(azureServiceConnectionId)'
-        appType: webApp
-        #deployToSlotOrASE: true
-        resourceGroupName: 'Azuredevops'
-        #slotName: 'staging'
-        appName: '$(webAppName)'
-        package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
+    # - task: AzureWebApp@1
+    #   displayName: 'Deploy Azure Web App: mywebapp248927'
+    #   continueOnError: true 
+    #   inputs:
+    #     azureSubscription: '$(azureServiceConnectionId)'
+    #     appType: webApp
+    #     #deployToSlotOrASE: true
+    #     resourceGroupName: 'Azuredevops'
+    #     #slotName: 'staging'
+    #     appName: '$(webAppName)'
+    #     package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
     
     
         
@@ -495,35 +495,35 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
 
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              source: 'current'
-              artifact: 'drop-uitests'
-              path: '$(Pipeline.Workspace)'    
+          # - task: DownloadPipelineArtifact@2
+          #   inputs:
+          #     source: 'current'
+          #     artifact: 'drop-uitests'
+          #     path: '$(Pipeline.Workspace)'    
 
-          - task: CmdLine@2
-            continueOnError: true 
-            displayName: Run Selenium Tests
-            inputs:
-              script: |
-                az webapp up -n mywebapp248927
+          # - task: CmdLine@2
+          #   continueOnError: true 
+          #   displayName: Run Selenium Tests
+          #   inputs:
+          #     script: |
+          #       az webapp up -n mywebapp248927
                 #python3 $(Agent.TempDirectory)/login.py
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py
 
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            continueOnError: true
-            inputs:
-              azureSubscription: '$(azureServiceConnectionId)'
-              appName: '$(webAppName)'
-              appType: webApp
-              #deployToSlotOrASE: true
-              resourceGroupName: 'Azuredevops'
-              #slotName: 'staging'
-              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
-              #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-              #package: '$(Pipeline.Workspace)/dropScripts/'
-              package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
+          # - task: AzureWebApp@1
+          #   displayName: 'Deploy Azure Web App'
+          #   continueOnError: true
+          #   inputs:
+          #     azureSubscription: '$(azureServiceConnectionId)'
+          #     appName: '$(webAppName)'
+          #     appType: webApp
+          #     #deployToSlotOrASE: true
+          #     resourceGroupName: 'Azuredevops'
+          #     #slotName: 'staging'
+          #     #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
+          #     #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+          #     #package: '$(Pipeline.Workspace)/dropScripts/'
+          #     package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
                 
       
                 
