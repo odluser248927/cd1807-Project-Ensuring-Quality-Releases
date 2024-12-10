@@ -86,7 +86,7 @@ stages:
         resourceGroupName: 'Azuredevops'
         slotName: 'staging'
         appName: '$(webAppName)'
-        package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+        package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
     
     
         
@@ -396,10 +396,10 @@ stages:
               rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/selenium'
               includeRootFolder: True
               archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-apitests.zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/drop-apitests/$(Build.BuildId)-apitests.zip'
               
           # PM Test Suite - Publish the package  
-          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-apitests.zip
+          - publish: $(Build.ArtifactStagingDirectory)/drop-apitests/$(Build.BuildId)-apitests.zip
           # Same as the archiveFile artifact above. 
             displayName: 'Upload Selenium-API-integration test Package'
             continueOnError: true 
@@ -507,7 +507,7 @@ stages:
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+              package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
 
           # - task: DownloadPipelineArtifact@2
           #   inputs:
