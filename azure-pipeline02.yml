@@ -496,6 +496,7 @@ stages:
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
+            continueOnError: true
             inputs:
               azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
@@ -506,7 +507,7 @@ stages:
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              package: '$(Pipeline.Workspace)/drop-apitests/**/*.zip'
+              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
 
           # - task: DownloadPipelineArtifact@2
           #   inputs:
