@@ -86,7 +86,7 @@ stages:
         resourceGroupName: 'Azuredevops'
         #slotName: 'staging'
         appName: '$(webAppName)'
-        package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+        package: '$(Build.ArtifactStagingDirectory)/drop-apitests/$(Build.BuildId)-apitests.zip'
         #package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
     
     
