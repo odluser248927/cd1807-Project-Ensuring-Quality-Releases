@@ -494,6 +494,21 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
 
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'current'
+              artifact: 'drop-uitests'
+              path: '$(Pipeline.Workspace)'    
+
+          # - task: CmdLine@2
+          #   condition: succeededOrFailed()
+          #   displayName: Run Selenium Tests
+          #   inputs:
+          #     script: |
+          #       az webapp up -n mywebapp248927
+          #       python3 $(Agent.TempDirectory)/login.py
+          #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py
+
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             continueOnError: true
@@ -508,21 +523,6 @@ stages:
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
               package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
-
-          # - task: DownloadPipelineArtifact@2
-          #   inputs:
-          #     source: 'current'
-          #     artifact: 'drop-apitests'
-          #     path: '$(Pipeline.Workspace)'    
-
-          # - task: CmdLine@2
-          #   condition: succeededOrFailed()
-          #   displayName: Run Selenium Tests
-          #   inputs:
-          #     script: |
-          #       az webapp up -n mywebapp248927
-          #       python3 $(Agent.TempDirectory)/login.py
-          #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py
                 
       
                 
