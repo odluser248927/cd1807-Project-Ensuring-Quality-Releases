@@ -497,11 +497,11 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
 
-          # - task: DownloadPipelineArtifact@2
-          #   inputs:
-          #     source: 'current'
-          #     artifact: 'drop-uitests'
-          #     path: '$(Pipeline.Workspace)'    
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'current'
+              artifact: 'drop-uitests'
+              path: '$(Pipeline.Workspace)'    
 
           # - task: CmdLine@2
           #   continueOnError: true 
