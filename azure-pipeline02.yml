@@ -501,6 +501,7 @@ stages:
             inputs:
               source: 'current'
               artifact: 'drop-uitests'
+              #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
               path: '$(Pipeline.Workspace)'    
 
           # - task: CmdLine@2
@@ -525,8 +526,8 @@ stages:
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              #package: '$(Build.ArtifactStagingDirectory)/drop-uitests/*.zip'
-              package: '$(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip'
+              package: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/*.zip'
+              #package: '$(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip'
                 
       
                 
