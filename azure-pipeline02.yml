@@ -526,7 +526,7 @@ stages:
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              package: '$(Build.ArtifactStagingDirectory)/drop-uitests/*.zip'
+              package: '$(Build.ArtifactStagingDirectory)/drop-uitests/$(Build.BuildId)-uitests.zip'
               #package: '$(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip'
                 
       
