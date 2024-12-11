@@ -76,17 +76,17 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-    - task: AzureWebApp@1
-      displayName: 'Deploy Azure Web App:'
-      continueOnError: true 
-      inputs:
-        azureSubscription: '$(azureServiceConnectionId)'
-        appType: webApp
-        #deployToSlotOrASE: true
-        resourceGroupName: 'Azuredevops'
-        #slotName: 'staging'
-        appName: '$(webAppName)'
-        package: '$(Build.ArtifactStagingDirectory)/drop-apitests/$(Build.BuildId)-apitests.zip'
+    # - task: AzureWebApp@1
+    #   displayName: 'Deploy Azure Web App:'
+    #   continueOnError: true 
+    #   inputs:
+    #     azureSubscription: '$(azureServiceConnectionId)'
+    #     appType: webApp
+    #     #deployToSlotOrASE: true
+    #     resourceGroupName: 'Azuredevops'
+    #     #slotName: 'staging'
+    #     appName: '$(webAppName)'
+    #     package: '$(Build.ArtifactStagingDirectory)/drop-apitests/$(Build.BuildId)-apitests.zip'
         #package: '$(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip'
     
     
@@ -525,8 +525,8 @@ stages:
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              #package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-uitests.zip'
-              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
+              package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-uitests.zip'
+              #package: '$(Pipeline.Workspace)/drop-apitests/$(Build.BuildId)-apitests.zip'
                 
       
                 
