@@ -507,17 +507,20 @@ stages:
                 fi
                 export PATH=$PATH:/home/devopsagent/app
                 #az webapp up -n Azuredevops-AppService              
+                #echo "Starting Selenium Tests"
+                #python3 add_remove_from_cart.py >> selenium.log
+                #echo "Completed Selenium Tests. Check selenium.log for results."
+          
+          - task: CmdLine@2
+            continueOnError: true 
+            displayName: Run Selenium Tests
+            inputs:
+              script: |
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
-          
-          # - task: CmdLine@2
-          #   continueOnError: true 
-          #   displayName: Run Selenium Tests
-          #   inputs:
-          #     script: |
-          #       python3 $(Agent.TempDirectory)/login.py
-          #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py
+                #python3 $(Agent.TempDirectory)/login.py
+                python3 $(Agent.TempDirectory)/add_remove_from_cart.py
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
