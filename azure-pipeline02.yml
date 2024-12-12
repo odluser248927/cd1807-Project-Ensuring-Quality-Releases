@@ -497,36 +497,37 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
 
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              source: 'current'
-              artifact: 'drop-uitests'
-              #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
-              path: '$(Pipeline.Workspace)'    
-
-          # - task: CmdLine@2
-          #   continueOnError: true 
-          #   displayName: Run Selenium Tests
+          # - task: DownloadPipelineArtifact@2
           #   inputs:
-          #     script: |
-          #       az webapp up -n Azuredevops-AppService
-                #python3 $(Agent.TempDirectory)/login.py
-                #python3 $(Agent.TempDirectory)/add_remove_from_cart.py
+          #     source: 'current'
+          #     artifact: 'drop-uitests'
+          #     #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
+          #     path: '$(Pipeline.Workspace)'    
+
+          - task: CmdLine@2
+            continueOnError: true 
+            displayName: Run Selenium Tests
+            inputs:
+              script: |
+                #az webapp up -n Azuredevops-AppService
+                python3 $(Agent.TempDirectory)/login.py
+                python3 $(Agent.TempDirectory)/add_remove_from_cart.py
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             continueOnError: true
             inputs:
-              azureSubscription: '$(azureServiceConnectionId)'
+              environmentServiceNameAzureRM: 'myServiceConnection'
+              #azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
               appType: webApp
               #deployToSlotOrASE: true
-              resourceGroupName: 'Azuredevops'
+              #resourceGroupName: 'Azuredevops'
               #slotName: 'staging'
               #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              package: '$(Build.ArtifactStagingDirectory)/drop-uitests/$(Build.BuildId)-uitests.zip'
+              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
               #package: '$(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip'
                 
       
