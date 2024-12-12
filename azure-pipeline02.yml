@@ -491,7 +491,7 @@ stages:
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv $(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip /home/devopsagent/app
+                mv $(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip /home/devopsagent/app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
                 FILE=/home/devopsagent/app/chromedriver_linux64.zip
