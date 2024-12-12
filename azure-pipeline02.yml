@@ -482,11 +482,12 @@ stages:
                 #! /bin/bash
 
                 sudo apt-get upgrade -y
-                sudo apt-get install python3.9
+                sudo apt-get install python3.8
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
+                python --version
                 cd ~/
                 DIR=/home/devopsagent/app
                 if [ ! -d "$DIR" ]; then
@@ -503,7 +504,7 @@ stages:
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
-                az webapp up -n Azuredevops-AppService
+                #az webapp up -n Azuredevops-AppService              
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
