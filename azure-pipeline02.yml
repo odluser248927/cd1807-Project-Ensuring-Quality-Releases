@@ -464,13 +464,13 @@ stages:
             displayName: 'Upload Package'
             artifact: drop-perftests
 
-          # - task: DownloadPipelineArtifact@2
-          #   displayName: 'DL selenium Package'
-          #   inputs:
-          #     sourceFolder: '$(Pipeline.Workspace)/drop-uitests'
-          #     Contents: '**'
-          #     artifact: 'drop-uitests'
-          #     TargetFolder: '$(Agent.TempDirectory)'
+          - task: DownloadPipelineArtifact@2
+            displayName: 'DL selenium Package'
+            inputs:
+              sourceFolder: '$(Pipeline.Workspace)/drop-uitests'
+              Contents: '**'
+              artifact: 'drop-uitests'
+              TargetFolder: '$(Agent.TempDirectory)'
               #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
               #path: '$(Pipeline.Workspace)'  
 
@@ -491,7 +491,7 @@ stages:
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv /home/devopsagent/myagent/_work/20/a/1718-uitests.zip /home/devopsagent/app
+                mv $(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip /home/devopsagent/app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
                 FILE=/home/devopsagent/app/chromedriver_linux64.zip
