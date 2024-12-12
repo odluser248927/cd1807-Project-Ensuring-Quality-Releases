@@ -464,6 +464,16 @@ stages:
             displayName: 'Upload Package'
             artifact: drop-perftests
 
+          # - task: DownloadPipelineArtifact@2
+          #   displayName: 'DL selenium Package'
+          #   inputs:
+          #     sourceFolder: '$(Pipeline.Workspace)/drop-uitests'
+          #     Contents: '**'
+          #     artifact: 'drop-uitests'
+          #     TargetFolder: '$(Agent.TempDirectory)'
+              #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
+              #path: '$(Pipeline.Workspace)'  
+
           - task: Bash@3
             displayName: Install Python, chromium and Run Selenium Tests
             inputs:
@@ -481,9 +491,9 @@ stages:
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv $(Build.ArtifactStagingDirectory)/drop-uitests/$(Build.BuildId)-uitests.zip /home/devopsagent/app
+                mv /home/devopsagent/myagent/_work/20/a/1718-uitests.zip /home/devopsagent/app
                 cd app
-                unzip -o $(Build.BuildId)-apitests.zip
+                unzip -o $(Build.BuildId)-uitests.zip
                 FILE=/home/devopsagent/app/chromedriver_linux64.zip
                 if [ ! -f "$FILE" ]; then
                     LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
@@ -497,12 +507,7 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
 
-          # - task: DownloadPipelineArtifact@2
-          #   inputs:
-          #     source: 'current'
-          #     artifact: 'drop-uitests'
-          #     #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
-          #     path: '$(Pipeline.Workspace)'    
+          
 
           # - task: CmdLine@2
           #   continueOnError: true 
