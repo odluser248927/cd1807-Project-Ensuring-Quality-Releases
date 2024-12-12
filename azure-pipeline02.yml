@@ -492,7 +492,7 @@ stages:
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
-                az webapp up -n mywebapp248927
+                az webapp up -n Azuredevops-AppService
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
@@ -518,7 +518,7 @@ stages:
             continueOnError: true
             inputs:
               environmentServiceNameAzureRM: 'myServiceConnection'
-              #azureSubscription: '$(azureServiceConnectionId)'
+              azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
               appType: webApp
               #deployToSlotOrASE: true
