@@ -481,11 +481,13 @@ stages:
               script: |
                 #! /bin/bash
 
+                CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
                 sudo apt-get upgrade -y
                 sudo apt-get install python3.8
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
+                pip3 install webdriver-manager
                 pip3 install selenium
                 python --version
                 cd ~/
@@ -508,15 +510,12 @@ stages:
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
-
           
-
           # - task: CmdLine@2
           #   continueOnError: true 
           #   displayName: Run Selenium Tests
           #   inputs:
           #     script: |
-          #       #az webapp up -n Azuredevops-AppService
           #       python3 $(Agent.TempDirectory)/login.py
           #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py
 
