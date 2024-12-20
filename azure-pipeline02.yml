@@ -544,10 +544,11 @@ stages:
       #     pool:
       #       vmImage: 'ubuntu-latest'
       #   steps:
-      #   - task: JMeterInstaller@0
-      #     displayName: 'Install JMeter 5.6.3'
-      #     inputs:
-      #       jmeterVersion: '5.6.3'
+      
+        - task: JMeterInstaller@0
+          displayName: 'Install JMeter 5.6.3'
+          inputs:
+            jmeterVersion: '5.6.3'
 
           - task: Bash@3
             displayName: 'Run Jmeter Stress test'
