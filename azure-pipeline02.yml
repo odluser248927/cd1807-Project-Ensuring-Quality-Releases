@@ -545,17 +545,17 @@ stages:
       #       vmImage: 'ubuntu-latest'
       #   steps:
       
-          - task: JMeterInstaller@0
-            displayName: 'Install JMeter 5.6.3'
-            inputs:
-              jmeterVersion: '5.6.3'
+          # - task: JMeterInstaller@0
+          #   displayName: 'Install JMeter 5.6.3'
+          #   inputs:
+          #     jmeterVersion: '5.6.3'
 
-          - task: Bash@3
-            displayName: 'Run Jmeter Stress test'
-            inputs:
-              targetType: 'inline'
-              script: |
-                'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
+          # - task: Bash@3
+          #   displayName: 'Run Jmeter Stress test'
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |
+          #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
 
       #   - task: Bash@3
       #     displayName: 'Run Jmeter Endurance test'
