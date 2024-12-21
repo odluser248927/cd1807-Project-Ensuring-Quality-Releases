@@ -488,7 +488,12 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install webdriver-manager
-                pip3 install selenium
+                pip3 install selenium                
+                wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
+                tar -xf apache-jmeter-5.6.3.tgz
+                unzip -o $(Build.BuildId)-perftests.zip
+                ./apache-jmeter-5.6.3/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
+                cat jmeter.log
                 python --version
                 cd ~/
                 DIR=/home/devopsagent/app
@@ -498,11 +503,13 @@ stages:
                 mv $(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip /home/devopsagent/app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
-                FILE=/home/devopsagent/app/chromedriver_linux64.zip
+                FILE=/home/devopsagent/app/chromedriver-linux64.zip
                 echo CHROME_DRIVER_VERSION                
                 if [ ! -f "$FILE" ]; then
                     LATEST=$(wget -N https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip)                    
                     unzip -o chromedriver-linux64.zip
+                    sudo chown root:root /usr/local/bin/chromedriver
+                    sudo chmod 0774 /usr/local/bin/chromedriver
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
