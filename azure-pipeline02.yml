@@ -501,8 +501,8 @@ stages:
                 FILE=/home/devopsagent/app/chromedriver_linux64.zip
                 echo CHROME_DRIVER_VERSION                
                 if [ ! -f "$FILE" ]; then
-                    LATEST=$(wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip)                    
-                    unzip -o chromedriver_linux64.zip
+                    LATEST=$(wget -N https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip)                    
+                    unzip -o chromedriver-linux64.zip
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
@@ -546,19 +546,19 @@ stages:
       #   steps:
       
           # - task: JMeterInstaller@0
-          #   displayName: 'Install JMeter 5.6.3'
+          #   displayName: 'Install JMeter'
           #   inputs:
           #     jmeterVersion: '5.6.3'
 
           # - task: Bash@3
-          #   displayName: 'Run Jmeter Stress test'
+          #   displayName: 'Run Jmeter unit test1'
           #   inputs:
           #     targetType: 'inline'
           #     script: |
           #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
 
       #   - task: Bash@3
-      #     displayName: 'Run Jmeter Endurance test'
+      #     displayName: 'Run Jmeter unit test2'
       #     inputs:
       #       targetType: 'inline'
       #       script: |
