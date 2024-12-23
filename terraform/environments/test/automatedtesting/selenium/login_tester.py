@@ -6,8 +6,7 @@ import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import chromedriver_autoinstaller
-chromedriver_autoinstaller.install()
+
 
 options = webdriver.ChromeOptions()
 
