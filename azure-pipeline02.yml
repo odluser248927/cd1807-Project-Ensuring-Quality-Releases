@@ -522,7 +522,7 @@ stages:
                 #python3 add_remove_from_cart.py >> selenium.log
                 python3 login_tester.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
-                deactivate
+                #deactivate
           
           # - task: CmdLine@2
           #   continueOnError: true 
