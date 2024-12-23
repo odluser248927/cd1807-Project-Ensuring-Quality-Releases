@@ -483,10 +483,10 @@ stages:
 
                 CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
                 sudo apt-get upgrade -y
-                pip3 install virtualenv
-                cd /app
-                virtualenv myazproject
-                source myazproject/bin/activate
+                #pip3 install virtualenv
+                #cd /app
+                #virtualenv myazproject
+                #source myazproject/bin/activate
                 sudo apt-get install python3.8
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
@@ -518,22 +518,22 @@ stages:
                 fi
                 export PATH=$PATH:/home/devopsagent/app
                 #az webapp up -n Azuredevops-AppService
-                echo "Starting Selenium Tests"
+                #echo "Starting Selenium Tests"
                 #python3 add_remove_from_cart.py >> selenium.log
-                python3 login_tester.py >> selenium.log
-                echo "Completed Selenium Tests. Check selenium.log for results."
+                #python3 login_tester.py >> selenium.log
+                #echo "Completed Selenium Tests. Check selenium.log for results."
                 #deactivate
           
-          # - task: CmdLine@2
-          #   continueOnError: true 
-          #   displayName: Run Selenium Tests
-          #   inputs:
-          #     script: |
-          #       echo "Starting Selenium Tests"
-          #       python3 add_remove_from_cart.py >> selenium.log
-          #       echo "Completed Selenium Tests. Check selenium.log for results."
-          #       #python3 $(Agent.TempDirectory)/login.py
-          #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py
+          - task: CmdLine@2
+            continueOnError: true 
+            displayName: Run Selenium Tests
+            inputs:
+              script: |
+                echo "Starting Selenium Tests"
+                python3 add_remove_from_cart.py >> selenium.log
+                echo "Completed Selenium Tests. Check selenium.log for results."
+                #python3 $(Agent.TempDirectory)/login.py
+                #python3 $(Agent.TempDirectory)/add_remove_from_cart.py
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
