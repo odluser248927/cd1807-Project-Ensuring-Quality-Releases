@@ -514,12 +514,13 @@ stages:
                     unzip -o chromedriver-linux64.zip
                     #sudo chown root:root /usr/local/bin/chromedriver
                     #sudo chmod 0774 /usr/local/bin/chromedriver
-                    sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
+                    #sudo ln -s $PWD/chromedriver /usr/.local/bin/chromedriver
+                    sudo ln -s /usr/bin/chromedriver /home/devopsagent/app/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
                 #az webapp up -n Azuredevops-AppService
                 echo "Starting Selenium Tests"
-                #python3 add_remove_from_cart.py >> selenium.log
+                python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> testlog.log
                 python3 login_tester.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 #deactivate
