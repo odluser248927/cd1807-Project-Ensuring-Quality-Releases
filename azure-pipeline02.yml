@@ -487,7 +487,7 @@ stages:
                 #cd /app
                 #virtualenv myazproject
                 #source myazproject/bin/activate
-                sudo apt-get install python3.8
+                sudo apt-get install python3
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
@@ -512,26 +512,26 @@ stages:
                 if [ ! -f "$FILE" ]; then
                     LATEST=$(wget -N https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip)                    
                     unzip -o chromedriver-linux64.zip
-                    sudo chown root:root /usr/local/bin/chromedriver
-                    sudo chmod 0774 /usr/local/bin/chromedriver
+                    #sudo chown root:root /usr/local/bin/chromedriver
+                    #sudo chmod 0774 /usr/local/bin/chromedriver
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
                 #az webapp up -n Azuredevops-AppService
-                #echo "Starting Selenium Tests"
+                echo "Starting Selenium Tests"
                 #python3 add_remove_from_cart.py >> selenium.log
-                #python3 login_tester.py >> selenium.log
-                #echo "Completed Selenium Tests. Check selenium.log for results."
+                python3 login_tester.py >> selenium.log
+                echo "Completed Selenium Tests. Check selenium.log for results."
                 #deactivate
           
-          - task: CmdLine@2
-            continueOnError: true 
-            displayName: Run Selenium Tests
-            inputs:
-              script: |
-                echo "Starting Selenium Tests"
-                python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> selenium.log
-                echo "Completed Selenium Tests. Check selenium.log for results."
+          # - task: CmdLine@2
+          #   continueOnError: true 
+          #   displayName: Run Selenium Tests
+          #   inputs:
+          #     script: |
+          #       echo "Starting Selenium Tests"
+          #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> selenium.log
+          #       echo "Completed Selenium Tests. Check selenium.log for results."
                 #python3 $(Agent.TempDirectory)/login.py
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py
 
