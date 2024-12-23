@@ -530,7 +530,7 @@ stages:
             inputs:
               script: |
                 echo "Starting Selenium Tests"
-                python3 add_remove_from_cart.py >> selenium.log
+                python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 #python3 $(Agent.TempDirectory)/login.py
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py
