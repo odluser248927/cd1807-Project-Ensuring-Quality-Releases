@@ -484,6 +484,7 @@ stages:
                 CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
                 sudo apt-get upgrade -y
                 pip3 install virtualenv
+                cd /app
                 virtualenv myazproject
                 source myazproject/bin/activate
                 sudo apt-get install python3.8
@@ -521,6 +522,7 @@ stages:
                 #python3 add_remove_from_cart.py >> selenium.log
                 python3 login_tester.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
+                deactivate
           
           # - task: CmdLine@2
           #   continueOnError: true 
