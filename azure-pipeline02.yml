@@ -504,7 +504,7 @@ stages:
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv $(Pipeline.Workspace)/$(Build.BuildId)-uitests.zip /home/devopsagent/app
+                mv /home/devopsagent/myagent/_work/20/$(Build.BuildId)-uitests.zip /home/devopsagent/app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
                 FILE=/home/devopsagent/app/chromedriver-linux64.zip
@@ -525,11 +525,12 @@ stages:
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 #deactivate
           
-          # - task: CmdLine@2
+          # - task: PythonScript@0
           #   continueOnError: true 
           #   displayName: Run Selenium Tests
           #   inputs:
           #     script: |
+          #       scriptPath: '$(Agent.TempDirectory)'
           #       echo "Starting Selenium Tests"
           #       python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> selenium.log
           #       echo "Completed Selenium Tests. Check selenium.log for results."
