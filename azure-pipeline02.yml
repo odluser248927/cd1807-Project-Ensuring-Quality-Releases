@@ -483,6 +483,9 @@ stages:
 
                 CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
                 sudo apt-get upgrade -y
+                pip3 install virtualenv
+                virtualenv myazproject
+                source myazproject/bin/activate
                 sudo apt-get install python3.8
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
