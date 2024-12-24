@@ -6,7 +6,7 @@ import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-
+#chromeOptions.AddArguments( "--remote-debugging-pipe" )
 
 options = webdriver.ChromeOptions()
 
@@ -16,7 +16,8 @@ def login (user, password):
     # --uncomment when running in Azure DevOps.
     options = webdriver.ChromeOptions()
     options.headless = True
-    options.add_argument("--headless=new") 
+    options.add_argument("--headless=new")
+    options.add_argument("--remote-debugging-pipe")
     browser = webdriver.Chrome(options=options)
     browser = webdriver.Chrome()
     
