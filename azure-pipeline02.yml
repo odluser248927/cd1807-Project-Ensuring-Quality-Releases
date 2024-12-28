@@ -228,7 +228,7 @@ stages:
       displayName: Run Selenium Tests
       inputs:
         script: |          
-          python3 $(Agent.TempDirectory)/login_tester.py >> testlog.log
+          python3 $(Agent.TempDirectory)/terraform/environments/test/automatedtesting/selenium/login_tester.py >> testlog.log
 
     # - task: AzureWebApp@1
     #   displayName: 'build Azure Web App'
