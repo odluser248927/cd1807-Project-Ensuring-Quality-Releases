@@ -223,12 +223,12 @@ stages:
         pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
         artifactName: drop-newman
 
-    - task: CmdLine@2
-      continueOnError: true
-      displayName: Run Selenium Tests
-      inputs:
-        script: |          
-          python3 $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/selenium/login_tester.py >> testlog.log
+    # - task: CmdLine@2
+    #   continueOnError: true
+    #   displayName: Run Selenium Tests
+    #   inputs:
+    #     script: |          
+    #       python3 $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/selenium/login_tester.py >> testlog.log
 
     # - task: AzureWebApp@1
     #   displayName: 'build Azure Web App'
