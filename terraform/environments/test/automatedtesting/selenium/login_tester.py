@@ -16,9 +16,10 @@ def login (user, password):
     # --uncomment when running in Azure DevOps.
     options = webdriver.ChromeOptions()
     options.headless = True
-    options.add_argument("--headless=new")
-    options.add_argument("--remote-debugging-pipe")
-    options.add_argument("--no-sandbox")
+    options.add_argument("--headless")
+    #options.add_argument("--headless=new")
+    #options.add_argument("--remote-debugging-pipe")
+    #options.add_argument("--no-sandbox")
     browser = webdriver.Chrome(options=options)
     browser = webdriver.Chrome()
     
