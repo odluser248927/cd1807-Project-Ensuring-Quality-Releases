@@ -223,6 +223,13 @@ stages:
         pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Artifact)/terraform/environments/test/automatedtesting/postman'
         artifactName: drop-newman
 
+    - task: CmdLine@2
+      continueOnError: true
+      displayName: Run Selenium Tests
+      inputs:
+        script: |          
+          python3 $(Agent.TempDirectory)/login_tester.py >> testlog.log
+
     # - task: AzureWebApp@1
     #   displayName: 'build Azure Web App'
     #   continueOnError: true
@@ -491,6 +498,7 @@ stages:
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
+                #sudo apt-get install xdg-utils 
                 pip3 install webdriver-manager
                 pip3 install selenium                
                 wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
@@ -524,6 +532,7 @@ stages:
                 python3 login_tester.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 #deactivate
+            
           
           # - task: PythonScript@0
           #   continueOnError: true 
