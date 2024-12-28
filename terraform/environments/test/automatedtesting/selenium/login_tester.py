@@ -18,7 +18,7 @@ def login (user, password):
     options.headless = True
     options.add_argument("--headless=new")
     options.add_argument("--remote-debugging-pipe")
-    options.addArguments("--no-sandbox")
+    options.add_argument("--no-sandbox")
     browser = webdriver.Chrome(options=options)
     browser = webdriver.Chrome()
     
