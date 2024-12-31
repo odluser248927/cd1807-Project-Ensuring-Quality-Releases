@@ -582,7 +582,7 @@ stages:
             inputs:
               sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
               Contents: '**'
-              artifact: '$(Artifact)/'
+              artifact: '$(Artifact)'
               TargetFolder: '$(Agent.TempDirectory)'
 
           - task: Bash@3
