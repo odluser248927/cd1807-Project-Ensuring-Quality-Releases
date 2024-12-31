@@ -535,15 +535,15 @@ stages:
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> testlog.log
                 python3 login_tester.py >> testlog.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
-                FILE=testlog.log
-                if test -f "$FILE"; then
-                   echo "$FILE exists"
-                   az webapp log tail
-                   #az webapp up --runtime PYTHON:3.9 --sku B1 --logs --name Azuredevops-AppService --resource-group azuredevops
-                else
-                   echo "$FILE does not exist"
-                   exit2
-                fi            
+                # FILE=testlog.log
+                # if test -f "$FILE"; then
+                #    echo "$FILE exists"
+                #    #az webapp log tail
+                #    #az webapp up --runtime PYTHON:3.9 --sku B1 --logs --name Azuredevops-AppService --resource-group azuredevops
+                # else
+                #    echo "$FILE does not exist"
+                #    exit2
+                # fi            
           
           # - task: PythonScript@0
           #   continueOnError: true 
@@ -565,13 +565,13 @@ stages:
               azureSubscription: '$(azureServiceConnectionId)'
               appName: '$(webAppName)'
               appType: webApp
-              deployToSlotOrASE: true
+              #deployToSlotOrASE: true
               #resourceGroupName: 'Azuredevops'
               #slotName: 'staging'
-              package: '$(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip'
+              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
               #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              #package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
               #package: '$(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip'
 
       #    - job: Jmeter

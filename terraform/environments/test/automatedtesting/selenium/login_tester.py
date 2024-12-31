@@ -17,7 +17,7 @@ def login (user, password):
     # --uncomment when running in Azure DevOps.
     options = webdriver.ChromeOptions()
     options.headless = True
-    options.add_argument("--headless")
+    options.add_argument("--headless=new")
     options.add_argument("--remote-debugging-port=39287")
     #options.add_argument("--headless=new")
     #options.add_argument("--remote-debugging-pipe")
