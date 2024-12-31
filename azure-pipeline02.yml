@@ -582,14 +582,14 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
+                'jmeter -n -t $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
 
           - task: Bash@3
             displayName: 'Run Jmeter unit test2'
             inputs:
               targetType: 'inline'
               script: |
-                'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=10'  
+                'jmeter -n -t $(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/Starter.jmx -JCsvPath=$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/testFile.csv -JStressTestUsers=0 -JEnduranceTestUsers=10'  
     
       
                 

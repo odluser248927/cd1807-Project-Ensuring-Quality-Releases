@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 #chromeOptions.AddArguments( "--remote-debugging-pipe" )
+#chromeOptions.add_argument("--remote-debugging-port=9222")
 
 options = webdriver.ChromeOptions()
 
@@ -17,9 +18,10 @@ def login (user, password):
     options = webdriver.ChromeOptions()
     options.headless = True
     options.add_argument("--headless")
+    options.add_argument("--remote-debugging-port=39287")
     #options.add_argument("--headless=new")
     #options.add_argument("--remote-debugging-pipe")
-    #options.add_argument("--no-sandbox")
+    #options.add_argument("--no-sandbox")    
     browser = webdriver.Chrome(options=options)
     browser = webdriver.Chrome()
     
