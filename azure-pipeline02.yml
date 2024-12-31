@@ -577,20 +577,20 @@ stages:
           #   inputs:
           #     jmeterVersion: '5.6.3'
           
-          - task: DownloadPipelineArtifact@2
-            displayName: 'DL JMeter Artifact'
-            inputs:
-              sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
-              Contents: '**'
-              artifact: '$(Artifact)'
-              TargetFolder: '$(Agent.TempDirectory)'
+          # - task: DownloadPipelineArtifact@2
+          #   displayName: 'DL JMeter Artifact'
+          #   inputs:
+          #     sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
+          #     Contents: '**'
+          #     artifact: '$(Artifact)'
+          #     TargetFolder: '$(Agent.TempDirectory)'
 
-          - task: Bash@3
-            displayName: 'Run Jmeter unit test1'
-            inputs:
-              targetType: 'inline'
-              script: |
-                'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/Results/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
+          # - task: Bash@3
+          #   displayName: 'Run Jmeter unit test1'
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |
+          #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/Results/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
 
           # - task: Bash@3
           #   displayName: 'Run Jmeter unit test2'
