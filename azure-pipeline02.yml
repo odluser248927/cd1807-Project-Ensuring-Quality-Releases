@@ -590,7 +590,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                'jmeter -n -t $(Agent.TempDirectory)/*/*/*/jmeter/Starter.jmx -JCsvPath=$(Agent.TempDirectory)/*/*/*/automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
+                'jmeter -n -t $(Pipeline.Workspace)/automatedtesting/jmeter/Starter.jmx -JCsvPath=$(Pipeline.Workspace)/automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
 
           # - task: Bash@3
           #   displayName: 'Run Jmeter unit test2'
