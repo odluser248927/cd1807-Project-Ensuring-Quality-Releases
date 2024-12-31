@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Starter APIs" tests="8" time="0.499">
+  <testsuite name="Create Post" id="9ada1c3a-f3f9-45ff-afca-ab7e92d4453b" timestamp="2024-12-31T18:30:25.936Z" tests="1" failures="0" errors="0" time="0.095">
+    <testcase name="Successful response" time="0.045" classname="StarterApIs"/>
+  </testsuite>
+  <testsuite name="Get All Posts" id="20425c56-21da-4221-8745-514b16851e66" timestamp="2024-12-31T18:30:25.936Z" tests="1" failures="0" errors="0" time="0.046">
+    <testcase name="Successful response" time="0.042" classname="StarterApIs"/>
+  </testsuite>
+  <testsuite name="Put Post" id="91bff42e-ed16-4d69-9195-ff93bbe07191" timestamp="2024-12-31T18:30:25.936Z" tests="1" failures="0" errors="0" time="0.059">
+    <testcase name="Successful response" time="0.056" classname="StarterApIs"/>
+  </testsuite>
+  <testsuite name="Delete Post" id="55da8a27-f44d-4c4e-9148-ea0d89bf0204" timestamp="2024-12-31T18:30:25.936Z" tests="1" failures="0" errors="0" time="0.050">
+    <testcase name="Successful response" time="0.053" classname="StarterApIs"/>
+  </testsuite>
+</testsuites>
