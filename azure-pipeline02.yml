@@ -528,23 +528,22 @@ stages:
                 export PATH=$PATH:/home/devopsagent/app
                 #az webapp up -n Azuredevops-AppService                
                 echo "Starting Selenium Tests"
-                pip install pipenv
-                pipenv shell
-                pipenv install selenium
-                pipenv run python -m login_tester >> testlog.log
+                #pip install pipenv
+                #pipenv shell
+                #pipenv install selenium
+                #pipenv run python -m login_tester >> testlog.log
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> testlog.log
-                #python3 login_tester.py >> testlog.log
+                python3 login_tester.py >> testlog.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 FILE=testlog.log
                 if test -f "$FILE"; then
                    echo "$FILE exists"
-                   az webapp up --runtime PYTHON:3.9 --sku B1 --logs --name Azuredevops-AppService --resource-group azuredevops
+                   az webapp log tail
+                   #az webapp up --runtime PYTHON:3.9 --sku B1 --logs --name Azuredevops-AppService --resource-group azuredevops
                 else
                    echo "$FILE does not exist"
                    exit2
-                fi   
-                #deactivate
-            
+                fi            
           
           # - task: PythonScript@0
           #   continueOnError: true 
