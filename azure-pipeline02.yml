@@ -572,10 +572,10 @@ stages:
       #       vmImage: 'ubuntu-latest'
       #   steps:
       
-          - task: JMeterInstaller@0
-            displayName: 'Install JMeter'
-            inputs:
-              jmeterVersion: '5.6.3'
+          # - task: JMeterInstaller@0
+          #   displayName: 'Install JMeter'
+          #   inputs:
+          #     jmeterVersion: '5.6.3'
 
           - task: Bash@3
             displayName: 'Run Jmeter unit test1'
