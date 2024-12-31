@@ -526,7 +526,7 @@ stages:
                     sudo chmod 0777 /home/devopsagent/app/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
-                #az webapp up -n Azuredevops-AppService
+                az webapp up -n Azuredevops-AppService
                 echo "Starting Selenium Tests"
                 pip install pipenv
                 pipenv install selenium
