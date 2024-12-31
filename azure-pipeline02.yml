@@ -425,8 +425,8 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/*.xml'
-              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/newman/*.xml'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/newman'
               mergeTestResults: true
               testRunTitle: 'J Tests'       
 
