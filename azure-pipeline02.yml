@@ -526,11 +526,11 @@ stages:
                     sudo chmod 0777 /home/devopsagent/app/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
-                az webapp up -n Azuredevops-AppService
+                #az webapp up -n Azuredevops-AppService
                 echo "Starting Selenium Tests"
-                pip install pipenv
-                pipenv install selenium
-                pipenv run python -m login_tester >> testlog.log
+                #pip install pipenv
+                #pipenv install selenium
+                #pipenv run python -m login_tester >> testlog.log
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> testlog.log
                 python3 login_tester.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
@@ -572,24 +572,24 @@ stages:
       #       vmImage: 'ubuntu-latest'
       #   steps:
       
-          # - task: JMeterInstaller@0
-          #   displayName: 'Install JMeter'
-          #   inputs:
-          #     jmeterVersion: '5.6.3'
+          - task: JMeterInstaller@0
+            displayName: 'Install JMeter'
+            inputs:
+              jmeterVersion: '5.6.3'
 
-          # - task: Bash@3
-          #   displayName: 'Run Jmeter unit test1'
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: |
-          #       'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
+          - task: Bash@3
+            displayName: 'Run Jmeter unit test1'
+            inputs:
+              targetType: 'inline'
+              script: |
+                'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
 
-      #   - task: Bash@3
-      #     displayName: 'Run Jmeter unit test2'
-      #     inputs:
-      #       targetType: 'inline'
-      #       script: |
-      #         'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=10'  
+          - task: Bash@3
+            displayName: 'Run Jmeter unit test2'
+            inputs:
+              targetType: 'inline'
+              script: |
+                'jmeter -n -t automatedtesting/jmeter/PerformanceTestSuite.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=10'  
     
       
                 
