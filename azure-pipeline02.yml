@@ -461,7 +461,7 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Archive PerformanceTestSuite'
             inputs:
-              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/fakerestapi'
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
