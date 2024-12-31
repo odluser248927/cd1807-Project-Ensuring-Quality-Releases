@@ -580,9 +580,9 @@ stages:
           - task: DownloadPipelineArtifact@2
             displayName: 'DL JMeter Artifact'
             inputs:
-              sourceFolder: '$(Pipeline.Workspace)/drop-perftests'
+              sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
               Contents: '**'
-              artifact: 'drop-perftests'
+              artifact: '$(Artifact)/'
               TargetFolder: '$(Agent.TempDirectory)'
 
           - task: Bash@3
@@ -590,7 +590,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                'jmeter -n -t $(Pipeline.Workspace)/automatedtesting/jmeter/Starter.jmx -JCsvPath=$(Pipeline.Workspace)/automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
+                'jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/Results/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0'
 
           # - task: Bash@3
           #   displayName: 'Run Jmeter unit test2'
