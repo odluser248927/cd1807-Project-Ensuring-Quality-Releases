@@ -471,7 +471,24 @@ stages:
               artifact: 'drop-uitests'
               TargetFolder: '$(Agent.TempDirectory)'
               #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
-              #path: '$(Pipeline.Workspace)'  
+              #path: '$(Pipeline.Workspace)'
+
+          - task: DownloadPipelineArtifact@2
+            displayName: 'DL FakeRestAPI Package'
+            inputs:
+              sourceFolder: '$(Pipeline.Workspace)/drop-fakerestapi'
+              Contents: '**'
+              artifact: 'drop-fakerestapi'
+              TargetFolder: '$(Agent.TempDirectory)'
+              #path: '$(Build.ArtifactStagingDirectory)/$(Artifact)/drop-uitests/'
+
+          - task: DownloadPipelineArtifact@2
+            displayName: 'DL Performance Package'
+            inputs:
+              sourceFolder: '$(Pipeline.Workspace)/drop-perftests'
+              Contents: '**'
+              artifact: 'drop-perftests'
+              TargetFolder: '$(Agent.TempDirectory)'
 
           - task: Bash@3
             displayName: Install Python, chromium and Run Selenium Tests
@@ -529,8 +546,7 @@ stages:
                 python3 login_tester.py >> testlog.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 #deactivate
-            
-          
+                      
           # - task: PythonScript@0
           #   continueOnError: true 
           #   displayName: Run Selenium Tests
@@ -542,6 +558,7 @@ stages:
           #       echo "Completed Selenium Tests. Check selenium.log for results."
                 #python3 $(Agent.TempDirectory)/login.py
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py
+                          
 
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
@@ -555,9 +572,11 @@ stages:
               #resourceGroupName: 'Azuredevops'
               #slotName: 'staging'
               #package: '$(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip'
-              package: '$(Build.ArtifactStagingDirectory)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              #package: '$(Build.ArtifactStagingDirectory)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               #package: '$(Pipeline.Workspace)/dropScripts/'
               #package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+              #package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               #package: '$(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip'
 
       #    - job: Jmeter
