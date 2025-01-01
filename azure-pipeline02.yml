@@ -496,8 +496,9 @@ stages:
                 wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
                 tar -xf apache-jmeter-5.6.3.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
-                ./apache-jmeter-5.6.3/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
-                cat jmeter.log
+                ./apache-jmeter-5.6.3/bin/jmeter -n -t Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0' -j jmeter.log -f cat jmeter.log
+                ./apache-jmeter-5.6.3/bin/jmeter -n -t Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=0 -JEnduranceTestUsers=10' -j jmeter2.log -f cat jmeter2.log
+                #workingDirectory: '$(Pipeline.Workspace)/$(Build.BuildId)-perftests.zip'
                 python3 --version
                 cd ~/
                 DIR=/home/devopsagent/app
@@ -519,12 +520,13 @@ stages:
                 fi
                 export PATH=$PATH:/home/devopsagent/app
                 #az webapp up -n Azuredevops-AppService
+                #az webapp up -n Azuredevops-AppService
                 echo "Starting Selenium Tests"
                 #pip install pipenv
                 #pipenv install selenium
                 #pipenv run python -m login_tester >> testlog.log
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> testlog.log
-                python3 login_tester.py >> selenium.log
+                python3 login_tester.py >> testlog.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 #deactivate
             
@@ -552,10 +554,10 @@ stages:
               #deployToSlotOrASE: true
               #resourceGroupName: 'Azuredevops'
               #slotName: 'staging'
-              #package: $(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip
-              #package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+              #package: '$(Pipeline.Workspace)/$(Artifact)/fakerestapi.zip'
+              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               #package: '$(Pipeline.Workspace)/dropScripts/'
-              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+              #package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
               #package: '$(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip'
 
       #    - job: Jmeter
@@ -569,13 +571,26 @@ stages:
           #   inputs:
           #     jmeterVersion: '5.6.3'
           
-          - task: DownloadPipelineArtifact@2
-            displayName: 'DL JMeter Artifact'
-            inputs:
-              sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
-              Contents: '**'
-              artifact: '$(Artifact)'
-              TargetFolder: '$(Agent.TempDirectory)'
+          # - task: DownloadPipelineArtifact@2
+          #   displayName: 'DL JMeter Artifact'
+          #   inputs:
+          #     sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
+          #     Contents: '**'
+          #     artifact: '$(Artifact)'
+          #     TargetFolder: '$(Agent.TempDirectory)'
+
+          # - task: CmdLine@2
+          #   continueOnError: true
+          #   displayName: 'Run JMeter Tests1'
+          #   inputs:
+          #     script: |
+          #       wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz" \ 
+          #       tar -xf apache-jmeter-5.6.3.tgz \ 
+          #       unzip -o $(Build.BuildId)-perftests.zip \ 
+          #       ./apache-jmeter-5.6.3/bin/jmeter -n -t Starter.jmx -j jmeter.log -f \ 
+          #       cat jmeter.log \ 
+          #       -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0' \ 
+          #     workingDirectory: '$(Pipeline.Workspace)/$(Build.BuildId)-perftests.zip'
 
           # - task: Bash@3
           #   displayName: 'Run Jmeter unit test1'
