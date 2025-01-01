@@ -351,6 +351,14 @@ stages:
             inputs:        
               script: |
                 npm install -g newman \
+              #workingDirectory: $(System.DefaultWorkingDirectory)
+                #workingDirectory: /usr/local/bin:$PATH \
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman'
+              #workingDirectory: '$(System.DefaultWorkingDirectory)/$(Artifact)/environment/test/automatedtesting/postman'
+                #newman -v \
+                #export PATH=/home/devopsagent/myagent/externals/node10/bin/node:$PATH \
+                #echo $PATH \                
+
 
           # Postman Data Validation Test Suite
           - download: current
@@ -417,8 +425,8 @@ stages:
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/newman/*.xml'
-              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/newman'
+              testResultsFiles: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results/*.xml'
+              searchFolder: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/postman/Results'
               mergeTestResults: true
               testRunTitle: 'J Tests'       
 
@@ -453,7 +461,7 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Archive PerformanceTestSuite'
             inputs:
-              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/'
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform/environments/test/automatedtesting/jmeter/fakerestapi'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
@@ -518,24 +526,16 @@ stages:
                     sudo chmod 0777 /home/devopsagent/app/chromedriver
                 fi
                 export PATH=$PATH:/home/devopsagent/app
-                #az webapp up -n Azuredevops-AppService                
+                #az webapp up -n Azuredevops-AppService
                 echo "Starting Selenium Tests"
                 #pip install pipenv
-                #pipenv shell
                 #pipenv install selenium
                 #pipenv run python -m login_tester >> testlog.log
                 #python3 $(Agent.TempDirectory)/add_remove_from_cart.py >> testlog.log
-                python3 login_tester.py >> testlog.log
+                python3 login_tester.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
-                # FILE=testlog.log
-                # if test -f "$FILE"; then
-                #    echo "$FILE exists"
-                #    #az webapp log tail
-                #    #az webapp up --runtime PYTHON:3.9 --sku B1 --logs --name Azuredevops-AppService --resource-group azuredevops
-                # else
-                #    echo "$FILE does not exist"
-                #    exit2
-                # fi            
+                #deactivate
+            
           
           # - task: PythonScript@0
           #   continueOnError: true 
@@ -577,13 +577,13 @@ stages:
           #   inputs:
           #     jmeterVersion: '5.6.3'
           
-          # - task: DownloadPipelineArtifact@2
-          #   displayName: 'DL JMeter Artifact'
-          #   inputs:
-          #     sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
-          #     Contents: '**'
-          #     artifact: '$(Artifact)'
-          #     TargetFolder: '$(Agent.TempDirectory)'
+          - task: DownloadPipelineArtifact@2
+            displayName: 'DL JMeter Artifact'
+            inputs:
+              sourceFolder: '$(Artifact)/automatedtesting/jmeter/'
+              Contents: '**'
+              artifact: '$(Artifact)'
+              TargetFolder: '$(Agent.TempDirectory)'
 
           # - task: Bash@3
           #   displayName: 'Run Jmeter unit test1'
