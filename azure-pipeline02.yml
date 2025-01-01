@@ -534,6 +534,7 @@ stages:
                     #sudo ln -s $PWD/app/chromedriver /usr/bin/chromedriver
                     sudo ln -s /usr/bin/chromedriver /home/devopsagent/app/chromedriver
                     sudo chmod 0777 /home/devopsagent/app/chromedriver
+                    sudo chmod 0777 /home/devopsagent/app/login_tester.py
                 fi
                 export PATH=$PATH:/home/devopsagent/app
                 #az webapp up -n Azuredevops-AppService
@@ -552,7 +553,7 @@ stages:
             displayName: Run Selenium Testers
             inputs:
               script: |
-                python3 $(Agent.TempDirectory)/login_tester.py >> testlog.log
+                python3 $(Agent.TempDirectory)/login_tester.py
                       
           # - task: PythonScript@0
           #   continueOnError: true 
