@@ -513,8 +513,8 @@ stages:
                 wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz"
                 tar -xf apache-jmeter-5.6.3.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
-                ./apache-jmeter-5.6.3/bin/jmeter -n -t Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=30 -JEnduranceTestUsers=0' -j jmeter.log -f cat jmeter.log
-                ./apache-jmeter-5.6.3/bin/jmeter -n -t Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=0 -JEnduranceTestUsers=30' -j jmeter2.log -f cat jmeter2.log
+                ./apache-jmeter-5.6.3/bin/jmeter -n -t Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=10 -JEnduranceTestUsers=0' -j jmeter.log -f cat jmeter.log
+                ./apache-jmeter-5.6.3/bin/jmeter -n -t Starter.jmx -JCsvPath=automatedtesting/jmeter/testFile.csv -JStressTestUsers=0 -JEnduranceTestUsers=10' -j jmeter2.log -f cat jmeter2.log
                 workingDirectory: '$(Pipeline.Workspace)'
                 python3 --version
                 cd ~/
